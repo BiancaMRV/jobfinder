@@ -3,9 +3,11 @@ import client from "./config/database";
 const createUsers = `CREATE TABLE IF NOT EXISTS "users" (
     id TEXT NOT NULL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
-    idade INTEGER NOT NULL,
+    age INTEGER NOT NULL,
     email VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
+    currentJob VARCHAR(255) NOT NULL,
+    isWorking VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )`;
@@ -64,6 +66,28 @@ async function createTables() {
     console.error("Error creating tables", error);
   }
 }
+async function dropTables() {
+  try {
+    const promises = [
+      client.query("DROP TABLE users CASCADE"),
+      client.query("DROP TABLE sessions CASCADE"),
+      client.query("DROP TABLE posts CASCADE"),
+      client.query("DROP TABLE comments CASCADE"),
+      client.query("DROP TABLE companies CASCADE"),
+      client.query("DROP TABLE job_offers CASCADE"),
+    ];
+    await Promise.all(promises);
+    console.log("Tables droped");
+  } catch (error) {
+    console.error("Error droping tables", error);
+  }
+}
+// dropTables().then(() => {
+//   createTables().then(() => {
+//     process.exit(0);
+//   });
 
-process.exit(); // Encerra o processo
-createTables(); // Executa a função createTables
+await dropTables(); //so posso usar o await fora de uma funcao assincrona com o bun
+await createTables();
+client.end;
+process.exit(0);
