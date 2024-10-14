@@ -38,6 +38,8 @@ const createComments = `CREATE TABLE IF NOT EXISTS "comments" (
 
 const createCompanies = `CREATE TABLE IF NOT EXISTS "companies" (
     id SERIAL PRIMARY KEY,
+    descreption TEXT NOT NULL, 
+    
     user_id VARCHAR(255) NOT NULL,
     created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -61,7 +63,7 @@ const createJobApplication = `CREATE TABLE IF NOT EXISTS "application" (
    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )`;
-
+// serial- o valor é incrementado de linha para linha, primary siginifca que o valor é unico e nao pode ser nulo
 async function createTables() {
   try {
     // assim executa tudo ao mesmo tempo ao invés de executar uma por uma

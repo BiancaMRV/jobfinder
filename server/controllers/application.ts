@@ -32,7 +32,7 @@ export const createNewApplication = async (
 ) => {
   try {
     const result = await client.query(
-      " INSERT INTO application(name,cover_letter,resume,job_offer_id,company_id) VALUES ($1, $2, $3, $4, $5",
+      " INSERT INTO application(name,cover_letter,resume,job_offer_id,company_id) VALUES ($1, $2, $3, $4, $5)",
       [name, cover_letter, resume, job_offer_id, company_id]
     );
     return result;
@@ -54,3 +54,4 @@ export const deleteApplication = async (applicationId: string) => {
     throw new Error("Application deleted");
   }
 };
+// TODO: CRIAR AS TABELAS DE EDITFILES, EDITSTATUS
