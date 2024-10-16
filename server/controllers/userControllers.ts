@@ -2,7 +2,7 @@ import client from "../config/database";
 
 export const getAllUsers = async () => {
   try {
-    const result = await client.query("SELECT * FROM users");
+    const result = await client.query("SELECT * FROM users"); // client.query é usado para executar comandos de sql e await usa se para esperarmos pela resposta de dados
     return result;
   } catch (error) {
     console.error("Error retrieving users", error);
@@ -10,7 +10,7 @@ export const getAllUsers = async () => {
   }
 };
 
-export const getUserById = async (userId: string) => {
+export const getUserById = async (userId: number) => {
   try {
     const result = await client.query("SELECT * FROM users WHERE id = $1", [
       userId,
@@ -48,7 +48,7 @@ export const updateUser = async (
   password: string,
   age: string,
   email: string,
-  userId: string
+  userId: number
 ) => {
   try {
     const result = await client.query(

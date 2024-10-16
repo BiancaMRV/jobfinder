@@ -1,6 +1,6 @@
 import client from "../config/database";
 
-export const getAllCompany = async () => {
+export const getAllCompanies = async () => {
   try {
     const result = await client.query("SELECT * FROM companies");
     return result;

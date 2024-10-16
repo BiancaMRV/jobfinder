@@ -1,30 +1,29 @@
 import client from "./config/database";
 
 const createUsers = `CREATE TABLE IF NOT EXISTS "users" (
-    id TEXT NOT NULL PRIMARY KEY,
-    user_id VARCHAR(255) NOT NULL,
+    id SERIAL PRIMARY KEY,
     age INTEGER NOT NULL,
     email VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
-    currentJob VARCHAR(255) NOT NULL,
+    currentJob VARCHAR(255),
     isWorking VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )`;
 const createSessions = `CREATE TABLE IF NOT EXISTS "sessions" (
-    id  Text NOT NULL PRIMARY KEY,
+    id TEXT NOT NULL PRIMARY KEY,
     user_id TEXT NOT NULL,
     expires_at TIMESTAMP NOT NULL,
     foreign key (user_id) references users(id)
 )`;
 
 const createPosts = `CREATE TABLE IF NOT EXISTS "posts" (
-    id  SERIAL PRIMARY KEY,
-    title  VARCHAR(255) NOT NULL,
-    content  TEXT NOT NULL,
-    tags  INTEGER[],
-    created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    content TEXT NOT NULL,
+    tags INTEGER[],
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )`;
 
 const createComments = `CREATE TABLE IF NOT EXISTS "comments" (
