@@ -12,9 +12,7 @@ export const getAllCompanies = async () => {
 
 export const getAllCompaniesById = async (companyId: string) => {
   try {
-    const result = await client.query(
-      "SELECT * FROM application WHERE companiesId=$1"
-    );
+    const result = await client.query("SELECT * FROM companies WHERE id=$1");
     return result;
   } catch (error) {
     console.error("Company doesnt exist");
@@ -22,14 +20,11 @@ export const getAllCompaniesById = async (companyId: string) => {
   }
 };
 
-export const createNewCompany = async (
-  companyId: string,
-  description: string
-) => {
+export const createNewCompany = async (description: string, name: string) => {
   try {
     const result = await client.query(
-      "INSERT INTO companies(companyId, description) VALUES ($1, $2)",
-      [companyId, description]
+      "INSERT INTO companies(description, name) VALUES ($1, $2)",
+      [description, name]
     );
     return result;
   } catch (error) {

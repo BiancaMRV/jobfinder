@@ -37,8 +37,7 @@ const createComments = `CREATE TABLE IF NOT EXISTS "comments" (
 
 const createCompanies = `CREATE TABLE IF NOT EXISTS "companies" (
     id SERIAL PRIMARY KEY,
-    descreption TEXT NOT NULL, 
-    
+    description TEXT NOT NULL,
     user_id VARCHAR(255) NOT NULL,
     created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
