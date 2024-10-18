@@ -5,6 +5,7 @@ import {
   createNewCompany,
   deleteCompany,
   updateCompany,
+  getAllJobOffersFromCompany,
 } from "../controllers/companiesControllers";
 
 const routers = express.Router();
@@ -37,3 +38,37 @@ routers.post("/companies", async (req, res) => {
     res.status(500).send("Error creating company");
   }
 });
+
+routers.delete("/companies", async (req, resp) => {
+  try {
+    const { companyId } = req.body;
+    const company = await deleteCompany(companyId);
+    resp.send(company);
+  } catch (error) {
+    resp.status(500).send("Error deleting company");
+  }
+});
+
+routers.patch("/companies", async (req, resp) => {
+  try {
+    const { companyId, description } = req.body;
+    const company = await updateCompany(companyId, description);
+    resp.send(company);
+  } catch (error) {
+    resp.status(500).send("Error updating company");
+  }
+});
+
+routers.get("/companies/:companyId/jobOffers", async (req, res) => {
+  try {
+    const companyId = req.params.companyId;
+    const jobOffers = await getAllJobOffersFromCompany(companyId);
+    res.send(jobOffers);
+  } catch (error) {
+    res.status(500).send("Error retrieving job offers");
+  }
+});
+
+//get, post, patch, put, delete
+//patch é analogo com update
+//put = atualiza uma cena inteira, patch = atualiza parte

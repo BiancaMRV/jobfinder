@@ -20,11 +20,11 @@ export const getAllCompaniesById = async (companyId: string) => {
   }
 };
 
-export const createNewCompany = async (description: string, name: string) => {
+export const createNewCompany = async (name: string, description: string) => {
   try {
     const result = await client.query(
-      "INSERT INTO companies(description, name) VALUES ($1, $2)",
-      [description, name]
+      "INSERT INTO companies(name, description) VALUES ($1, $2)",
+      [name, description]
     );
     return result;
   } catch (error) {
@@ -55,5 +55,18 @@ export const updateCompany = async (companyId: string, description: string) => {
   } catch (error) {
     console.error("Company not updated", error);
     throw new Error("Company not updated");
+  }
+};
+
+export const getAllJobOffersFromCompany = async (companyId: string) => {
+  try {
+    const result = await client.query(
+      "SELECT * FROM job_offers WHERE company_id=$1",
+      [companyId]
+    );
+    return result;
+  } catch (error) {
+    console.error("Error retrieving job offers from company");
+    throw new Error("Error retrieving job offers from company");
   }
 };

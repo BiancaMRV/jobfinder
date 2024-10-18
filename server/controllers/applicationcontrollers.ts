@@ -54,4 +54,50 @@ export const deleteApplication = async (applicationId: string) => {
     throw new Error("Application deleted");
   }
 };
-// TODO: CRIAR AS TABELAS DE EDITFILES, EDITSTATUS
+
+export const updateAplicationCoverLetter = async (
+  cover_letter: string,
+  applicationId: string
+) => {
+  try {
+    const result = await client.query(
+      "SELECT * FROM application (cover_letter, applicationId) VALUES ($1,$2), [cover_letter, applicationId]"
+    );
+    return result;
+  } catch (error) {
+    console.log("Error updating application");
+    throw new Error("Error updating application");
+  }
+};
+
+export const updateAplicationResume = async (
+  resume: string,
+  applicationId: string
+) => {
+  try {
+    const result = await client.query(
+      "SELECT * FROM application (resume, applicationId) VALUES ($1,$2), [resume, applicationId]"
+    );
+    return result;
+  } catch (error) {
+    console.log("Error updating application");
+    throw new Error("Error updating application");
+  }
+};
+
+type statusType = "pending" | "approved" | "rejected" | "reviewing"; // fazer tipo status
+
+export const updateApplicationStatus = async (
+  status: statusType,
+  applicationId: string
+) => {
+  try {
+    const result = await client.query(
+      "SELECT * FROM application (status, applicationId) VALUES ($1,$2), [status, applicationId]"
+    );
+    return result;
+  } catch (error) {
+    console.log("Error updating application status");
+    throw new Error("Error updating application status");
+  }
+};

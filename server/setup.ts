@@ -10,6 +10,7 @@ const createUsers = `CREATE TABLE IF NOT EXISTS "users" (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )`;
+
 const createSessions = `CREATE TABLE IF NOT EXISTS "sessions" (
     id TEXT NOT NULL PRIMARY KEY,
     user_id TEXT NOT NULL,
@@ -35,13 +36,16 @@ const createComments = `CREATE TABLE IF NOT EXISTS "comments" (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )`;
 
+// TODO: criar sistema de avaliacoes de empresas
+
 const createCompanies = `CREATE TABLE IF NOT EXISTS "companies" (
     id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
     description TEXT NOT NULL,
-    user_id VARCHAR(255) NOT NULL,
     created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )`;
+
 const createJobOffers = `CREATE TABLE IF NOT EXISTS "job_offers" (
     id SERIAL PRIMARY KEY, 
     title VARCHAR(255) NOT NULL,
@@ -50,6 +54,7 @@ const createJobOffers = `CREATE TABLE IF NOT EXISTS "job_offers" (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )`;
+
 const createJobApplication = `CREATE TABLE IF NOT EXISTS "application" (
    id SERIAL PRIMARY KEY, 
    user_id VARCHAR(255) NOT NULL,
@@ -61,6 +66,7 @@ const createJobApplication = `CREATE TABLE IF NOT EXISTS "application" (
    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )`;
+
 // serial- o valor é incrementado de linha para linha, primary siginifca que o valor é unico e nao pode ser nulo
 async function createTables() {
   try {
