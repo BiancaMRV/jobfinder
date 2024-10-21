@@ -5,6 +5,7 @@ import {
 import client from "../config/database";
 import bcrypt from "bcrypt";
 import { sha256 } from "@oslojs/crypto/sha2";
+import type { Response } from "express";
 
 export const signUp = async (email: string, password: string, name: string) => {
   try {
@@ -17,10 +18,10 @@ export const signUp = async (email: string, password: string, name: string) => {
     }
     const hashedPassword = await bcrypt.hash(password, 10);
     const result = await client.query(
-      "INSERT INTO users(email,passwors,name) VALUES ($1,$2,$3)",
+      "INSERT INTO users(name,email,password) VALUES ($1,$2,$3)",
       [name, email, hashedPassword]
     );
-    return result;
+    return result.rows[0];
   } catch (error) {
     console.log("user not created");
     throw new Error("user not created");
@@ -51,8 +52,43 @@ export const logIn = async (email: string, password: string) => {
     throw new Error("user doesnt exist");
   }
 };
+export function setSessionTokenCookie(
+  response: Response,
+  token: string,
+  expiresAt: Date
+): void {
+  if (process.env.NODE_ENV === "production") {
+    // When deployed over HTTPS
+    response.setHeader(
+      "Set-Cookie",
+      `session=${token}; HttpOnly; SameSite=Lax; Expires=${expiresAt.toUTCString()}; Path=/; Secure;` // Path =/ significa que o cookie é valido para todo o site
+    );
+  } else {
+    // When deployed over HTTP (localhost)
+    response.setHeader(
+      "Set-Cookie",
+      `session=${token}; HttpOnly; SameSite=Lax; Expires=${expiresAt.toUTCString()}; Path=/` //session é o nome do cookie, session vai ser igual ao conteudo do token
+    );
+  }
+}
 
-export const generateSession = async (email: string) => {
+export function deleteSessionTokenCookie(response: Response): void {
+  if (process.env.NODE_ENV === "production") {
+    // When deployed over HTTPS
+    response.setHeader(
+      "Set-Cookie",
+      "session=; HttpOnly; SameSite=Lax; Max-Age=0; Path=/; Secure;"
+    );
+  } else {
+    // When deployed over HTTP (localhost)
+    response.setHeader(
+      "Set-Cookie",
+      "session=; HttpOnly; SameSite=Lax; Max-Age=0; Path=/" // max-age=0 significa que o cookie é invalidado, tipo o expires at de uma cookie ou seja idade de um cookie
+    );
+  }
+}
+
+export const generateSessionToken = async () => {
   const bytes = new Uint8Array(20);
   crypto.getRandomValues(bytes);
   //encodeBase32LowerCaseNoPadding(bytes): Esta função pega nos bytes aleatórios e
@@ -98,10 +134,6 @@ export const validateSessionToken = async (token: string) => {
       return null;
     }
 
-    // const id = result.rows[0].id;
-    // const userId  = result.rows[0].user_id;
-    // const expiresAt = new Date(result.rows[0].expires_at);
-
     const session: Session = {
       id: result.rows[0].id,
       userId: result.rows[0].user_id,
@@ -134,6 +166,19 @@ export const deleteSession = async (sessionId: string) => {
   } catch (error) {
     console.log("Session deleted", error);
     throw new Error("Session deleted");
+  }
+};
+
+export const logOut = async (token: string, response: Response) => {
+  try {
+    const sessionId = encodeHexLowerCase(
+      sha256(new TextEncoder().encode(token))
+    );
+    await client.query("DELETE FROM sessions WHERE id=$1", [sessionId]);
+    deleteSessionTokenCookie(response);
+  } catch (error) {
+    console.log("log out unsuccessful");
+    throw new Error("log out unsuccessful");
   }
 };
 
