@@ -11,9 +11,9 @@ import {
   logOut,
 } from "../controllers/authControllers";
 
-const routers = express.Router();
+export const routers = express.Router();
 
-routers.get("/signUp/", async (req, res) => {
+routers.post("/signUp/", async (req, res) => {
   try {
     const { email, username, password } = req.body;
     const user = await signUp(email, password, username);
@@ -22,11 +22,13 @@ routers.get("/signUp/", async (req, res) => {
     setSessionTokenCookie(res, token, session.expiresAt); // seta o token no cookie, pega na respostae e poe um cookie com o token no header
     res.send(user); // envia o usuario
   } catch (error) {
+    console.log(error);
+
     res.status(500).send("Error signing up user");
   }
 });
 
-routers.get("/logIn", async (req, res) => {
+routers.post("/logIn", async (req, res) => {
   try {
     const { name, password } = req.body;
     const user = await logIn(name, password);
@@ -41,7 +43,7 @@ routers.get("/logIn", async (req, res) => {
 
 routers.patch("/logOut", async (req, res) => {
   try {
-    const { token } = req.body;
+    const token = req.cookies.session;
     await logOut(token, res);
     res.sendStatus(200);
   } catch (error) {

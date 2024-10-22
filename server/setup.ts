@@ -8,14 +8,13 @@ const createUsers = `CREATE TABLE IF NOT EXISTS "users" (
     currentJob VARCHAR(255),
     isWorking VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )`;
 
 const createSessions = `CREATE TABLE IF NOT EXISTS "sessions" (
-    id TEXT NOT NULL PRIMARY KEY,
-    user_id TEXT NOT NULL,
-    expires_at TIMESTAMP NOT NULL,
-    foreign key (user_id) references users(id)
+    id TEXT PRIMARY KEY,
+    user_id SERIAL references users(id),
+    expires_at TIMESTAMP NOT NULL
 )`;
 
 const createPosts = `CREATE TABLE IF NOT EXISTS "posts" (
@@ -42,7 +41,7 @@ const createCompanies = `CREATE TABLE IF NOT EXISTS "companies" (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     description TEXT NOT NULL,
-    created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )`;
 
@@ -98,7 +97,7 @@ async function dropTables() {
       client.query("DROP TABLE IF EXISTS application CASCADE"),
     ];
     await Promise.all(promises);
-    console.log("Tables droped");
+    console.log("Tables dropped");
   } catch (error) {
     console.error("Error droping tables", error);
   }

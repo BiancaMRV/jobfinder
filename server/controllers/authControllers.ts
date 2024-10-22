@@ -23,7 +23,7 @@ export const signUp = async (email: string, password: string, name: string) => {
     );
     return result.rows[0];
   } catch (error) {
-    console.log("user not created");
+    console.log("user not created", error);
     throw new Error("user not created");
   }
 };
