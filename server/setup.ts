@@ -2,6 +2,7 @@ import client from "./config/database";
 
 const createUsers = `CREATE TABLE IF NOT EXISTS "users" (
     id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
     age INTEGER NOT NULL,
     email VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
