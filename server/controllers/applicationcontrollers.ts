@@ -1,3 +1,4 @@
+import type { Request, Response } from "express";
 import client from "../config/database";
 
 export const getAllApplication = async () => {
@@ -10,7 +11,7 @@ export const getAllApplication = async () => {
   }
 };
 
-export const getAllApplicationbyId = async (applicationId: string) => {
+export const getApplicationById = async (applicationId: string) => {
   try {
     const result = await client.query(
       "SELECT * FROM application WHERE applicationId=$1",
@@ -32,7 +33,7 @@ export const createNewApplication = async (
 ) => {
   try {
     const result = await client.query(
-      " INSERT INTO application(name,cover_letter,resume,job_offer_id,company_id) VALUES ($1, $2, $3, $4, $5)",
+      "INSERT INTO application(name,cover_letter,resume,job_offer_id,company_id) VALUES ($1, $2, $3, $4, $5)",
       [name, cover_letter, resume, job_offer_id, company_id]
     );
     return result;
@@ -55,13 +56,14 @@ export const deleteApplication = async (applicationId: string) => {
   }
 };
 
-export const updateAplicationCoverLetter = async (
+export const updateApplicationCoverLetter = async (
   cover_letter: string,
   applicationId: string
 ) => {
   try {
     const result = await client.query(
-      "SELECT * FROM application (cover_letter, applicationId) VALUES ($1,$2), [cover_letter, applicationId]"
+      "UPDATE application SET cover_letter = $1 WHERE applicationId = $2",
+      [cover_letter, applicationId]
     );
     return result;
   } catch (error) {
@@ -70,13 +72,16 @@ export const updateAplicationCoverLetter = async (
   }
 };
 
-export const updateAplicationResume = async (
+// Update resume
+export const updateApplicationResume = async (
   resume: string,
-  applicationId: string
+  applicationId: string,
+  userId: string
 ) => {
   try {
     const result = await client.query(
-      "SELECT * FROM application (resume, applicationId) VALUES ($1,$2), [resume, applicationId]"
+      "UPDATE application SET resume = $1 WHERE applicationId = $2 AND userId = $3",
+      [resume, applicationId, userId]
     );
     return result;
   } catch (error) {
@@ -89,12 +94,19 @@ type statusType = "pending" | "approved" | "rejected" | "reviewing"; // fazer ti
 
 export const updateApplicationStatus = async (
   status: statusType,
-  applicationId: string
+  applicationId: string,
+  userId: string
 ) => {
   try {
     const result = await client.query(
-      "SELECT * FROM application (status, applicationId) VALUES ($1,$2), [status, applicationId]"
+      "SELECT * FROM application (status, applicationId, userId) VALUES ($1,$2,$3)",
+      [status, applicationId, userId]
     );
+
+    if (result.rows.length === 0) {
+      throw new Error("application not found can't update");
+    }
+
     return result;
   } catch (error) {
     console.log("Error updating application status");

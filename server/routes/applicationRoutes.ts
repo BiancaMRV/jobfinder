@@ -3,11 +3,11 @@ import express from "express";
 import {
   getAllApplication,
   createNewApplication,
-  getAllApplicationbyId,
+  getApplicationById,
   deleteApplication,
-  updateAplicationResume,
+  updateApplicationResume,
   updateApplicationStatus,
-} from "../controllers/applicationcontrollers";
+} from "../controllers/applicationControllers";
 import {
   createUserValidation,
   deleteUserValidation,
@@ -37,7 +37,7 @@ routers.get(
   async (req, res) => {
     try {
       const { applicationId } = req.params; // Extract applicationId from the request body
-      const application = await getAllApplicationbyId(applicationId); // Pass applicationId as an argument
+      const application = await getApplicationById(applicationId); // Pass applicationId as an argument
       res.send(application);
     } catch (error) {
       res.status(500).send("Error retrieving application by ID");
@@ -80,14 +80,15 @@ routers.post(
 );
 
 routers.patch(
-  "/application/:applicationId/cover_letter",
+  "/application/cover_letter",
   validateRequest(updateUserValidation),
   async (req, res) => {
     try {
-      const { cover_letter, applicationId } = req.body;
-      const application = await updateAplicationResume(
+      const { cover_letter, applicationId, userId } = req.body;
+      const application = await updateApplicationResume(
         cover_letter,
-        applicationId
+        applicationId,
+        userId
       );
       res.send(application);
     } catch (error) {
@@ -97,26 +98,16 @@ routers.patch(
 );
 
 routers.patch(
-  "/application/:applicationId/status",
+  "/application/status",
   validateRequest(updateUserValidation),
   async (req, res) => {
     try {
-      const { status, applicationId } = req.body;
-      const application = await updateApplicationStatus(status, applicationId);
-      res.send(application);
-    } catch (error) {
-      res.status(500).send("Error updating application");
-    }
-  }
-);
-
-routers.patch(
-  "/application/:applicationId/resume",
-  validateRequest(updateUserValidation),
-  async (req, res) => {
-    try {
-      const { resume, applicationId } = req.body;
-      const application = await updateAplicationResume(resume, applicationId);
+      const { status, applicationId, userId } = req.body;
+      const application = await updateApplicationStatus(
+        status,
+        applicationId,
+        userId
+      );
       res.send(application);
     } catch (error) {
       res.status(500).send("Error updating application");
