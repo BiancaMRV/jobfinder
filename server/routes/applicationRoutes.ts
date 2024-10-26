@@ -15,6 +15,7 @@ import {
   updateUserValidation,
   validateRequest,
 } from "../middleware/validationMiddleware";
+import authenticationMiddleWare from "../middleware/authMiddleware";
 
 const routers = express.Router();
 
@@ -81,14 +82,15 @@ routers.post(
 
 routers.patch(
   "/application/cover_letter",
+  authenticationMiddleWare,
   validateRequest(updateUserValidation),
   async (req, res) => {
     try {
-      const { cover_letter, applicationId, userId } = req.body;
+      const { cover_letter, applicationId } = req.body;
       const application = await updateApplicationResume(
         cover_letter,
         applicationId,
-        userId
+        req.userId
       );
       res.send(application);
     } catch (error) {
@@ -99,14 +101,15 @@ routers.patch(
 
 routers.patch(
   "/application/status",
+  authenticationMiddleWare,
   validateRequest(updateUserValidation),
   async (req, res) => {
     try {
-      const { status, applicationId, userId } = req.body;
+      const { status, applicationId } = req.body;
       const application = await updateApplicationStatus(
         status,
         applicationId,
-        userId
+        req.userId
       );
       res.send(application);
     } catch (error) {

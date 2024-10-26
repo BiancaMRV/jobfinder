@@ -76,7 +76,7 @@ export const updateApplicationCoverLetter = async (
 export const updateApplicationResume = async (
   resume: string,
   applicationId: string,
-  userId: string
+  userId: number
 ) => {
   try {
     const result = await client.query(
@@ -95,7 +95,7 @@ type statusType = "pending" | "approved" | "rejected" | "reviewing"; // fazer ti
 export const updateApplicationStatus = async (
   status: statusType,
   applicationId: string,
-  userId: string
+  userId: number
 ) => {
   try {
     const result = await client.query(

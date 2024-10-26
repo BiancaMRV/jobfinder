@@ -33,6 +33,18 @@ export const createNewCompany = async (name: string, description: string) => {
   }
 };
 
+export const searchCompany = async (name: string) => {
+  try {
+    const result = await client.query("SELECT * FROM companies WHERE name=$1", [
+      name,
+    ]);
+    return result;
+  } catch (error) {
+    console.error("Company not found");
+    throw new Error("Company not found");
+  }
+};
+
 export const deleteCompany = async (companyId: string) => {
   try {
     const result = await client.query(

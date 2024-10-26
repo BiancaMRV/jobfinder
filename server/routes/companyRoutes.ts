@@ -6,6 +6,7 @@ import {
   deleteCompany,
   updateCompany,
   getAllJobOffersFromCompany,
+  searchCompany,
 } from "../controllers/companiesControllers";
 import {
   createUserValidation,
@@ -44,7 +45,19 @@ routers.post(
     }
   }
 );
-// TODO:IMPLMENTAR SEARCHCOMPANY POR NOME
+routers.get(
+  "/companies/:name",
+  validateRequest(getUserValidation),
+  async (req, res) => {
+    try {
+      const { name } = req.params;
+      const companies = await searchCompany(name);
+      res.send(companies);
+    } catch (error) {
+      res.status(500).send("Error retrieving companies");
+    }
+  }
+);
 
 routers.delete(
   "/companies",

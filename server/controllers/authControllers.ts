@@ -182,16 +182,8 @@ export const logOut = async (token: string, response: Response) => {
   }
 };
 
-export type SessionValidationResult =
-  | { session: Session; user: User }
-  | { session: null; user: null };
-
 export interface Session {
   id: string;
   userId: number;
   expiresAt: Date;
-}
-
-export interface User {
-  id: number;
 }
