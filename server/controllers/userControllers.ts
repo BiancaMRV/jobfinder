@@ -48,12 +48,14 @@ export const updateUser = async (
   password: string,
   age: string,
   email: string,
-  userId: number
+  userId: number,
+  currentJob: string,
+  isWorking: string
 ) => {
   try {
     const result = await client.query(
-      "UPDATE users SET name=$1, password=$2, age=$3, email=$4 WHERE id=$5",
-      [name, password, age, email, userId]
+      "UPDATE users SET name=$1, password=$2, age=$3, email=$4, currentJob=$5, isWorking=$5 WHERE id=$5",
+      [name, password, age, email, userId, currentJob, isWorking]
     );
     if (result.rows.length === 0) {
       throw new Error("user not found can't update");

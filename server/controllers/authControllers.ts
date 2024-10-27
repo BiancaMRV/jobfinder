@@ -7,7 +7,11 @@ import bcrypt from "bcrypt";
 import { sha256 } from "@oslojs/crypto/sha2";
 import type { Response } from "express";
 
-export const signUp = async (email: string, password: string, name: string) => {
+export const signUp = async (
+  username: string,
+  email: string,
+  password: string
+) => {
   try {
     const existingUser = await client.query(
       "SELECT * FROM users WHERE email=$1",
@@ -18,9 +22,10 @@ export const signUp = async (email: string, password: string, name: string) => {
     }
     const hashedPassword = await bcrypt.hash(password, 10);
     const result = await client.query(
-      "INSERT INTO users(name,email,password) VALUES ($1,$2,$3)",
-      [name, email, hashedPassword]
+      "INSERT INTO users(name,email,password) VALUES ($1,$2,$3) RETURNING *",
+      [username, email, hashedPassword]
     );
+    console.log("result", result);
     return result.rows[0];
   } catch (error) {
     console.log("user not created", error);
@@ -30,10 +35,9 @@ export const signUp = async (email: string, password: string, name: string) => {
 
 export const logIn = async (email: string, password: string) => {
   try {
-    const result = await client.query(
-      "SELECT * FROM users WHERE email=$1 AND password=$2",
-      [email, password]
-    );
+    const result = await client.query("SELECT * FROM users WHERE email=$1", [
+      email,
+    ]);
 
     if (result.rows.length === 0) {
       throw new Error("User not found");

@@ -3,11 +3,10 @@ import client from "./config/database";
 const createUsers = `CREATE TABLE IF NOT EXISTS "users" (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
-    age INTEGER NOT NULL,
     email VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
     currentJob VARCHAR(255),
-    isWorking VARCHAR(255) NOT NULL,
+    isWorking VARCHAR(255),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )`;

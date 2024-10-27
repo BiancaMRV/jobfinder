@@ -15,8 +15,8 @@ export const routers = express.Router();
 
 routers.post("/signUp/", async (req, res) => {
   try {
-    const { email, username, password } = req.body;
-    const user = await signUp(email, password, username);
+    const { username, email, password } = req.body;
+    const user = await signUp(username, email, password);
     const token = await generateSessionToken(); //token nao é encriptado, sessionId é o token encriptado
     const session = await createSession(token, user.id); // pega no token e no id do user e cria uma sessao na base de dados
     setSessionTokenCookie(res, token, session.expiresAt); // seta o token no cookie, pega na respostae e poe um cookie com o token no header
@@ -30,8 +30,8 @@ routers.post("/signUp/", async (req, res) => {
 
 routers.post("/logIn", async (req, res) => {
   try {
-    const { name, password } = req.body;
-    const user = await logIn(name, password);
+    const { email, password } = req.body;
+    const user = await logIn(email, password);
     const token = await generateSessionToken();
     const session = await createSession(token, user.id);
     setSessionTokenCookie(res, token, session.expiresAt);

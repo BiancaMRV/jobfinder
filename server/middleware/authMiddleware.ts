@@ -19,7 +19,7 @@ const authenticationMiddleWare = async (
       return;
     }
 
-    req.userId = session.userId; // adiciona o id do usuário ao request
+    req.userId = session.userId; // req.userId passa a armazenar o userId do utilizador que fez a requisição, facilitando o acesso a essa informação em várias partes do código
     next();
   } catch (error) {
     console.error("Erro no middleware de autenticação:", error);
