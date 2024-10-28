@@ -5,15 +5,14 @@ import {
   logIn,
   generateSessionToken,
   createSession,
-  validateSessionToken,
-  deleteSession,
   setSessionTokenCookie,
   logOut,
 } from "../controllers/authControllers";
+import authenticationMiddleWare from "../middleware/authMiddleware";
 
-export const routers = express.Router();
+export const router = express.Router();
 
-routers.post("/signUp/", async (req, res) => {
+router.post("/signUp/", async (req, res) => {
   try {
     const { username, email, password } = req.body;
     const user = await signUp(username, email, password);
@@ -28,7 +27,7 @@ routers.post("/signUp/", async (req, res) => {
   }
 });
 
-routers.post("/logIn", async (req, res) => {
+router.post("/logIn", async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await logIn(email, password);
@@ -41,10 +40,10 @@ routers.post("/logIn", async (req, res) => {
   }
 });
 
-routers.patch("/logOut", async (req, res) => {
+router.patch("/logOut", authenticationMiddleWare, async (req, res) => {
   try {
-    const token = req.cookies.session;
-    await logOut(token, res);
+    const sessionId = req.sessionId;
+    await logOut(sessionId, res);
     res.sendStatus(200);
   } catch (error) {
     res.status(500).send("error signing out");

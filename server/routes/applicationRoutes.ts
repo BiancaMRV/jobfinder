@@ -17,9 +17,9 @@ import {
 } from "../middleware/validationMiddleware";
 import authenticationMiddleWare from "../middleware/authMiddleware";
 
-const routers = express.Router();
+export const router = express.Router();
 
-routers.get(
+router.get(
   "/application",
   validateRequest(getUserValidation),
   async (req, res) => {
@@ -32,7 +32,7 @@ routers.get(
   }
 );
 
-routers.get(
+router.get(
   "/application/:applicationId",
   validateRequest(getUserValidation),
   async (req, res) => {
@@ -46,7 +46,7 @@ routers.get(
   }
 );
 
-routers.delete(
+router.delete(
   "/application",
   validateRequest(deleteUserValidation),
   async (req, res) => {
@@ -59,8 +59,9 @@ routers.delete(
     }
   }
 );
+// applications.lenght
 
-routers.post(
+router.post(
   "/application",
   validateRequest(createUserValidation),
   async (req, res) => {
@@ -80,7 +81,7 @@ routers.post(
   }
 );
 
-routers.patch(
+router.patch(
   "/application/cover_letter",
   authenticationMiddleWare,
   validateRequest(updateUserValidation),
@@ -99,7 +100,7 @@ routers.patch(
   }
 );
 
-routers.patch(
+router.patch(
   "/application/status",
   authenticationMiddleWare,
   validateRequest(updateUserValidation),

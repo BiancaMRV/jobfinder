@@ -19,6 +19,7 @@ const authenticationMiddleWare = async (
       return;
     }
 
+    req.sessionId = session.id;
     req.userId = session.userId; // req.userId passa a armazenar o userId do utilizador que fez a requisição, facilitando o acesso a essa informação em várias partes do código
     next();
   } catch (error) {

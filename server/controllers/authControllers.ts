@@ -130,7 +130,7 @@ export const validateSessionToken = async (token: string) => {
   const sessionId = encodeHexLowerCase(sha256(new TextEncoder().encode(token)));
 
   try {
-    const result = await client.query("SELECT * FROM session WHERE id=$1", [
+    const result = await client.query("SELECT * FROM sessions WHERE id=$1", [
       sessionId,
     ]);
 
@@ -173,11 +173,8 @@ export const deleteSession = async (sessionId: string) => {
   }
 };
 
-export const logOut = async (token: string, response: Response) => {
+export const logOut = async (sessionId: string, response: Response) => {
   try {
-    const sessionId = encodeHexLowerCase(
-      sha256(new TextEncoder().encode(token))
-    );
     await client.query("DELETE FROM sessions WHERE id=$1", [sessionId]);
     deleteSessionTokenCookie(response);
   } catch (error) {

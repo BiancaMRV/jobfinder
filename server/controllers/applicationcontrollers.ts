@@ -1,5 +1,6 @@
 import type { Request, Response } from "express";
 import client from "../config/database";
+//TODO: implementar mulder para upload de ficheiros
 
 export const getAllApplication = async () => {
   try {

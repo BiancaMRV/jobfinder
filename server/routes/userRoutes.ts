@@ -14,9 +14,9 @@ import {
   updateUser,
 } from "../controllers/userControllers";
 
-const routers = Router();
+export const router = Router();
 
-routers.get(
+router.get(
   "/users/:userId",
   validateRequest(getUserValidation),
   async (req, res) => {
@@ -30,7 +30,7 @@ routers.get(
   }
 );
 
-routers.delete(
+router.delete(
   "/users/:userId",
   validateRequest(updateUserValidation),
   async (req, res) => {
@@ -44,14 +44,23 @@ routers.delete(
   }
 );
 
-routers.patch(
+router.patch(
   "/users/:userId",
-  validateRequest(deleteUserValidation),
+  validateRequest(updateUserValidation),
   async (req, res) => {
     try {
       const { userId } = req.params;
-      const { name, email, password, age } = req.body;
-      const user = await updateUser(userId, name, email, password, age);
+      const { username, email, password, age, isWorking, currentJob } =
+        req.body;
+      const user = await updateUser(
+        username,
+        password,
+        age,
+        email,
+        Number(userId),
+        currentJob,
+        isWorking
+      );
       res.send(user);
     } catch (error) {
       res.status(500).send("Error updating user");

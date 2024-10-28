@@ -14,9 +14,9 @@ import {
   validateRequest,
 } from "../middleware/validationMiddleware";
 
-const routers = express.Router();
+export const router = express.Router();
 
-routers.get(
+router.get(
   "/jobs/:jobOfferId",
   validateRequest(getUserValidation),
   async (req, res) => {
@@ -30,7 +30,7 @@ routers.get(
   }
 );
 
-routers.post(
+router.post(
   "/jobs",
   validateRequest(createUserValidation),
   async (req, res) => {
@@ -44,7 +44,7 @@ routers.post(
   }
 );
 
-routers.delete(
+router.delete(
   "/jobs/:jobOfferId",
   validateRequest(deleteUserValidation),
   async (req, res) => {
@@ -58,7 +58,7 @@ routers.delete(
   }
 );
 
-routers.patch(
+router.patch(
   "/jobs/:jobOfferId",
   validateRequest(updateUserValidation),
   async (req, res) => {

@@ -35,7 +35,7 @@ export const validateRequest = (schema: ValidationSchema) => {
 // Validação para atualização de usuário (PUT /users/:id)
 export const updateUserValidation: ValidationSchema = {
   params: Joi.object({
-    id: Joi.number()
+    userId: Joi.number()
       .integer()
       .positive() // Para IDs numéricos no PostgreSQL
       .required()
@@ -49,6 +49,9 @@ export const updateUserValidation: ValidationSchema = {
     username: Joi.string().min(3).max(30),
     email: Joi.string().email(),
     age: Joi.number().integer().min(18),
+    password: Joi.string().min(6).max(30),
+    isWorking: Joi.boolean(),
+    currentJob: Joi.string().allow("", null),
   }).min(1),
 };
 
@@ -81,5 +84,42 @@ export const createUserValidation: ValidationSchema = {
     username: Joi.string().min(3).max(30).required(),
     email: Joi.string().email().required(),
     age: Joi.number().integer().min(18).required(),
+  }),
+};
+
+export const createCompanyValidation: ValidationSchema = {
+  body: Joi.object({
+    name: Joi.string().min(3).max(30).required(),
+    description: Joi.string().min(3).max(500).required(),
+  }),
+};
+
+export const updateCompanyValidation: ValidationSchema = {
+  body: Joi.object({
+    company: Joi.string().min(3).max(30),
+    description: Joi.string().min(3).max(30),
+  }).min(1),
+};
+
+export const deleteCompanyValidation: ValidationSchema = {
+  params: Joi.object({
+    companyId: Joi.number().integer().positive().required(),
+  }),
+};
+
+export const searchCompanyValidation: ValidationSchema = {
+  params: Joi.object({
+    query: Joi.string().min(3).max(30).required(),
+  }),
+};
+
+export const getCompanyById: ValidationSchema = {
+  params: Joi.object({
+    companyId: Joi.number().integer().positive().required(),
+  }),
+};
+export const getCompanyAllJobOffers: ValidationSchema = {
+  params: Joi.object({
+    companyId: Joi.number().integer().positive().required(),
   }),
 };

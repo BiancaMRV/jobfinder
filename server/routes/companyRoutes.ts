@@ -9,18 +9,20 @@ import {
   searchCompany,
 } from "../controllers/companiesControllers";
 import {
-  createUserValidation,
-  deleteUserValidation,
-  getUserValidation,
-  updateUserValidation,
+  createCompanyValidation,
+  deleteCompanyValidation,
+  getCompanyAllJobOffers,
+  getCompanyById,
+  searchCompanyValidation,
+  updateCompanyValidation,
   validateRequest,
 } from "../middleware/validationMiddleware";
 
-const routers = express.Router();
+export const router = express.Router();
 
-routers.get(
+router.get(
   "/companies/:companyId",
-  validateRequest(getUserValidation),
+  validateRequest(getCompanyById),
   async (req, res) => {
     try {
       const companyId = req.params.companyId;
@@ -32,9 +34,9 @@ routers.get(
   }
 );
 
-routers.post(
+router.post(
   "/companies",
-  validateRequest(createUserValidation),
+  validateRequest(createCompanyValidation),
   async (req, res) => {
     try {
       const { name, description } = req.body; // Assuming the function requires 'name' and 'otherArg'
@@ -45,13 +47,13 @@ routers.post(
     }
   }
 );
-routers.get(
-  "/companies/:name",
-  validateRequest(getUserValidation),
+router.get(
+  "/companies/search/:query",
+  validateRequest(searchCompanyValidation),
   async (req, res) => {
     try {
-      const { name } = req.params;
-      const companies = await searchCompany(name);
+      const { query } = req.params;
+      const companies = await searchCompany(query);
       res.send(companies);
     } catch (error) {
       res.status(500).send("Error retrieving companies");
@@ -59,9 +61,9 @@ routers.get(
   }
 );
 
-routers.delete(
+router.delete(
   "/companies",
-  validateRequest(deleteUserValidation),
+  validateRequest(deleteCompanyValidation),
   async (req, resp) => {
     try {
       const { companyId } = req.body;
@@ -73,9 +75,9 @@ routers.delete(
   }
 );
 
-routers.patch(
+router.patch(
   "/companies",
-  validateRequest(updateUserValidation),
+  validateRequest(updateCompanyValidation),
   async (req, resp) => {
     try {
       const { companyId, description } = req.body;
@@ -87,9 +89,9 @@ routers.patch(
   }
 );
 
-routers.get(
+router.get(
   "/companies/:companyId/jobOffers",
-  validateRequest(getUserValidation),
+  validateRequest(getCompanyAllJobOffers),
   async (req, res) => {
     try {
       const companyId = req.params.companyId;
