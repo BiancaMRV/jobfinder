@@ -7,18 +7,18 @@ import {
   updateJobOffer,
 } from "../controllers/jobControllers";
 import {
-  createUserValidation,
-  deleteUserValidation,
-  getUserValidation,
-  updateUserValidation,
   validateRequest,
+  getJobOfferByIdValidation,
+  createNewJobOfferValidation,
+  deleteJobOfferValidation,
+  updateJobOfferValidation,
 } from "../middleware/validationMiddleware";
 
 export const router = express.Router();
 
 router.get(
   "/jobs/:jobOfferId",
-  validateRequest(getUserValidation),
+  validateRequest(getJobOfferByIdValidation),
   async (req, res) => {
     try {
       const { jobOfferId } = req.params;
@@ -32,7 +32,7 @@ router.get(
 
 router.post(
   "/jobs",
-  validateRequest(createUserValidation),
+  validateRequest(createNewJobOfferValidation),
   async (req, res) => {
     try {
       const { title, description, companyId } = req.body;
@@ -46,7 +46,7 @@ router.post(
 
 router.delete(
   "/jobs/:jobOfferId",
-  validateRequest(deleteUserValidation),
+  validateRequest(deleteJobOfferValidation),
   async (req, res) => {
     try {
       const { jobOfferId } = req.params;
@@ -60,7 +60,7 @@ router.delete(
 
 router.patch(
   "/jobs/:jobOfferId",
-  validateRequest(updateUserValidation),
+  validateRequest(updateJobOfferValidation),
   async (req, res) => {
     try {
       const { jobOfferId } = req.params;

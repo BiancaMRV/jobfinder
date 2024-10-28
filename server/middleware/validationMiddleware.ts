@@ -123,3 +123,68 @@ export const getCompanyAllJobOffers: ValidationSchema = {
     companyId: Joi.number().integer().positive().required(),
   }),
 };
+export const getAllJobOffersValidation: ValidationSchema = {
+  params: Joi.object({
+    jobOfferId: Joi.number().integer().positive().required(),
+  }),
+};
+export const getJobOfferByIdValidation: ValidationSchema = {
+  params: Joi.object({
+    jobOfferId: Joi.number().integer().positive().required(),
+  }),
+};
+export const createNewJobOfferValidation: ValidationSchema = {
+  body: Joi.object({
+    title: Joi.string().min(3).max(30).required(),
+    description: Joi.string().min(3).max(500).required(),
+    companyId: Joi.number().integer().positive().required(),
+  }),
+};
+export const deleteJobOfferValidation: ValidationSchema = {
+  params: Joi.object({
+    jobOfferId: Joi.number().integer().positive().required(),
+  }),
+};
+export const updateJobOfferValidation: ValidationSchema = {
+  body: Joi.object({
+    title: Joi.string().min(3).max(30),
+    description: Joi.string().min(3).max(500),
+    jobOfferId: Joi.number().integer().positive(),
+  }).min(1),
+};
+
+export const getApplicationByIdValidation: ValidationSchema = {
+  params: Joi.object({
+    applicationId: Joi.number().integer().positive().required(),
+  }),
+};
+export const createNewApplicationValidation: ValidationSchema = {
+  body: Joi.object({
+    userId: Joi.number().integer().positive().required(),
+    jobOfferId: Joi.number().integer().positive().required(),
+    resume: Joi.string().min(3).max(500).required(),
+  }),
+};
+export const deleteApplicationValidation: ValidationSchema = {
+  params: Joi.object({
+    applicationId: Joi.number().integer().positive().required(),
+  }),
+};
+export const updateApplicationCoverLetterValidation: ValidationSchema = {
+  body: Joi.object({
+    coverLetter: Joi.string().min(3).max(500).required(),
+    applicationId: Joi.number().integer().positive().required(),
+  }),
+};
+export const updateApplicationResumeValidation: ValidationSchema = {
+  body: Joi.object({
+    resume: Joi.string().min(3).max(500).required(),
+    applicationId: Joi.number().integer().positive().required(),
+  }),
+};
+export const updateApplicationStatusValidation: ValidationSchema = {
+  body: Joi.object({
+    status: Joi.string().min(3).max(30).required(),
+    applicationId: Joi.number().integer().positive().required(),
+  }),
+};
