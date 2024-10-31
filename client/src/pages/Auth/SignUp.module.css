@@ -1,5 +1,83 @@
-container {
+.container {
   display: flex;
-  min-height: 100 vh;
+  min-height: 100vh;
   background-color: #2f2c4a;
+}
+.imageSection {
+  flex: 1;
+  background-image: url("ian-schneider-TamMbr4okv4-unsplash.jpg ");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+}
+.formSection {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  background-color: #3d345a;
+}
+form {
+  width: 100%;
+  max-width: 400px;
+  color: #ffffff;
+}
+
+/* Título do formulário */
+h1 {
+  font-size: 32px;
+  color: #ffffff;
+  margin-bottom: 20px;
+}
+
+/* Estilo dos Labels */
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #d1cbe2;
+}
+
+/* Estilo dos Inputs */
+input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 16px;
+  border: 1px solid #6c6a80;
+  border-radius: 8px;
+  background-color: #2e2b3e;
+  color: #ffffff;
+}
+
+/* Específico para .name, .email e .password */
+.name,
+.email,
+.password {
+  padding: 20px; /* Aumentamos o padding para 12px para melhor visual */
+  margin-bottom: 400px;
+  border: 2px solid #6c6a80;
+  border-radius: 8px;
+  background-color: #2e2b3e;
+  color: #ffffff;
+}
+
+/* Estilo do Botão */
+button {
+  width: 100%;
+  padding: 12px;
+  background-color: #8b4efc;
+  border: none;
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #7a3dd6;
 }
