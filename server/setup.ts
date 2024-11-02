@@ -35,8 +35,6 @@ const createComments = `CREATE TABLE IF NOT EXISTS "comments" (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )`;
 
-// TODO: criar sistema de avaliacoes de empresas
-
 const createCompanies = `CREATE TABLE IF NOT EXISTS "companies" (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,

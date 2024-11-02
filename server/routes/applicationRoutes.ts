@@ -18,7 +18,6 @@ import {
 import authenticationMiddleWare from "../middleware/authMiddleware";
 
 export const router = express.Router();
-
 router.get(
   "/application",
   validateRequest(getUserValidation),

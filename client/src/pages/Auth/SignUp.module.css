@@ -1,83 +1,77 @@
-.container {
+/* Estilos para o container principal */
+.wrapper {
   display: flex;
-  min-height: 100vh;
-  background-color: #2f2c4a;
+  height: 100vh;
+  background-color: #f5e9e9;
+  color: #333;
+  font-family: Arial, sans-serif;
 }
-.imageSection {
-  flex: 1;
-  background-image: url("ian-schneider-TamMbr4okv4-unsplash.jpg ");
-  background-size: cover;
-  background-position: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #ffffff;
-}
-.formSection {
+
+/* Estilos para a seção da esquerda (Imagem/Ilustração) */
+.leftSection {
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 40px;
-  background-color: #3d345a;
+  background-color: #fff;
+  border-radius: 15px;
+  padding: 2rem;
 }
-form {
-  width: 100%;
+
+.image {
+  max-width: 80%;
+  border-radius: 8px;
+}
+
+/* Estilos para a seção da direita (Formulário) */
+.rightSection {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.title {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 1.5rem;
+}
+
+/* Estilos do formulário */
+.form {
+  width: 80%;
   max-width: 400px;
-  color: #ffffff;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Título do formulário */
-h1 {
-  font-size: 32px;
-  color: #ffffff;
-  margin-bottom: 20px;
+.label {
+  font-size: 0.9rem;
+  margin-bottom: 0.2rem;
+  color: #555;
 }
 
-/* Estilo dos Labels */
-label {
-  display: block;
-  margin-bottom: 8px;
-  font-size: 14px;
-  color: #d1cbe2;
+.input {
+  padding: 0.8rem;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
 }
 
-/* Estilo dos Inputs */
-input {
-  width: 100%;
-  padding: 12px;
-  margin-bottom: 16px;
-  border: 1px solid #6c6a80;
-  border-radius: 8px;
-  background-color: #2e2b3e;
-  color: #ffffff;
-}
-
-/* Específico para .name, .email e .password */
-.name,
-.email,
-.password {
-  padding: 20px; /* Aumentamos o padding para 12px para melhor visual */
-  margin-bottom: 400px;
-  border: 2px solid #6c6a80;
-  border-radius: 8px;
-  background-color: #2e2b3e;
-  color: #ffffff;
-}
-
-/* Estilo do Botão */
-button {
-  width: 100%;
-  padding: 12px;
-  background-color: #8b4efc;
+.button {
+  background-color: #333;
+  color: white;
+  padding: 0.8rem;
+  font-size: 1rem;
   border: none;
-  border-radius: 8px;
-  color: #ffffff;
-  font-size: 16px;
+  border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s;
 }
 
-button:hover {
-  background-color: #7a3dd6;
+.button:hover {
+  background-color: #555;
 }
