@@ -14,13 +14,39 @@
   padding: 20px;
 }
 
-.image {
-  max-width: 100%;
-  height: auto;
-  object-fit: contain;
-  border-radius: 25px;
+/* Contêiner da imagem, que permite sobrepor o texto */
+.imageContainer {
+  position: relative;
+  width: 100%;
+  max-width: 500px; /* Controla o tamanho da imagem */
 }
 
+/* Texto sobreposto à imagem */
+.inspirationalText {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: left;
+  padding: 10px 20px;
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.5
+  ); /* Fundo semitransparente para legibilidade */
+  border-radius: 8px;
+}
+
+/* Estilo da imagem */
+.image {
+  width: 100%;
+  height: auto;
+  border-radius: 15px;
+}
 .rightSection {
   flex: 0.9;
   display: flex;
