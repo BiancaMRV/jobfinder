@@ -3,13 +3,15 @@ import styles from "./SignUp.module.css"; // Importando o CSS module
 export function SignUp() {
   return (
     <div className={styles.wrapper}>
+      {/* Seção esquerda com a imagem */}
       <div className={styles.leftSection}>
         <img
-          src="undraw_Job_hunt_re_q203.png"
+          src="warren-fNUNt9w3m-Q-unsplash 2.jpg"
           alt="Job Hunt Illustration"
           className={styles.image}
         />
       </div>
+      {/* Seção direita com o formulário */}
       <div className={styles.rightSection}>
         <h1 className={styles.title}>Registar Conta</h1>
         <form className={styles.form}>
