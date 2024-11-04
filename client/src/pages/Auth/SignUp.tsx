@@ -1,59 +1,113 @@
-import styles from "./SignUp.module.css"; // Importando o CSS module
+import styles from "./SignUp.module.css";
 
-export function SignUp() {
+export default function SignUp() {
   return (
     <main className={styles.main}>
-      <div className={styles.imageWrapper}>
-        <img src="undraw_Job_hunt_re_q203.png" className={styles.image} />
-      </div>
-      <div className={styles.right}>
-        <h1 className={styles.title}>Registar Conta</h1>
-        <form className={styles.form}>
-          <label htmlFor="name" className={styles.label}>
-            Nome
-          </label>
-          <input
-            type="text"
-            id="name"
-            className={styles.input}
-            placeholder="Nome"
+      <section className={styles.left}>
+        <div className={styles.imgContainer}>
+          <img
+            src="WhatsApp Image 2024-11-04 at 03.39.22.jpeg"
+            alt="Purple and orange cloudy sky background"
+            loading="lazy"
           />
+        </div>
 
-          <label htmlFor="lastName" className={styles.label}>
-            Apelido
-          </label>
-          <input
-            type="text"
-            id="lastName"
-            className={styles.input}
-            placeholder="Apelido"
-          />
+        <div className={styles.top}>
+          <div className={styles.logo}>AMU</div>
+          <div className={styles.back}>
+            <a href="/" className={styles.buttonSecondary}>
+              Back to website
+            </a>
+          </div>
+        </div>
 
-          <label htmlFor="email" className={styles.label}>
-            Email
-          </label>
-          <input
-            type="email"
-            id="email"
-            className={styles.input}
-            placeholder="Email"
-          />
+        <div className={styles.title}>
+          <h1>Explore. Sonhe. Descubra.</h1>
+          <h3>Conectando seus sonhos às melhores oportunidades</h3>
+        </div>
+      </section>
 
-          <label htmlFor="password" className={styles.label}>
-            Password
-          </label>
-          <input
-            type="password"
-            id="password"
-            className={styles.input}
-            placeholder="Password"
-          />
+      <section className={styles.right}>
+        <div className={styles.formContainer}>
+          <h1>Create an account</h1>
+          <p>
+            Already have an account? <a href="/signin">Login</a>
+          </p>
 
-          <button type="submit" className={styles.button}>
-            Registar conta
-          </button>
-        </form>
-      </div>
+          <form method="POST" autoComplete="off" noValidate>
+            <div className={styles.name}>
+              <div className={styles.inputContainer}>
+                <input
+                  type="text"
+                  id="firstName"
+                  name="firstName"
+                  placeholder="First Name"
+                  required
+                  minLength={2}
+                  pattern="[A-Za-z]+"
+                />
+              </div>
+              <div className={styles.inputContainer}>
+                <input
+                  type="text"
+                  id="lastName"
+                  name="lastName"
+                  placeholder="Last Name"
+                  required
+                  minLength={2}
+                  pattern="[A-Za-z]+"
+                />
+              </div>
+            </div>
+
+            <div className={styles.inputContainer}>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Email"
+                required
+                autoComplete="username"
+              />
+            </div>
+
+            <div className={styles.inputContainer}>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Password"
+                required
+                minLength={8}
+                autoComplete="new-password"
+              />
+            </div>
+
+            <div className={styles.inputContainer}>
+              <input
+                type="password"
+                id="confirmPassword"
+                name="confirmPassword"
+                placeholder="Confirm Password"
+                required
+                minLength={8}
+                autoComplete="new-password"
+              />
+            </div>
+
+            <div className={styles.terms}>
+              <input type="checkbox" id="terms" name="terms" required />
+              <label htmlFor="terms">
+                I agree to the <a href="/terms">Terms of Service</a>
+              </label>
+            </div>
+
+            <button type="submit" className={styles.buttonPrimary}>
+              Create Account
+            </button>
+          </form>
+        </div>
+      </section>
     </main>
   );
 }

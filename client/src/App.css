@@ -1,0 +1,24 @@
+/* globals.css */
+:root {
+  /* Colors */
+  --color-background: #2c2738;
+  --color-accent: #6e54b5;
+  --color-accent-light: #877da3;
+  --color-accent-lighter: #6f63b5;
+  --color-input: #3b364c;
+  --color-text: #ffffff;
+  --color-text-muted: #a2a2a2;
+  --color-placeholder: #696969;
+
+  /* Spacing */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 2rem;
+  --spacing-lg: 3rem;
+  --spacing-xl: 5rem;
+
+  /* Border Radius */
+  --radius-sm: 5px;
+  --radius-md: 12px;
+  --radius-pill: 30px;
+}
