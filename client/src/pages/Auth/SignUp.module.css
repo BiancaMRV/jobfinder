@@ -1,62 +1,28 @@
-.wrapper {
-  display: flex;
-  height: 100vh;
-  font-family: "Inter", sans-serif;
-  background-color: #f7f8fa;
+.main {
+  height: 100svh;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
 }
 
-.leftSection {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: white;
-  padding: 20px;
-}
-
-/* Contêiner da imagem, que permite sobrepor o texto */
-.imageContainer {
+.imageWrapper {
   position: relative;
-  width: 100%;
-  max-width: 500px; /* Controla o tamanho da imagem */
+  height: 90svh;
+  padding: 2rem;
+  padding-right: 0rem;
 }
 
-/* Texto sobreposto à imagem */
-.inspirationalText {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: white;
-  font-size: 1rem;
-  font-weight: bold;
-  text-align: left;
-  padding: 10px 20px;
-  background-color: rgba(
-    0,
-    0,
-    0,
-    0.5
-  ); /* Fundo semitransparente para legibilidade */
-  border-radius: 8px;
-}
-
-/* Estilo da imagem */
 .image {
   width: 100%;
-  height: auto;
-  border-radius: 15px;
-}
-.rightSection {
-  flex: 0.9;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 37px;
-  background-color: #ffffff;
+  height: 100%;
+  object-fit: cover;
 }
 
+.right {
+  display: grid;
+  place-content: center;
+}
+
+/* BIANCA */
 .title {
   font-size: 2.2rem;
   color: #333333;
