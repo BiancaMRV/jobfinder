@@ -1,4 +1,5 @@
 import styles from "./LogIn.module.css";
+import { Link } from "react-router-dom";
 
 export default function LogIn() {
   return (
@@ -31,7 +32,10 @@ export default function LogIn() {
         <div className={styles.formContainer}>
           <h1>Welcome Back!</h1>
           <p>
-            Dont have an account? Create one! <a href="/signup">SignUp</a>
+            Dont have an account? Create one!{" "}
+            <Link to="/signup" className={styles.link}>
+              Sign Up
+            </Link>
           </p>
 
           <form method="POST" autoComplete="off" noValidate>

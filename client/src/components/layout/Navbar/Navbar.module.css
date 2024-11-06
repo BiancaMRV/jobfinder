@@ -1,0 +1,19 @@
+.headercontainer {
+  min-height: 400px;
+  background-color: #111827;
+  color: white;
+  position: relative;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+}
+
+.leftnavbar {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+}
