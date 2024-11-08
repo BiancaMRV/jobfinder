@@ -1,10 +1,11 @@
 .navbar {
   background-color: var(--color-background);
   color: #fff;
-  padding: 1rem;
+  padding: 0.6rem;
   position: relative;
   display: flex;
   justify-content: space-between;
+  font-weight: 500;
 }
 .leftnavbar {
   display: flex;
@@ -28,11 +29,13 @@
 .link {
   color: #fff;
   text-decoration: none;
-  padding: 0.5rem;
+  padding: 0rem 0.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 .nome {
+  margin: 0;
   margin-right: 1rem;
+  font-weight: 600;
 }

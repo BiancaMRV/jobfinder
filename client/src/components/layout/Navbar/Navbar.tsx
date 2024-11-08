@@ -10,13 +10,13 @@ export default function Navbar() {
       </div>
       <div className={styles.centernavbar}>
         <Link className={styles.link} to={"/"}>
-          Find Jobs{" "}
+          Find Jobs
         </Link>
         <Link className={styles.link} to={"/"}>
-          Upload Job{" "}
+          Upload Job
         </Link>
         <Link className={styles.link} to={"/"}>
-          About Us{" "}
+          About Us
         </Link>
       </div>
 

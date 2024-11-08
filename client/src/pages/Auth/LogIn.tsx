@@ -32,7 +32,7 @@ export default function LogIn() {
         <div className={styles.formContainer}>
           <h1>Welcome Back!</h1>
           <p>
-            Dont have an account? Create one!{" "}
+            Dont have an account? Create one!
             <Link to="/signup" className={styles.link}>
               Sign Up
             </Link>
