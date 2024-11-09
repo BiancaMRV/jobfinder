@@ -5,7 +5,7 @@ export default function Searchbar() {
   return (
     <div className={styles.searchbar}>
       <div className={styles.leftsearchbar}>
-        <Search size={24} />
+        <Search size={24} color="grey" />
         <input
           type="text"
           id="Job title or keyword"
@@ -14,7 +14,7 @@ export default function Searchbar() {
         />
       </div>
       <div className={styles.rightsearchbar}>
-        <Map size={24} />
+        <Map size={24} color="grey" />
         <input
           type="text"
           id="Add city or zip-code"

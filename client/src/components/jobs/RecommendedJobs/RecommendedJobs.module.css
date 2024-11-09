@@ -1,0 +1,6 @@
+.RecommendedJobs {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  margin-top: 2rem;
+}

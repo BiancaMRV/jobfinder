@@ -5,12 +5,18 @@ import SignUp from "./pages/Auth/SignUp";
 import LogIn from "./pages/Auth/LogIn";
 import Navbar from "./components/layout/Navbar/Navbar";
 import Searchbar from "./components/layout/Searchbar/Searchbar";
+import Header from "./components/layout/Header/Header";
+import RecommendedJobs from "./components/jobs/RecommendedJobs/RecommendedJobs";
+import JobFilter from "./components/jobs/JobList/JobFilter";
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Searchbar />} />
+        <Route path="/JobFilter" element={<JobFilter />} />
+        <Route path="/RecommendedJobs" element={<RecommendedJobs />} />
+        <Route path="/Header" element={<Header />} />
+        <Route path="/Searchbar" element={<Searchbar />} />
         <Route path="/Navbar" element={<Navbar />} />
         <Route path="/login" element={<LogIn />} />
         <Route path="/signup" element={<SignUp />} />
