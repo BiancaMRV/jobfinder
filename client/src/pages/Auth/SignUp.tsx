@@ -91,8 +91,8 @@ export default function SignUp() {
         </div>
 
         <div className={styles.title}>
-          <h1>Explore. Sonhe. Descubra.</h1>
-          <h3>Conectando seus sonhos às melhores oportunidades</h3>
+          <h1>Unlock Opportunities, Fulfill Your Career Dreams.</h1>
+          <h3>Your path to success starts here.</h3>
         </div>
       </section>
 
