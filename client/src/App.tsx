@@ -8,11 +8,13 @@ import Searchbar from "./components/layout/Searchbar/Searchbar";
 import Header from "./components/layout/Header/Header";
 import RecommendedJobs from "./components/jobs/RecommendedJobs/RecommendedJobs";
 import JobFilter from "./components/jobs/JobList/JobFilter";
+import SalaryRangeSlider from "./components/jobs/SalaryRangeSlider/SalaryRangeSlider";
 
 function App() {
   return (
     <Router>
       <Routes>
+        <Route path="/" element={<SalaryRangeSlider />} />
         <Route path="/JobFilter" element={<JobFilter />} />
         <Route path="/RecommendedJobs" element={<RecommendedJobs />} />
         <Route path="/Header" element={<Header />} />

@@ -29,6 +29,7 @@ export default function JobFilter() {
             id="full-time"
             name="jobType"
             value="Full Time"
+            checked={filters.fulltime} // checked is a boolean value, we use this to see if checkbox is checked or not
             onClick={() => handleFilterChange("fulltime")}
           />
           <label htmlFor="full-time">Full Time</label>
@@ -40,6 +41,7 @@ export default function JobFilter() {
             id="part-time"
             name="jobType"
             value="Part Time"
+            checked={filters.parttime}
             onClick={() => handleFilterChange("parttime")}
           />
           <label htmlFor="part-time">Part Time</label>
@@ -51,6 +53,7 @@ export default function JobFilter() {
             id="internship"
             name="jobType"
             value="Internship" /* value should be unique, and we use value to send the request to server */
+            checked={filters.fulltime}
             onClick={() => handleFilterChange("intership")}
           />
           <label htmlFor="internship">Internship</label>
@@ -62,6 +65,7 @@ export default function JobFilter() {
             id="volunteering"
             name="jobType"
             value="Volunteering"
+            checked={filters.fulltime}
             onClick={() => handleFilterChange("volunteering")}
           />
           <label htmlFor="volunteering">Volunteering</label>

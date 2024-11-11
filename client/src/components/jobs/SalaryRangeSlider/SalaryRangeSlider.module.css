@@ -1,0 +1,29 @@
+.rangecontainer {
+  display: flex;
+  width: 240px;
+
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+}
+.button {
+  padding: var(--spacing-sm);
+  background-color: var(--color-accent);
+  color: var(--color-text);
+  border: none;
+  border-radius: 30px;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 10px 20px;
+
+  transition: background-color 0.2s ease;
+}
+.input {
+  width: 20%;
+  padding: 10px;
+  border: none;
+  border-radius: 30px;
+  outline: none;
+  font-size: 1rem;
+  background-color: aliceblue;
+}
