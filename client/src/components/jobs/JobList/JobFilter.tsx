@@ -25,6 +25,7 @@ export default function JobFilter() {
       <div className={styles.jobType}>
         <div>
           <input
+            className={styles.fulltime}
             type="checkbox"
             id="full-time"
             name="jobType"
@@ -37,6 +38,7 @@ export default function JobFilter() {
 
         <div>
           <input
+            className={styles.parttime}
             type="checkbox"
             id="part-time"
             name="jobType"
@@ -49,11 +51,12 @@ export default function JobFilter() {
 
         <div>
           <input
+            className={styles.internship}
             type="checkbox"
             id="internship"
             name="jobType"
             value="Internship" /* value should be unique, and we use value to send the request to server */
-            checked={filters.fulltime}
+            checked={filters.intership}
             onClick={() => handleFilterChange("intership")}
           />
           <label htmlFor="internship">Internship</label>
@@ -61,11 +64,12 @@ export default function JobFilter() {
 
         <div>
           <input
+            className={styles.volunteering}
             type="checkbox"
             id="volunteering"
             name="jobType"
             value="Volunteering"
-            checked={filters.fulltime}
+            checked={filters.volunteering}
             onClick={() => handleFilterChange("volunteering")}
           />
           <label htmlFor="volunteering">Volunteering</label>

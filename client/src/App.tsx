@@ -8,13 +8,15 @@ import Searchbar from "./components/layout/Searchbar/Searchbar";
 import Header from "./components/layout/Header/Header";
 import RecommendedJobs from "./components/jobs/RecommendedJobs/RecommendedJobs";
 import JobFilter from "./components/jobs/JobList/JobFilter";
-import SalaryRangeSlider from "./components/jobs/SalaryRangeSlider/SalaryRangeSlider";
+import SalaryRange from "./components/jobs/SalaryRange/SalaryRange";
+import ExperienceLevel from "./components/jobs/ExperienceLevel/ExperienceLevel";
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<SalaryRangeSlider />} />
+        <Route path="/ExperienceLevel" element={<ExperienceLevel />} />
+        <Route path="/SalaryRange" element={<SalaryRange />} />
         <Route path="/JobFilter" element={<JobFilter />} />
         <Route path="/RecommendedJobs" element={<RecommendedJobs />} />
         <Route path="/Header" element={<Header />} />
