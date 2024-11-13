@@ -1,0 +1,64 @@
+.filtersinterfacecontainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 25%;
+  margin-top: 20px;
+  background-color: #f5f5f5;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.filterGroup {
+  width: 100%;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.clearAllButton {
+  padding: 8px 16px;
+  background-color: #e53e3e;
+  color: #fff;
+  display: flex;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.clearAllButton:hover {
+  background-color: #c53030;
+}
+
+/* Media query para telas menores, como tablets e mobile */
+@media (max-width: 768px) {
+  .filtersinterfacecontainer {
+    width: 100%; /* Ocupar a largura total em telas pequenas */
+    margin-top: 10px;
+    padding: 15px;
+    align-items: stretch; /* Deixar os elementos se alinharam com a largura da tela */
+  }
+
+  .clearAllButton {
+    padding: 6px 12px; /* Reduzir o tamanho do botão em telas menores */
+  }
+}
+
+/* Media query para telas tipo mobile */
+@media (max-width: 480px) {
+  .filtersinterfacecontainer {
+    padding: 10px; /* Reduzir o padding em telas pequenas */
+  }
+
+  .clearAllButton {
+    width: 100%; /* Fazer o botão ocupar toda a largura do container */
+    text-align: center;
+  }
+
+  .clearAllContainer {
+    justify-content: center; /* Centralizar o botão em telas muito pequenas */
+  }
+}
