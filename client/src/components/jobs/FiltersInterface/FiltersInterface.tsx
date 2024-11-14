@@ -42,13 +42,14 @@ export default function FiltersInterface() {
   };
   return (
     <section className={styles.filtersinterfacecontainer}>
-      <div className={styles.clearAllContainer}></div>
       <div className={styles.filterGroup}>
-        <JobFilter />
+        <div className={styles.jobfilterheader}>
+          <button className={styles.clearAllButton} onClick={handleClearAll}>
+            Clear all
+          </button>
+          <JobFilter />
+        </div>
       </div>
-      <button className={styles.clearAllButton} onClick={handleClearAll}>
-        Clear all
-      </button>
       <div className={styles.filterGroup}>
         <SalaryRange />
       </div>

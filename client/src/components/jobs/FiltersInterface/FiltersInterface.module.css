@@ -5,10 +5,9 @@
   align-items: center;
   width: 25%;
   margin-top: 20px;
-  background-color: #f5f5f5;
+
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .filterGroup {
@@ -16,6 +15,12 @@
   margin-bottom: 20px;
   display: flex;
   flex-direction: column;
+}
+.jobfilterheader {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px; /* Optional: space between header and filter options */
 }
 
 .clearAllButton {

@@ -25,7 +25,7 @@ export default function JobFilter() {
       <div className={styles.jobType}>
         <div>
           <input
-            className={styles.fulltime}
+            className={styles.filtergroupjobfilter}
             type="checkbox"
             id="full-time"
             name="jobType"
@@ -38,7 +38,7 @@ export default function JobFilter() {
 
         <div>
           <input
-            className={styles.parttime}
+            className={styles.filtergroupjobfilter}
             type="checkbox"
             id="part-time"
             name="jobType"
@@ -51,7 +51,7 @@ export default function JobFilter() {
 
         <div>
           <input
-            className={styles.internship}
+            className={styles.filtergroupjobfilter}
             type="checkbox"
             id="internship"
             name="jobType"
@@ -64,7 +64,7 @@ export default function JobFilter() {
 
         <div>
           <input
-            className={styles.volunteering}
+            className={styles.filtergroupjobfilter}
             type="checkbox"
             id="volunteering"
             name="jobType"

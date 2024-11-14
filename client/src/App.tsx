@@ -11,12 +11,14 @@ import JobFilter from "./components/jobs/JobList/JobFilter";
 import SalaryRange from "./components/jobs/SalaryRange/SalaryRange";
 import ExperienceLevel from "./components/jobs/ExperienceLevel/ExperienceLevel";
 import FiltersInterface from "./components/jobs/FiltersInterface/FiltersInterface";
+import HomePage from "./components/jobs/HomePage /HomePage";
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<FiltersInterface />} />
+        <Route path="/" element={<HomePage />} />
+        <Route path="/FiltersInterface" element={<FiltersInterface />} />
         <Route path="/ExperienceLevel" element={<ExperienceLevel />} />
         <Route path="/SalaryRange" element={<SalaryRange />} />
         <Route path="/JobFilter" element={<JobFilter />} />

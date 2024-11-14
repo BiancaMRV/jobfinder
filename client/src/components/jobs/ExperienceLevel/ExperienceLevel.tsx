@@ -20,7 +20,7 @@ export default function ExperienceLevel() {
       <div className={styles.experiencelevel}>
         <div>
           <input
-            className={styles.Entry}
+            className={styles.filtergroupexperiencelevel}
             type="checkbox"
             id="Entry"
             name="experience"
@@ -33,7 +33,7 @@ export default function ExperienceLevel() {
 
         <div>
           <input
-            className={styles.Intermediate}
+            className={styles.filtergroupexperiencelevel}
             type="checkbox"
             id="Intermediate"
             name="experience"
@@ -46,7 +46,7 @@ export default function ExperienceLevel() {
         </div>
         <div>
           <input
-            className={styles.Senior}
+            className={styles.filtergroupexperiencelevel}
             type="checkbox"
             id="Senior"
             name="experience"
