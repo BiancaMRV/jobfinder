@@ -1,61 +1,50 @@
 import styles from "./FiltersInterface.module.css";
-import JobFilter from "../JobList/JobFilter";
-import SalaryRange from "../SalaryRange/SalaryRange";
-import ExperienceLevel from "../ExperienceLevel/ExperienceLevel";
+import { JobFilter } from "../JobList/JobFilter";
+import { SalaryRange } from "../SalaryRange/SalaryRange";
+import { ExperienceLevelFilter } from "../ExperienceLevel/ExperienceLevelFilter";
 import { useState } from "react";
+import { Filter, FilterName } from "../types";
 
-export default function FiltersInterface() {
-  const [jobTypeFilters, setJobTypeFilters] = useState({
-    fullTime: false,
-    partTime: false,
-    internship: false,
-    volunteering: false,
+export const FiltersInterface: React.FC = () => {
+  const [filters, setFilters] = useState<Filter>({
+    salaryRange: [0, 200000],
+    experienceLevels: [],
+    jobTypes: [],
   });
 
-  const [experienceLevelFilters, setExperienceLevelFilters] = useState({
-    entry: false,
-    intermediate: false,
-    senior: false,
-  });
+  const handleFilterChange = (filterName: FilterName, value: any) => {
+    setFilters((prev) => ({
+      ...prev,
+      [filterName]: value,
+    }));
+  };
 
-  const [salaryRange, setSalaryRange] = useState({
-    min: 50000,
-    max: 120000,
-  });
-
-  const handleClearAll = () => {
-    setJobTypeFilters({
-      fullTime: false,
-      partTime: false,
-      internship: false,
-      volunteering: false,
-    });
-    setExperienceLevelFilters({
-      entry: false,
-      intermediate: false,
-      senior: false,
-    });
-    setSalaryRange({
-      min: 50000,
-      max: 120000,
+  const clearAll = () => {
+    setFilters({
+      salaryRange: [0, 200000],
+      experienceLevels: [],
+      jobTypes: [],
     });
   };
+
   return (
     <section className={styles.filtersinterfacecontainer}>
-      <div className={styles.filterGroup}>
-        <div className={styles.jobfilterheader}>
-          <button className={styles.clearAllButton} onClick={handleClearAll}>
-            Clear all
-          </button>
-          <JobFilter />
-        </div>
+      <div className={styles.jobfilterandbuttoncontainer}>
+        <JobFilter
+          filters={filters}
+          onFilterChange={handleFilterChange}
+          clearAll={clearAll}
+        />
       </div>
       <div className={styles.filterGroup}>
-        <SalaryRange />
+        <SalaryRange filters={filters} onFilterChange={handleFilterChange} />
       </div>
       <div className={styles.filterGroup}>
-        <ExperienceLevel />
+        <ExperienceLevelFilter
+          filters={filters}
+          onFilterChange={handleFilterChange}
+        />
       </div>
     </section>
   );
-}
+};

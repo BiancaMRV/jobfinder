@@ -1,9 +1,29 @@
-.experiencelevel {
-  display: flex;
-  margin-bottom: 0.5rem;
-  flex-direction: column;
+.jobtypetitle {
+  display: flex; /* Alinha o título e o botão Clear All */
+  justify-content: space-between; /* Coloca o botão à direita */
+  align-items: center; /* Centraliza verticalmente */
+
+  gap: 0.1rem; /* Espaçamento entre os elementos */
 }
 
-.filtergroupjobfilter {
-  margin-bottom: 10px;
+.clearAllButton {
+  color: #e53e3e; /* Cor inicial do botão */
+  padding: 0.4rem 0.8rem; /* Espaçamento interno */
+  font-size: 0.85rem; /* Tamanho da fonte */
+  font-weight: 500; /* Peso da fonte */
+  border: none; /* Remove bordas padrão */
+  border-radius: 4px; /* Bordas arredondadas */
+  cursor: pointer; /* Muda o cursor ao passar o mouse */
+  transition: background-color 0.3s ease; /* Efeito de transição ao passar o mouse */
+}
+
+.clearAllButton:hover {
+  color: #c53030; /* Cor ao passar o mouse */
+}
+.input {
+  margin: 8px;
+}
+.label {
+  font-size: small;
+  font-weight: 500;
 }
