@@ -9,11 +9,13 @@ import Header from "./components/layout/Header/Header";
 import RecommendedJobs from "./components/jobs/RecommendedJobs/RecommendedJobs";
 import { FiltersInterface } from "./components/jobs/FiltersInterface/FiltersInterface";
 import HomePage from "./components/jobs/HomePage/HomePage";
+import JobCard from "./components/jobs/JobCard/JobCard";
 
 function App() {
   return (
     <Router>
       <Routes>
+        <Route path="/JobCard" element={<JobCard />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/FiltersInterface" element={<FiltersInterface />} />
         <Route path="/RecommendedJobs" element={<RecommendedJobs />} />
