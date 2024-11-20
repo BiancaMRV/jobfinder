@@ -15,6 +15,9 @@ import {
   createNewJobOfferValidation,
   deleteJobOfferValidation,
   updateJobOfferValidation,
+  getJobOfferByExperienceLevelValidation,
+  getJobOfferBySalaryRangeValidation,
+  getJobOfferByJobTypeValidation,
 } from "../middleware/validationMiddleware";
 
 export const router = express.Router();
@@ -91,21 +94,26 @@ router.patch(
   }
 );
 
-router.get("/jobs/filter/minsalary/maxsalary", async (req, res) => {
-  try {
-    const { minSalary, maxSalary } = req.query;
-    const jobs = await getJobOffersBySalaryRange(
-      Number(minSalary),
-      Number(maxSalary)
-    );
-    res.status(200).json(jobs);
-  } catch (error) {
-    res.status(500).send("Error retrieving jobs by salary range");
+router.get(
+  "/jobs/filter/minsalary/maxsalary",
+  validateRequest(getJobOfferBySalaryRangeValidation),
+  async (req, res) => {
+    try {
+      const { minSalary, maxSalary } = req.query;
+      const jobs = await getJobOffersBySalaryRange(
+        Number(minSalary),
+        Number(maxSalary)
+      );
+      res.status(200).json(jobs);
+    } catch (error) {
+      res.status(500).send("Error retrieving jobs by salary range");
+    }
   }
-});
+);
 
 router.get(
   "/jobs/filter/fulltime/partime/internship/voluntering",
+  validateRequest(getJobOfferByJobTypeValidation),
   async (req, res) => {
     try {
       const { fulltime, partime, internship, voluntering } = req.query;
@@ -122,16 +130,20 @@ router.get(
   }
 );
 
-router.get("/jobs/filter/entry/intermediate/senior", async (req, res) => {
-  try {
-    const { entry, intermediate, senior } = req.query;
-    const jobs = await getJobOfferByExperienceLevel(
-      entry as string,
-      intermediate as string,
-      senior as string
-    );
-    res.status(200).json(jobs);
-  } catch (error) {
-    res.status(500).send("Error retrieving jobs by experience level");
+router.get(
+  "/jobs/filter/entry/intermediate/senior",
+  validateRequest(getJobOfferByExperienceLevelValidation),
+  async (req, res) => {
+    try {
+      const { entry, intermediate, senior } = req.query;
+      const jobs = await getJobOfferByExperienceLevel(
+        entry as string,
+        intermediate as string,
+        senior as string
+      );
+      res.status(200).json(jobs); // codigo padrao pra ok
+    } catch (error) {
+      res.status(500).send("Error retrieving jobs by experience level"); // codigo padrao pra erro
+    }
   }
-});
+);

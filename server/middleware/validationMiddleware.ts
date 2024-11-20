@@ -152,6 +152,21 @@ export const updateJobOfferValidation: ValidationSchema = {
     jobOfferId: Joi.number().integer().positive(),
   }).min(1),
 };
+export const getJobOfferByExperienceLevelValidation: ValidationSchema = {
+  params: Joi.object({
+    experienceLevelId: Joi.number().integer().positive().required(),
+  }),
+};
+export const getJobOfferByJobTypeValidation: ValidationSchema = {
+  params: Joi.object({
+    jobTypeId: Joi.number().integer().positive().required(),
+  }),
+};
+export const getJobOfferBySalaryRangeValidation: ValidationSchema = {
+  params: Joi.object({
+    salaryRangeId: Joi.number().integer().positive().required(),
+  }),
+};
 
 export const getApplicationByIdValidation: ValidationSchema = {
   params: Joi.object({
