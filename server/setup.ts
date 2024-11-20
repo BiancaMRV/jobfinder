@@ -46,6 +46,9 @@ const createCompanies = `CREATE TABLE IF NOT EXISTS "companies" (
 const createJobOffers = `CREATE TABLE IF NOT EXISTS "job_offers" (
     id SERIAL PRIMARY KEY, 
     title VARCHAR(255) NOT NULL,
+    experience_level VARCHAR(50), 
+    job_type VARCHAR(50),
+    salary NUMERIC(10, 2),
     description TEXT NOT NULL,
     company_id INTEGER,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

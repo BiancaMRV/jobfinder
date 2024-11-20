@@ -3,7 +3,7 @@ import cookieParser from "cookie-parser";
 import { router as authRouter } from "./routes/authRoutes";
 import { router as applicationRouter } from "./routes/applicationRoutes";
 import { router as companyRouter } from "./routes/companyRoutes";
-import { router as jobRouter } from "./routes/jobRoutes";
+import { router as jobRouter } from "./routes/jobOfferRoutes";
 import { router as userRouter } from "./routes/userRoutes";
 
 const app = express(); // gerencia as requisicoes , rotas, URLS etc
