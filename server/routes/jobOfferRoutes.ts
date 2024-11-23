@@ -9,6 +9,17 @@ import {
   getJobOffersByJobType,
   getJobOffersBySalaryRange,
 } from "../controllers/jobOfferControllers";
+import { Client } from "pg";
+
+const client = new Client({
+  user: "yourUsername",
+  host: "yourHost",
+  database: "yourDatabase",
+  password: "yourPassword",
+  port: 5432,
+});
+
+client.connect();
 import {
   validateRequest,
   getJobOfferByIdValidation,
@@ -147,3 +158,48 @@ router.get(
     }
   }
 );
+
+router.get("/jobs/filter", async (req, res) => {
+  try {
+    const { minSalary, maxSalary, jobType, experienceLevel } = req.query;
+
+    let query = `
+        SELECT 
+          jobOffers.id,
+          jobOffers.title,
+          jobOffers.description,
+          jobOffers.hourly_rate,
+          jobOffers.experience_level,
+          jobOffers.job_type,
+          jobOffers.applicants_count,
+          jobOffers.posted_date,
+          companies.name AS company_name,
+          companies.logo_url AS company_logo
+        FROM jobOffers
+        JOIN companies ON jobOffers.company_id = companies.id
+        WHERE 1=1
+      `;
+    const values: any[] = [];
+
+    if (minSalary && maxSalary) {
+      query += " AND jobOffers.hourly_rate BETWEEN $1 AND $2";
+      values.push(Number(minSalary), Number(maxSalary));
+    }
+
+    if (jobType) {
+      query += ` AND jobOffers.job_type = $${values.length + 1}`;
+      values.push(jobType);
+    }
+
+    if (experienceLevel) {
+      query += ` AND jobOffers.experience_level = $${values.length + 1}`;
+      values.push(experienceLevel);
+    }
+
+    const result = await client.query(query, values);
+    res.status(200).json(result.rows);
+  } catch (error) {
+    console.error("Error retrieving filtered job offers", error);
+    res.status(500).send("Error retrieving filtered job offers");
+  }
+});

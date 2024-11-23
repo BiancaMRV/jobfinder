@@ -12,6 +12,7 @@ const router: Router = express.Router();
 interface ValidationSchema {
   body?: ObjectSchema;
   params?: ObjectSchema;
+  query?: ObjectSchema;
 }
 
 // Middleware de validação genérica
@@ -20,9 +21,10 @@ export const validateRequest = (schema: ValidationSchema) => {
     // Validar diferentes partes da requisição
     const { error: bodyError } = schema.body?.validate(req.body) ?? {};
     const { error: paramsError } = schema.params?.validate(req.params) ?? {};
+    const { error: queryError } = schema.query?.validate(req.query) ?? {};
 
     // Se houver qualquer erro de validação, retorna uma resposta com status 400
-    if (bodyError || paramsError) {
+    if (bodyError || paramsError || queryError) {
       res.status(400).json({
         error: bodyError?.details[0].message || paramsError?.details[0].message,
       });
@@ -165,6 +167,16 @@ export const getJobOfferByJobTypeValidation: ValidationSchema = {
 export const getJobOfferBySalaryRangeValidation: ValidationSchema = {
   params: Joi.object({
     salaryRangeId: Joi.number().integer().positive().required(),
+  }),
+};
+
+export const getJobOffers: ValidationSchema = {
+  query: Joi.object({
+    jobtype: Joi.string()
+      .optional()
+      .custom((value, helpers) => {
+        return value.split(",");
+      }),
   }),
 };
 
