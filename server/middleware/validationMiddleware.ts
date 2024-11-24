@@ -177,6 +177,22 @@ export const getJobOffers: ValidationSchema = {
       .custom((value, helpers) => {
         return value.split(",");
       }),
+    minSalary: Joi.string()
+      .optional()
+      .custom((value, helpers) => {
+        return value.split(",");
+      }),
+    maxSalary: Joi.string()
+      .optional()
+      .custom((value, helpers) => {
+        return value.split(",");
+      }),
+
+    experienceLevel: Joi.string()
+      .optional()
+      .custom((value, helpers) => {
+        return value.split(",");
+      }),
   }),
 };
 
