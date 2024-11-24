@@ -29,6 +29,7 @@ import {
   getJobOfferByExperienceLevelValidation,
   getJobOfferBySalaryRangeValidation,
   getJobOfferByJobTypeValidation,
+  getJobOffers,
 } from "../middleware/validationMiddleware";
 
 export const router = express.Router();
@@ -159,7 +160,7 @@ router.get(
   }
 );
 
-router.get("/jobs/filter", async (req, res) => {
+router.get("/jobs/filter", validateRequest(getJobOffers), async (req, res) => {
   try {
     const { minSalary, maxSalary, jobType, experienceLevel } = req.query;
 
@@ -195,6 +196,7 @@ router.get("/jobs/filter", async (req, res) => {
       query += ` AND jobOffers.experience_level = $${values.length + 1}`;
       values.push(experienceLevel);
     }
+    // TODO: paginacao e search
 
     const result = await client.query(query, values);
     res.status(200).json(result.rows);
