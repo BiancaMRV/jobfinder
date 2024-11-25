@@ -172,25 +172,18 @@ export const getJobOfferBySalaryRangeValidation: ValidationSchema = {
 
 export const getJobOffers: ValidationSchema = {
   query: Joi.object({
+    minSalary: Joi.number().optional(),
+    maxSalary: Joi.number().optional(),
     jobtype: Joi.string()
       .optional()
-      .custom((value, helpers) => {
+      .valid("fulltime", "partime", "internship", "voluntering")
+      .custom((value) => {
         return value.split(",");
       }),
-    minSalary: Joi.string()
-      .optional()
-      .custom((value, helpers) => {
-        return value.split(",");
-      }),
-    maxSalary: Joi.string()
-      .optional()
-      .custom((value, helpers) => {
-        return value.split(",");
-      }),
-
     experienceLevel: Joi.string()
       .optional()
-      .custom((value, helpers) => {
+      .valid("entry", "intermediate", "senior")
+      .custom((value) => {
         return value.split(",");
       }),
   }),

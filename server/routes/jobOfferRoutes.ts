@@ -169,7 +169,7 @@ router.get("/jobs/filter", validateRequest(getJobOffers), async (req, res) => {
           jobOffers.id,
           jobOffers.title,
           jobOffers.description,
-          jobOffers.hourly_rate,
+          jobOffers.salary,
           jobOffers.experience_level,
           jobOffers.job_type,
           jobOffers.applicants_count,
@@ -183,20 +183,21 @@ router.get("/jobs/filter", validateRequest(getJobOffers), async (req, res) => {
     const values: any[] = [];
 
     if (minSalary && maxSalary) {
-      query += " AND jobOffers.hourly_rate BETWEEN $1 AND $2";
+      query += `AND jobOffers.salary BETWEEN $${values.length + 1} AND $${
+        values.length + 2
+      }`;
       values.push(Number(minSalary), Number(maxSalary));
     }
 
     if (jobType) {
-      query += ` AND jobOffers.job_type = $${values.length + 1}`;
+      query += `AND jobOffers.job_type = $${values.length + 1}`;
       values.push(jobType);
     }
 
     if (experienceLevel) {
-      query += ` AND jobOffers.experience_level = $${values.length + 1}`;
+      query += `AND jobOffers.experience_level = $${values.length + 1}`;
       values.push(experienceLevel);
     }
-    // TODO: paginacao e search
 
     const result = await client.query(query, values);
     res.status(200).json(result.rows);

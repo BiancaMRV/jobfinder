@@ -30,7 +30,7 @@ export const ExperienceLevelFilter: React.FC<FilterComponentProps> = ({
       <div className={styles.experiencelevel}>
         <div>
           <input
-            className={styles.inputexperiencelevel}
+            className={styles.input}
             type="checkbox"
             id="Entry"
             name="experience"
