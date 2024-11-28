@@ -7,6 +7,7 @@ import {
   deleteApplication,
   updateApplicationResume,
   updateApplicationStatus,
+  updateApplicationStatus1,
 } from "../controllers/applicationControllers";
 import {
   createUserValidation,

@@ -1,4 +1,5 @@
-import client from "./config/database";
+import client from "./database";
+import seedDatabase from "./seed";
 
 const createUsers = `CREATE TABLE IF NOT EXISTS "users" (
     id SERIAL PRIMARY KEY,
@@ -47,6 +48,7 @@ const createCompanies = `CREATE TABLE IF NOT EXISTS "companies" (
 const createJobOffers = `CREATE TABLE IF NOT EXISTS "job_offers" (
     id SERIAL PRIMARY KEY, 
     title VARCHAR(255) NOT NULL,
+    logo TEXT,
     experience_level VARCHAR(50), 
     job_type VARCHAR(50),
     salary NUMERIC(10, 2),
@@ -83,7 +85,7 @@ async function createTables() {
       client.query(createJobApplication),
     ];
     await Promise.all(promises); // Espera todas as promises serem resolvidas
-    console.log("Tables created"); // Output: Tables created
+    console.log("Tables created");
   } catch (error) {
     console.error("Error creating tables", error);
   }
@@ -99,18 +101,16 @@ async function dropTables() {
       client.query("DROP TABLE IF EXISTS job_offers CASCADE"),
       client.query("DROP TABLE IF EXISTS application CASCADE"),
     ];
+
     await Promise.all(promises);
     console.log("Tables dropped");
   } catch (error) {
     console.error("Error droping tables", error);
   }
 }
-// dropTables().then(() => {
-//   createTables().then(() => {
-//     process.exit(0);
-//   });
 
-await dropTables(); //so posso usar o await fora de uma funcao assincrona com o bun
+await dropTables();
 await createTables();
-client.end;
+await seedDatabase();
+client.end();
 process.exit(0);

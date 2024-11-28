@@ -1,4 +1,4 @@
-import type { Request, Response } from "express";
+import type { NextFunction, Request, RequestHandler, Response } from "express";
 import client from "../config/database";
 //TODO: implementar mulder para upload de ficheiros
 
@@ -112,5 +112,29 @@ export const updateApplicationStatus = async (
   } catch (error) {
     console.log("Error updating application status");
     throw new Error("Error updating application status");
+  }
+};
+
+export const updateApplicationStatus1 = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const { status, applicationId } = req.body;
+    const userId = req.userId;
+
+    const result = await client.query(
+      "SELECT * FROM application (status, applicationId, userId) VALUES ($1,$2,$3)",
+      [status, applicationId, userId]
+    );
+
+    if (result.rows.length === 0)
+      res.status(404).send("application not found can't update");
+
+    res.send(result);
+  } catch (error) {
+    console.log("Error updating application status");
+    res.status(500).send("Error updating application status");
   }
 };

@@ -9,17 +9,6 @@ import {
   getJobOffersByJobType,
   getJobOffersBySalaryRange,
 } from "../controllers/jobOfferControllers";
-import { Client } from "pg";
-
-const client = new Client({
-  user: "yourUsername",
-  host: "yourHost",
-  database: "yourDatabase",
-  password: "yourPassword",
-  port: 5432,
-});
-
-client.connect();
 import {
   validateRequest,
   getJobOfferByIdValidation,
@@ -31,22 +20,23 @@ import {
   getJobOfferByJobTypeValidation,
   getJobOffers,
 } from "../middleware/validationMiddleware";
+import client from "../config/database";
 
 export const router = express.Router();
 
-router.get(
-  "/jobs/:jobOfferId",
-  validateRequest(getJobOfferByIdValidation),
-  async (req, res) => {
-    try {
-      const { jobOfferId } = req.params;
-      const job = await getJobOfferById(jobOfferId);
-      res.send(job);
-    } catch (error) {
-      res.status(500).send("Error retrieving job");
-    }
-  }
-);
+// router.get(
+//   "/jobs/:jobOfferId",
+//   validateRequest(getJobOfferByIdValidation),
+//   async (req, res) => {
+//     try {
+//       const { jobOfferId } = req.params;
+//       const job = await getJobOfferById(jobOfferId);
+//       res.send(job);
+//     } catch (error) {
+//       res.status(500).send("Error retrieving job");
+//     }
+//   }
+// );
 
 router.post(
   "/jobs",
@@ -56,6 +46,7 @@ router.post(
       //req.query.salary
       const {
         title,
+        logo,
         description,
         companyId,
         experienceLevelId,
@@ -64,6 +55,7 @@ router.post(
       } = req.body;
       const job = await createNewJobOffer(
         title,
+        logo,
         description,
         companyId,
         experienceLevelId,
@@ -106,98 +98,47 @@ router.patch(
   }
 );
 
-router.get(
-  "/jobs/filter/minsalary/maxsalary",
-  validateRequest(getJobOfferBySalaryRangeValidation),
-  async (req, res) => {
-    try {
-      const { minSalary, maxSalary } = req.query;
-      const jobs = await getJobOffersBySalaryRange(
-        Number(minSalary),
-        Number(maxSalary)
-      );
-      res.status(200).json(jobs);
-    } catch (error) {
-      res.status(500).send("Error retrieving jobs by salary range");
-    }
-  }
-);
-
-router.get(
-  "/jobs/filter/fulltime/partime/internship/voluntering",
-  validateRequest(getJobOfferByJobTypeValidation),
-  async (req, res) => {
-    try {
-      const { fulltime, partime, internship, voluntering } = req.query;
-      const jobs = await getJobOffersByJobType(
-        fulltime as string,
-        partime as string,
-        internship as string,
-        voluntering as string
-      );
-      res.status(200).json(jobs);
-    } catch (error) {
-      res.status(500).send("Error retrieving jobs by type");
-    }
-  }
-);
-
-router.get(
-  "/jobs/filter/entry/intermediate/senior",
-  validateRequest(getJobOfferByExperienceLevelValidation),
-  async (req, res) => {
-    try {
-      const { entry, intermediate, senior } = req.query;
-      const jobs = await getJobOfferByExperienceLevel(
-        entry as string,
-        intermediate as string,
-        senior as string
-      );
-      res.status(200).json(jobs); // codigo padrao pra ok
-    } catch (error) {
-      res.status(500).send("Error retrieving jobs by experience level"); // codigo padrao pra erro
-    }
-  }
-);
-
 router.get("/jobs/filter", validateRequest(getJobOffers), async (req, res) => {
   try {
     const { minSalary, maxSalary, jobType, experienceLevel } = req.query;
 
     let query = `
         SELECT 
-          jobOffers.id,
-          jobOffers.title,
-          jobOffers.description,
-          jobOffers.salary,
-          jobOffers.experience_level,
-          jobOffers.job_type,
-          jobOffers.applicants_count,
-          jobOffers.posted_date,
+          job_offers.id,
+          job_offers.title,
+          job_offers.description,
+          job_offers.salary,
+          job_offers.experience_level,
+          job_offers.job_type,
+          job_offers.applicants_count,
+          job_offers.created_at,
           companies.name AS company_name,
           companies.logo_url AS company_logo
-        FROM jobOffers
-        JOIN companies ON jobOffers.company_id = companies.id
+        FROM job_offers
+        JOIN companies ON job_offers.company_id = companies.id
         WHERE 1=1
       `;
     const values: any[] = [];
 
     if (minSalary && maxSalary) {
-      query += `AND jobOffers.salary BETWEEN $${values.length + 1} AND $${
+      query += `AND job_offers.salary BETWEEN $${values.length + 1} AND $${
         values.length + 2
       }`;
       values.push(Number(minSalary), Number(maxSalary));
     }
 
     if (jobType) {
-      query += `AND jobOffers.job_type = $${values.length + 1}`;
+      query += `AND job_offers.job_type = $${values.length + 1}`;
       values.push(jobType);
     }
 
     if (experienceLevel) {
-      query += `AND jobOffers.experience_level = $${values.length + 1}`;
+      query += `AND job_offers.experience_level = $${values.length + 1}`;
       values.push(experienceLevel);
     }
+
+    console.log("Query:", query);
+    console.log("Values:", values);
 
     const result = await client.query(query, values);
     res.status(200).json(result.rows);
