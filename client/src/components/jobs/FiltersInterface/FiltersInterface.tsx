@@ -4,7 +4,7 @@ import { SalaryRange } from "../SalaryRange/SalaryRange";
 import { ExperienceLevelFilter } from "../ExperienceLevel/ExperienceLevelFilter";
 import { useState } from "react";
 import { Filter, FilterName } from "../types";
-
+// o pai controla os estados dos filhos, neste caso o pai é o FiltersInterface
 export const FiltersInterface: React.FC = () => {
   const [filters, setFilters] = useState<Filter>({
     salaryRange: [0, 200000],
@@ -17,6 +17,8 @@ export const FiltersInterface: React.FC = () => {
       ...prev,
       [filterName]: value,
     }));
+
+    console.log(filters);
   };
 
   const clearAll = () => {

@@ -13,6 +13,7 @@ export const JobFilter: React.FC<FilterComponentProps> = ({
     { value: "contract", label: "Contract" },
     { value: "freelance", label: "Freelance" },
     { value: "internship", label: "Internship" },
+    { value: "volunteering", label: "Volunteering" },
   ];
 
   const handleCheckboxChange = (value: string) => {
@@ -34,65 +35,22 @@ export const JobFilter: React.FC<FilterComponentProps> = ({
         </button>
       </div>
       <div className={styles.jobType}>
-        <div>
-          <input
-            className={styles.input}
-            type="checkbox"
-            id="full-time"
-            name="jobType"
-            value="Full Time"
-            checked={filters.jobTypes.includes("Full Time")}
-            onClick={() => handleCheckboxChange("Full Time")}
-          />
-          <label className={styles.label} htmlFor="full-time">
-            Full Time
-          </label>
-        </div>
-
-        <div>
-          <input
-            className={styles.input}
-            type="checkbox"
-            id="part-time"
-            name="jobType"
-            value="Part Time"
-            checked={filters.jobTypes.includes("Part Time")}
-            onClick={() => handleCheckboxChange("Part Time")}
-          />
-          <label className={styles.label} htmlFor="part-time">
-            Part Time
-          </label>
-        </div>
-
-        <div>
-          <input
-            className={styles.input}
-            type="checkbox"
-            id="internship"
-            name="jobType"
-            value="Internship" /* value should be unique, and we use value to send the request to server */
-            checked={filters.jobTypes.includes("Internship")}
-            onClick={() => handleCheckboxChange("Internship")}
-          />
-          <label className={styles.label} htmlFor="internship">
-            Internship
-          </label>
-        </div>
-
-        <div>
-          <input
-            className={styles.input}
-            type="checkbox"
-            id="volunteering"
-            name="jobType"
-            value="Volunteering"
-            checked={filters.jobTypes.includes("Volunteering")}
-            onClick={() => handleCheckboxChange("Volunteering")}
-          />
-          <label className={styles.label} htmlFor="volunteering">
-            Volunteering
-          </label>
-        </div>
+        {jobTypes.map((type) => (
+          <div key={type.value}>
+            <input
+              className={styles.input}
+              type="checkbox"
+              id={type.value}
+              name="jobType"
+              value={type.value}
+              checked={filters.jobTypes.includes(type.value)}
+              onClick={() => handleCheckboxChange(type.value)}
+            />
+            <label className={styles.label} htmlFor={type.value}>
+              {type.label}
+            </label>
+          </div>
+        ))}
       </div>
     </div>
   );

@@ -28,50 +28,22 @@ export const ExperienceLevelFilter: React.FC<FilterComponentProps> = ({
     <div className={styles.ExperienceContainer}>
       <h4>Experience Level</h4>
       <div className={styles.experiencelevel}>
-        <div>
-          <input
-            className={styles.input}
-            type="checkbox"
-            id="Entry"
-            name="experience"
-            value="Entry"
-            checked={filters.experienceLevels.includes("Entry")}
-            onClick={() => handleCheckboxChange("Entry")}
-          />
-          <label className={styles.label} htmlFor="Entry">
-            Entry
-          </label>
-        </div>
-
-        <div>
-          <input
-            className={styles.input}
-            type="checkbox"
-            id="Intermediate"
-            name="experience"
-            value="Intermediate"
-            checked={filters.experienceLevels.includes("Intermediate")}
-            onClick={() => handleCheckboxChange("Intermediate")}
-          />
-
-          <label className={styles.label} htmlFor="Intermediate">
-            Intermediate
-          </label>
-        </div>
-        <div>
-          <input
-            className={styles.input}
-            type="checkbox"
-            id="Senior"
-            name="experience"
-            value="Senior"
-            checked={filters.experienceLevels.includes("Senior")}
-            onClick={() => handleCheckboxChange("Senior")}
-          />
-          <label className={styles.label} htmlFor="Senior">
-            Senior
-          </label>
-        </div>
+        {experienceLevels.map((level) => (
+          <div key={level.value}>
+            <input
+              className={styles.input}
+              type="checkbox"
+              id={level.value}
+              name="experience"
+              value={level.value}
+              checked={filters.experienceLevels.includes(level.value)}
+              onClick={() => handleCheckboxChange(level.value)}
+            />
+            <label className={styles.label} htmlFor={level.value}>
+              {level.label}
+            </label>
+          </div>
+        ))}
       </div>
     </div>
   );

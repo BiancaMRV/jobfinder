@@ -4,14 +4,6 @@
   gap: 20px; /* Espaçamento entre as seções principais */
 }
 
-.headercontainer {
-  margin-bottom: 20px;
-}
-
-.recommendedjobscontainer {
-  margin-bottom: 20px;
-}
-
 .maincontent {
   display: flex; /* Posiciona os filtros e os jobs lado a lado */
   gap: 20px; /* Espaçamento entre filtros e job cards */

@@ -13,15 +13,27 @@ type Job = {
 export default function JobCards() {
   const [joboffers, setjoboffers] = useState<Job[]>([]);
 
-  const fetchdata = async () => {
+  const fetchdata = async (filters: any) => {
     try {
-      const response = await fetch("http://localhost:5000/jobs/filter");
+      let baseUrl = "http://localhost:3000/jobs/filter";
+
+      //verificar se começa com ? ou &
+      if (filters.jobTypes) baseUrl += `?jobType=${filters.jobTypes.join(",")}`;
+
+      if (filters.experienceLevels)
+        baseUrl += `&experienceLevel=${filters.experienceLevels.join(",")}`;
+
+      if (filters.salaryRange)
+        baseUrl += `&minSalary=${filters.salaryRange[0]}&maxSalary=${filters.salaryRange[1]}`;
+
+      const response = await fetch(baseUrl);
 
       if (!response.ok) {
         throw new Error(`Erro na requisição: ${response.status}`);
       }
 
       const data: Job[] = await response.json(); // Tipo explícito para a resposta
+      console.log("Data:", data);
       setjoboffers(data);
     } catch (error) {
       console.error("Erro ao buscar dados:", error);
@@ -29,7 +41,8 @@ export default function JobCards() {
   };
 
   useEffect(() => {
-    fetchdata();
+    console.log("Fetching data...");
+    fetchdata({});
   }, []);
 
   return (
@@ -54,7 +67,7 @@ export default function JobCards() {
 type JobCardProps = {
   logo: string;
   title: string;
-  tags: string[];
+  tags: string[]; // Um array de tags
   description: string;
 };
 
@@ -62,19 +75,35 @@ const JobCard = ({ logo, title, tags, description }: JobCardProps) => {
   return (
     <div className={styles.jobcontainer}>
       <div className={styles.headercontainer}>
-        <img src={logo} alt="Company logo" />
-        <h2>{title}</h2>
+        <div className={styles.titlejoboffersandlogo}>
+          <img src={logo} alt="Company logo" className="company_logo" />
+          <h2 className={styles.joboffertitle}>{title}</h2>
+        </div>
       </div>
-
       <div className={styles.tags}>
-        <div className={styles.tagcontainerexperiencelevel}>
-          <span className={styles.tag1}>Entry Level</span>
-          <span className={styles.tag2}>Full-Time</span>
-          <span className={styles.tag3}>Remote</span>
-        </div>
-        <div className={styles.jobdescriptioncontainer}>
-          <p>{description}</p>
-        </div>
+        {tags.map((tag, index) => (
+          <span
+            key={index}
+            className={`${styles.tag} ${
+              tag === "Full Time"
+                ? styles.fullTime
+                : tag === "Part Time"
+                ? styles.partTime
+                : tag === "Senior"
+                ? styles.senior
+                : tag === "Entry Level"
+                ? styles.entryLevel
+                : tag === "Mid Level"
+                ? styles.midLevel
+                : ""
+            }`}
+          >
+            {tag}
+          </span>
+        ))}
+      </div>
+      <div className={styles.jobdescriptioncontainer}>
+        <p>{description}</p>
       </div>
     </div>
   );
