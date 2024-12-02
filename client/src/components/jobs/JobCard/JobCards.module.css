@@ -26,10 +26,10 @@
   gap: 12px;
 }
 
-.titlejobofferandlogo {
+.titlejoboffersandlogo {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 6px;
 }
 
 .company-logo {
