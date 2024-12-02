@@ -9,7 +9,7 @@ import Header from "./components/layout/Header/Header";
 import RecommendedJobs from "./components/jobs/RecommendedJobs/RecommendedJobs";
 import { FiltersInterface } from "./components/jobs/FiltersInterface/FiltersInterface";
 import HomePage from "./components/jobs/HomePage/HomePage";
-import JobCards from "./components/jobs/JobCard/JobCard";
+import JobCards from "./components/jobs/JobCard/JobCards";
 
 function App() {
   return (

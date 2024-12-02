@@ -1,0 +1,130 @@
+.jobCardsContainer {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+  justify-content: flex-start;
+}
+
+.jobcontainer {
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  margin: 8px;
+  border-radius: 12px;
+  height: 250px;
+  padding: 16px;
+  /* width: 300px; */
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.headercontainer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.titlejobofferandlogo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.company-logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.joboffertitle {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333333;
+  margin: 0;
+}
+
+.jobdescription {
+  font-size: 12px;
+  color: #555555;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.tag {
+  padding: 5px 10px;
+  margin: 5px;
+  border-radius: 5px;
+  font-size: 14px;
+  display: inline-block;
+  color: rgb(17, 16, 16);
+}
+/* Job Type */
+.fullTime {
+  background-color: #b2fab4; /* Verde pastel para Full-Time */
+}
+
+.partTime {
+  background-color: #ffd6a5; /* Laranja pastel para Part-Time */
+}
+
+.contract {
+  background-color: #ffe4b2; /* Bege pastel para Contract */
+}
+
+.freelance {
+  background-color: #d5f4e6; /* Verde-água pastel para Freelance */
+}
+
+.internship {
+  background-color: #d7eaff; /* Azul pastel para Internship */
+}
+
+.volunteering {
+  background-color: #f7d0f7; /* Rosa pastel para Volunteering */
+}
+
+/* Experience Level */
+.entryLevel {
+  background-color: #c8b6e2; /* Roxo pastel para Entry Level */
+}
+
+.midLevel {
+  background-color: #f6d6ad; /* Amarelo pastel para Mid Level */
+}
+
+.senior {
+  background-color: #ffd9e2; /* Rosa claro pastel para Senior */
+}
+
+.lead {
+  background-color: #5db3ff; /* Azul pastel para Lead */
+}
+
+.executive {
+  background-color: #e5e5e5; /* Cinza claro pastel para Executive */
+}
+
+.salaryandtimecontainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: smaller;
+  margin-top: 12px;
+  border-top: 1px solid #959595;
+}
+
+.time {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.companylogo {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+}

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import styles from "./JobCard.module.css";
+import styles from "./JobCards.module.css";
+import { Clock } from "lucide-react";
 type Job = {
   id: string;
   logo: string;
@@ -72,38 +73,60 @@ type JobCardProps = {
 };
 
 const JobCard = ({ logo, title, tags, description }: JobCardProps) => {
+  console.log(logo);
   return (
     <div className={styles.jobcontainer}>
       <div className={styles.headercontainer}>
         <div className={styles.titlejoboffersandlogo}>
-          <img src={logo} alt="Company logo" className="company_logo" />
+          <img src={logo} alt="Company logo" className={styles.companylogo} />
           <h2 className={styles.joboffertitle}>{title}</h2>
         </div>
       </div>
-      <div className={styles.tags}>
-        {tags.map((tag, index) => (
-          <span
-            key={index}
-            className={`${styles.tag} ${
-              tag === "Full Time"
-                ? styles.fullTime
-                : tag === "Part Time"
-                ? styles.partTime
-                : tag === "Senior"
-                ? styles.senior
-                : tag === "Entry Level"
-                ? styles.entryLevel
-                : tag === "Mid Level"
-                ? styles.midLevel
-                : ""
-            }`}
-          >
-            {tag}
-          </span>
-        ))}
-      </div>
-      <div className={styles.jobdescriptioncontainer}>
-        <p>{description}</p>
+      <div className={styles.tagcontainer}>
+        <div className={styles.tags}>
+          {tags.map((tag, index) => (
+            <span
+              key={index}
+              className={`${styles.tag} ${
+                tag === "Full Time"
+                  ? styles.fullTime
+                  : tag === "Part Time"
+                  ? styles.partTime
+                  : tag === "Senior"
+                  ? styles.senior
+                  : tag === "Entry Level"
+                  ? styles.entryLevel
+                  : tag === "Mid Level"
+                  ? styles.midLevel
+                  : tag === "Freelance"
+                  ? styles.freelance
+                  : tag === "Internship"
+                  ? styles.internship
+                  : tag === "Contract"
+                  ? styles.contract
+                  : tag === "Lead"
+                  ? styles.lead
+                  : ""
+                // TODO: Adicionar mais classes para outras tags
+              }`}
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+        <div className={styles.jobdescriptioncontainer}>
+          <p>{description}</p>
+        </div>
+        <div className={styles.salaryandtimecontainer}>
+          <div className={styles.salary}>
+            <h3>Salary:</h3>
+            <p>$1000,00</p>
+          </div>
+          <div className={styles.time}>
+            <Clock size={16}> </Clock>
+            <p>2 days ago</p>
+          </div>
+        </div>
       </div>
     </div>
   );
