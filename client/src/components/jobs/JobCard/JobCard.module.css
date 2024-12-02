@@ -1,12 +1,17 @@
+.jobCardsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1px;
+  justify-content: flex-start;
+}
+
 .jobcontainer {
   background: #ffffff;
   border: 1px solid #e0e0e0;
   margin: 8px;
   border-radius: 12px;
   padding: 16px;
-  width: 100%;
-  height: 200px;
-  max-width: 200px;
+  width: 200px;
   display: flex;
   flex-direction: column;
   gap: 12px;

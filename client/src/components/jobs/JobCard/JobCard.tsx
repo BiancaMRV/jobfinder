@@ -46,7 +46,7 @@ export default function JobCards() {
   }, []);
 
   return (
-    <div>
+    <div className={styles.jobCardsContainer}>
       {joboffers.map((job) => (
         <JobCard
           key={job.id}
