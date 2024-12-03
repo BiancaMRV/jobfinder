@@ -1,65 +1,39 @@
-.filtersinterfacecontainer {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 20%;
-
-  padding: 20px;
-  border-radius: 8px;
-}
-
-.filterGroup {
-  width: 100%;
-  margin-bottom: 20px;
-  display: flex;
-  flex-direction: column;
-}
-.jobfilterheader {
-  align-items: center;
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px; /* Optional: space between header and filter options */
-}
-
-.clearAllButton {
-  color: #e53e3e;
-  display: flex;
+.mobileFilterButton {
+  background-color: var(--color-accent);
+  color: white;
+  padding: 10px 20px;
   border: none;
-  border-radius: 4px;
+  border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  font-size: 16px;
+  margin-bottom: 15px;
 }
 
-.clearAllButton:hover {
-  background-color: #c53030;
+.mobileFilterButton:hover {
+  background-color: var(--color-accent);
 }
 
-/* Media query para telas menores, como tablets e mobile */
+.filtersContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.filtersContainer.hide {
+  display: none;
+}
+
+.filtersContainer.show {
+  display: flex;
+}
+
 @media (max-width: 768px) {
+  .mobileFilterButton {
+    display: block;
+  }
+
   .filtersinterfacecontainer {
-    width: 100%; /* Ocupar a largura total em telas pequenas */
-    margin-top: 10px;
+    width: 100%;
     padding: 15px;
-    align-items: stretch; /* Deixar os elementos se alinharam com a largura da tela */
-  }
-
-  .clearAllButton {
-    padding: 6px 12px; /* Reduzir o tamanho do botão em telas menores */
-  }
-}
-
-/* Media query para telas tipo mobile */
-@media (max-width: 480px) {
-  .filtersinterfacecontainer {
-    padding: 10px; /* Reduzir o padding em telas pequenas */
-  }
-
-  .clearAllButton {
-    width: 100%; /* Fazer o botão ocupar toda a largura do container */
-    text-align: center;
-  }
-
-  .clearAllContainer {
-    justify-content: center; /* Centralizar o botão em telas muito pequenas */
   }
 }

@@ -16,7 +16,7 @@ export default function JobCards() {
 
   const fetchdata = async (filters: any) => {
     try {
-      let baseUrl = "http://localhost:3000/jobs/filter";
+      let baseUrl = "http://192.168.1.74:3000/jobs/filter";
 
       //verificar se começa com ? ou &
       if (filters.jobTypes) baseUrl += `?jobType=${filters.jobTypes.join(",")}`;

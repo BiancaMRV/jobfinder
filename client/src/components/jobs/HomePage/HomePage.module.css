@@ -22,3 +22,8 @@
   max-width: calc(33.333% - 20px); /* Garante responsividade */
   box-sizing: border-box; /* Inclui bordas e padding no cálculo de tamanho */
 }
+
+.recommendedjobsandfiltersinterfacecontainer {
+  display: flex;
+  gap: 20px; /* Espaçamento entre os cards e os filtros */
+}
