@@ -1,39 +1,33 @@
-.mobileFilterButton {
-  background-color: var(--color-accent);
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-  margin-bottom: 15px;
+.filtersinterfacecontainer {
+  padding: 20px;
+  width: 250px;
 }
 
-.mobileFilterButton:hover {
-  background-color: var(--color-accent);
-}
-
-.filtersContainer {
+.filterGroup {
+  width: 100%;
+  margin-bottom: 20px;
   display: flex;
   flex-direction: column;
-  width: 100%;
+  box-sizing: border-box;
 }
-
-.filtersContainer.hide {
-  display: none;
-}
-
-.filtersContainer.show {
+.jobfilterheader {
+  align-items: center;
   display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px; /* Optional: space between header and filter options */
 }
 
-@media (max-width: 768px) {
-  .mobileFilterButton {
-    display: block;
-  }
-
-  .filtersinterfacecontainer {
-    width: 100%;
-    padding: 15px;
-  }
+.clearAllButton {
+  color: #e53e3e;
+  display: flex;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
+
+.clearAllButton:hover {
+  background-color: #c53030;
+}
+
+/*  TODO :Media query para telas menores, como tablets e mobile */

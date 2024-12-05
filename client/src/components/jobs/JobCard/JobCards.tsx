@@ -18,7 +18,7 @@ export default function JobCards() {
     try {
       let baseUrl = "http://192.168.1.74:3000/jobs/filter";
 
-      //verificar se começa com ? ou &
+      // TODO:verificar se começa com ? ou &
       if (filters.jobTypes) baseUrl += `?jobType=${filters.jobTypes.join(",")}`;
 
       if (filters.experienceLevels)

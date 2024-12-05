@@ -8,6 +8,7 @@ export const SalaryRange: React.FC<FilterComponentProps> = ({
   const handleInputChange = (type: "min" | "max", value: string) => {
     const numValue = value === "" ? 0 : parseInt(value.replace(/[^0-9]/g, ""));
     const newRange: [number, number] = [...filters.salaryRange];
+    // TODO : PERCEBER ISTO PARSEINT
 
     if (type === "min") {
       newRange[0] = numValue;
