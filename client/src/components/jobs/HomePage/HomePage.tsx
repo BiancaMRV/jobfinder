@@ -6,40 +6,50 @@ import JobCard from "../JobCard/JobCards";
 import { useState, useEffect } from "react";
 
 export default function HomePage() {
-  const [showFilters, setShowFilters] = useState(true);
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [showFilters, setShowFilters] = useState(true); // Controla visibilidade dos filtros no mobile
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768); // Detecta se estamos em mobile
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(max-width: 768px)");
 
     const handleMediaChange = (e: MediaQueryListEvent | MediaQueryList) => {
-      setIsMobile(e.matches);
+      setIsMobile(e.matches); // Atualiza o estado isMobile com base na largura
     };
 
-    handleMediaChange(mediaQuery);
+    handleMediaChange(mediaQuery); // Verifica o estado inicial
 
-    mediaQuery.addEventListener("change", handleMediaChange);
+    mediaQuery.addEventListener("change", handleMediaChange); // Escuta mudanças na largura
 
     return () => {
-      mediaQuery.removeEventListener("change", handleMediaChange);
+      mediaQuery.removeEventListener("change", handleMediaChange); // Remove listener ao desmontar
     };
   }, []);
 
   return (
     <section className={styles.homepagecontainer}>
+      {/* Header */}
       <div className={styles.headercontainer}>
-        <Header></Header>
+        <Header />
       </div>
+
+      {/* Recommended Jobs */}
       <div className={styles.recommendedjobscontainer}>
-        <RecommendedJobs></RecommendedJobs>
-        <div>
+        <RecommendedJobs />
+      </div>
+
+      {/* Botão para mostrar/ocultar filtros (apenas em mobile) */}
+      {isMobile && (
+        <div className={styles.filtertogglebutton}>
           <button onClick={() => setShowFilters(!showFilters)}>
             {showFilters ? "Hide Filters" : "Show Filters"}
           </button>
         </div>
-      </div>
+      )}
+
+      {/* Main Content */}
       <div className={styles.maincontent}>
-        <FiltersInterface />
+        {/* Filtros visíveis no desktop ou controlados no mobile */}
+        {(showFilters || !isMobile) && <FiltersInterface />}
         <JobCard />
       </div>
     </section>
