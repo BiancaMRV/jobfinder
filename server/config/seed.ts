@@ -1,3 +1,4 @@
+import { password } from "bun";
 import client from "./database";
 
 async function seedDatabase() {
@@ -17,6 +18,13 @@ async function seedDatabase() {
         email: "jane@example.com",
         password: hashedPassword,
         currentJob: "Product Manager",
+        isWorking: "true",
+      },
+      {
+        name: "Alice Johnson",
+        email: "biancamargarida2014@gmail.com",
+        password: hashedPassword,
+        currentJob: "Data Scientist",
         isWorking: "true",
       },
     ];
@@ -42,13 +50,19 @@ async function seedDatabase() {
         name: "Tech Innovations Inc.",
         description:
           "Leading technology company focused on innovative solutions",
-        logo_url: "https://example.com/tech-innovations-logo.png",
+        logo_url: "./logo.svg",
       },
       {
         name: "Global Consulting Group",
         description:
           "International consulting firm providing strategic business solutions",
-        logo_url: "https://example.com/global-consulting-logo.png",
+        logo_url: "./logo.svg",
+      },
+      {
+        name: "UpHold",
+        description:
+          "International consulting firm providing strategic business solutions",
+        logo_url: "./logo.svg",
       },
     ];
 
@@ -69,9 +83,9 @@ async function seedDatabase() {
     const jobOffers = [
       {
         title: "Senior Software Engineer",
-        logo: "https://example.com/tech-innovations-logo.png",
-        experience_level: "Senior",
-        job_type: "Full Time",
+        logo: "./logo.svg",
+        experience_level: "Mid Level",
+        job_type: "Freelance",
         salary: 120000.0,
         description:
           "We are seeking an experienced software engineer to join our innovative team.",
@@ -79,13 +93,25 @@ async function seedDatabase() {
       },
       {
         title: "Product Manager",
-        logo: "https://example.com/global-consulting-logo.png",
-        experience_level: "entry",
+        logo: "./logo.svg",
+        experience_level: "Entry Level",
         job_type: "Full Time",
         salary: 95000.0,
         description:
           "Looking for a strategic product manager to drive our product development.",
         company_id: 2,
+      },
+      // TODO: implementar a insercao de mais que um filtro do mesmo parametro
+
+      {
+        title: "Data Scientist",
+        logo: "./logo.svg",
+        experience_level: "Lead",
+        job_type: "Internship",
+        salary: 150000.0,
+        description:
+          "We are seeking a data scientist to lead our data analytics team.",
+        company_id: 3,
       },
     ];
 
@@ -121,6 +147,12 @@ async function seedDatabase() {
         content:
           "Artificial Intelligence and Machine Learning continue to reshape industries...",
         tags: [4, 5, 6],
+      },
+      {
+        title: "The Future of Work",
+        content:
+          "Remote work and digital transformation are changing the way we work...",
+        tags: [7, 8, 9],
       },
     ];
 

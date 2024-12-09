@@ -19,5 +19,5 @@ app.use("/", companyRouter); // rota de empresa
 app.use("/", jobRouter); // rota de trabalho
 app.use("/", userRouter); // rota de utilizador
 
-app.listen(3000); // porta que o servidor vai rodar
+app.listen(3000, "0.0.0.0"); // porta que o servidor vai rodar
 console.log("Server running at http://localhost:3000/"); // mensagem no terminal
