@@ -27,17 +27,14 @@ export default function HomePage() {
 
   return (
     <section className={styles.homepagecontainer}>
-      {/* Header */}
       <div className={styles.headercontainer}>
         <Header />
       </div>
 
-      {/* Recommended Jobs */}
       <div className={styles.recommendedjobscontainer}>
         <RecommendedJobs />
       </div>
 
-      {/* Botão para mostrar/ocultar filtros (apenas em mobile) */}
       {isMobile && (
         <div className={styles.filtertogglebutton}>
           <button onClick={() => setShowFilters(!showFilters)}>
@@ -46,9 +43,7 @@ export default function HomePage() {
         </div>
       )}
 
-      {/* Main Content */}
       <div className={styles.maincontent}>
-        {/* Filtros visíveis no desktop ou controlados no mobile */}
         {(showFilters || !isMobile) && <FiltersInterface />}
         <JobCard />
       </div>
