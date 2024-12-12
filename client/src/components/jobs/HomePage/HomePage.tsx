@@ -1,6 +1,5 @@
 import styles from "./HomePage.module.css";
 import Header from "../../layout/Header/Header";
-import RecommendedJobs from "../RecommendedJobs/RecommendedJobs";
 import { FiltersInterface } from "../FiltersInterface/FiltersInterface";
 import JobCard from "../JobCard/JobCards";
 import { useState, useEffect } from "react";
@@ -32,20 +31,32 @@ export default function HomePage() {
       </div>
 
       <div className={styles.recommendedjobscontainer}>
-        <RecommendedJobs />
+        <section className={styles.RecommendedJobs}>
+          <h2 className={styles.titlerecommendedjobs}>Recommended Jobs</h2>
+          {isMobile && (
+            <button
+              className={styles.filtertogglebutton}
+              onClick={() => setShowFilters(!showFilters)}
+            >
+              {showFilters ? "Hide Filters" : "Show Filters"}
+            </button>
+          )}
+        </section>
+        {isMobile && (
+          <div className={styles.containerpai}>
+            {/* <button
+              className={styles.filtertogglebutton}
+              onClick={() => setShowFilters(!showFilters)}
+            >
+              {showFilters ? "Hide Filters" : "Show Filters"}
+            </button> */}
+          </div>
+        )}
       </div>
-
-      {isMobile && (
-        <div className={styles.filtertogglebutton}>
-          <button onClick={() => setShowFilters(!showFilters)}>
-            {showFilters ? "Hide Filters" : "Show Filters"}
-          </button>
-        </div>
-      )}
 
       <div className={styles.maincontent}>
         {(showFilters || !isMobile) && <FiltersInterface />}
-        <JobCard />
+        {!(showFilters && isMobile) && <JobCard />}
       </div>
     </section>
   );

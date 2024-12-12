@@ -1,5 +1,4 @@
 .homepagecontainer {
-  display: flex;
   flex-direction: column;
   gap: 20px; /* Espaçamento entre as seções principais */
 }
@@ -10,6 +9,9 @@
 
 .recommendedjobscontainer {
   margin-bottom: 20px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
 }
 
 .maincontent {
@@ -29,4 +31,44 @@
   flex: 1 1 calc(33.333% - 20px); /* Cada card ocupa 1/3 da largura */
   max-width: calc(33.333% - 20px); /* Garante responsividade */
   box-sizing: border-box; /* Inclui bordas e padding no cálculo de tamanho */
+}
+
+.RecommendedJobs {
+  display: flex;
+  /* flex-direction: column; */
+  margin: 2rem 1rem 0 1rem;
+  justify-content: space-between;
+  width: 100%;
+}
+.titlerecommendedjobs {
+  margin: 0;
+}
+
+.filtertogglebutton {
+  padding: var(--spacing-sm);
+  background-color: var(--color-accent);
+  color: var(--color-text);
+  border: none;
+  justify-content: center;
+  align-items: center;
+  border-radius: 30px;
+  font-size: 1rem;
+  cursor: pointer;
+  size: 5px;
+  padding: 6px 20px;
+  transition: background-color 0.2s ease;
+}
+
+.filtertogglebutton:hover {
+  background-color: #9158d6; /* Lighter green on hover */
+}
+
+.filtertogglebutton:focus {
+  outline: none; /* Remove focus outline */
+  box-shadow: 0 0 0 3var (--color-accent-light); /* Focus ring */
+}
+
+.containerpai {
+  display: flex;
+  gap: 20px;
 }
