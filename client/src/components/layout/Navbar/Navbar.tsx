@@ -1,8 +1,12 @@
 import { Link } from "react-router-dom";
 import styles from "./Navbar.module.css";
 import { Bell, UserPen } from "lucide-react";
+import { useState } from "react";
 
 export default function Navbar() {
+  const [isPopUpOpen, setIsPopUpOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
   return (
     <nav className={styles.navbar}>
       <div className={styles.leftnavbar}>
@@ -10,6 +14,7 @@ export default function Navbar() {
           <img src="./logo.svg" alt="Logo" width={35} />
         </div>
       </div>
+      isMobile && (
       <div className={styles.centernavbar}>
         <Link className={styles.link} to={"/"}>
           Find Jobs
@@ -21,7 +26,6 @@ export default function Navbar() {
           About Us
         </Link>
       </div>
-
       <div className={styles.rightnavbar}>
         <Link className={styles.link} to={"/"}>
           <Bell size={24} />
