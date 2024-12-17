@@ -14,7 +14,12 @@ export default function Navbar() {
           <img src="./logo.svg" alt="Logo" width={35} />
         </div>
       </div>
-      isMobile && (
+      {isMobile && (
+        <button
+          className={styles.filtertogglebutton}
+          onClick={() => setIsPopUpOpen(!isPopUpOpen)}
+        ></button>
+      )}
       <div className={styles.centernavbar}>
         <Link className={styles.link} to={"/"}>
           Find Jobs
