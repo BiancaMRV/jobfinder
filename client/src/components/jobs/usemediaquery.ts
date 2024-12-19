@@ -1,19 +1,21 @@
 import { useEffect, useState } from "react";
 
-const [isMobile, setIsMobile] = useState(window.innerWidth < 768); // Detecta se estamos em mobile
+export default function useMediaQuery(mediaQuery: string) {
+  const [matches, setmatches] = useState(false); // este é o nosso estado inicial
 
-useEffect(() => {
-  const mediaQuery = window.matchMedia("(max-width: 768px)");
+  useEffect(() => {
+    const mediaQueryList = window.matchMedia(mediaQuery); // criar um objeto media query list
 
-  const handleMediaChange = (e: MediaQueryListEvent | MediaQueryList) => {
-    setIsMobile(e.matches); // Atualiza o estado isMobile com base na largura
-  };
+    const handleMediaChange = (e: MediaQueryListEvent) => {
+      //atualiza sempre que o estado do ecra mudar
+      setmatches(e.matches); //define matches como verdadeiro e falso
+    };
+    setmatches(mediaQueryList.matches); // atualiza o estado inicial com o valor atual da media query
+    mediaQueryList.addEventListener("change", handleMediaChange); // Esta atento a mudancas no ecra
+    return () => {
+      mediaQueryList.removeEventListener("change", handleMediaChange);
+    };
+  });
 
-  handleMediaChange(mediaQuery); // Verifica o estado inicial
-
-  mediaQuery.addEventListener("change", handleMediaChange); // Escuta mudanças na largura
-
-  return () => {
-    mediaQuery.removeEventListener("change", handleMediaChange); // Remove listener ao desmontar
-  };
-}, []);
+  return matches;
+}

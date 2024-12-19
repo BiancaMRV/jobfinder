@@ -3,26 +3,11 @@ import Header from "../../layout/Header/Header";
 import { FiltersInterface } from "../FiltersInterface/FiltersInterface";
 import JobCard from "../JobCard/JobCards";
 import { useState, useEffect } from "react";
+import useMediaQuery from "../usemediaquery";
 
 export default function HomePage() {
   const [showFilters, setShowFilters] = useState(true); // Controla visibilidade dos filtros no mobile
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768); // Detecta se estamos em mobile
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia("(max-width: 768px)");
-
-    const handleMediaChange = (e: MediaQueryListEvent | MediaQueryList) => {
-      setIsMobile(e.matches); // Atualiza o estado isMobile com base na largura
-    };
-
-    handleMediaChange(mediaQuery); // Verifica o estado inicial
-
-    mediaQuery.addEventListener("change", handleMediaChange); // Escuta mudanças na largura
-
-    return () => {
-      mediaQuery.removeEventListener("change", handleMediaChange); // Remove listener ao desmontar
-    };
-  }, []);
+  const isMobile = useMediaQuery("(max-width: 768px)"); // Verifica se a tela é mobile
 
   return (
     <section className={styles.homepagecontainer}>
