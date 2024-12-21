@@ -3,7 +3,7 @@ import Header from "../../layout/Header/Header";
 import { FiltersInterface } from "../FiltersInterface/FiltersInterface";
 import JobCard from "../JobCard/JobCards";
 import { useState } from "react";
-import useMediaQuery from "../useMediaQuery";
+import useMediaQuery from "../../../utils/useMediaQuery";
 
 export default function HomePage() {
   const [showFilters, setShowFilters] = useState(true); // Controla visibilidade dos filtros no mobile
