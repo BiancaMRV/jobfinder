@@ -2,8 +2,8 @@ import styles from "./HomePage.module.css";
 import Header from "../../layout/Header/Header";
 import { FiltersInterface } from "../FiltersInterface/FiltersInterface";
 import JobCard from "../JobCard/JobCards";
-import { useState, useEffect } from "react";
-import useMediaQuery from "../usemediaquery";
+import { useState } from "react";
+import useMediaQuery from "../useMediaQuery";
 
 export default function HomePage() {
   const [showFilters, setShowFilters] = useState(true); // Controla visibilidade dos filtros no mobile
@@ -27,16 +27,6 @@ export default function HomePage() {
             </button>
           )}
         </section>
-        {isMobile && (
-          <div className={styles.containerpai}>
-            {/* <button
-              className={styles.filtertogglebutton}
-              onClick={() => setShowFilters(!showFilters)}
-            >
-              {showFilters ? "Hide Filters" : "Show Filters"}
-            </button> */}
-          </div>
-        )}
       </div>
 
       <div className={styles.maincontent}>

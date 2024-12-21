@@ -36,15 +36,6 @@ export const SalaryRange: React.FC<FilterComponentProps> = ({
         placeholder="Min"
         onChange={(e) => handleInputChange("min", e.target.value)}
       />
-
-      {/* <input
-        className={styles.input}
-        type="number"
-        id="max"
-        value={filters["salaryRange"][1]}
-        placeholder="Max"
-        onChange={(e) => handleInputChange("max", e.target.value)}
-      /> */}
     </div>
   );
 };
