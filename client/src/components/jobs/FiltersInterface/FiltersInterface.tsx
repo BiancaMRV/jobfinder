@@ -2,7 +2,7 @@ import styles from "./FiltersInterface.module.css";
 import { JobFilter } from "../JobList/JobFilter";
 import { SalaryRange } from "../SalaryRange/SalaryRange";
 import { ExperienceLevelFilter } from "../ExperienceLevel/ExperienceLevelFilter";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Filter, FilterName } from "../types";
 // o pai controla os estados dos filhos, neste caso o pai é o FiltersInterface
 export const FiltersInterface: React.FC = () => {

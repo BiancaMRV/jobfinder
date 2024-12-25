@@ -4,12 +4,14 @@ import "./App.css";
 import SignUp from "./pages/Auth/SignUp";
 import LogIn from "./pages/Auth/LogIn";
 import HomePage from "./components/jobs/HomePage/HomePage";
+import JobCardPage from "./components/jobs/JobCardPage/JobCardPage";
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/jobcardpage" element={<JobCardPage />} />
         <Route path="/login" element={<LogIn />} />
         <Route path="/signup" element={<SignUp />} />
       </Routes>
