@@ -37,7 +37,7 @@ export default function JobCards() {
       console.log("Data:", data);
       setjoboffers(data);
     } catch (error) {
-      console.error("Erro ao buscar dados:", error);
+      console.error("Error fetching data:", error);
     }
   };
 

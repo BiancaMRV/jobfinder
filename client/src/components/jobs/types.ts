@@ -25,3 +25,20 @@ export interface FilterComponentProps {
   onFilterChange: (filterName: FilterName, value: any) => void;
   clearAll?: () => void;
 }
+
+export interface Job {
+  id: string;
+  logo: string;
+  company_logo: string;
+  title: string;
+  experience_level: string;
+  job_type: string;
+  description: string;
+}
+
+export interface JobCard {
+  logo: string;
+  title: string;
+  tags: string[]; // Um array de tags
+  description: string;
+}

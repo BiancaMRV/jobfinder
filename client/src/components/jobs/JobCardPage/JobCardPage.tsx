@@ -1,6 +1,29 @@
 import styles from "./JobCardPage.module.css";
+import { useState, useEffect } from "react";
+import { Job } from "../types";
 
 export default function JobCardPage() {
+  const [jobOffers, setjoboffers] = useState<Job[]>([]);
+
+  const fetchdata = async () => {
+    try {
+      let baseURL = "http://192.168.1.20:3000/jobs";
+      const response = await fetch(baseURL);
+      if (!response.ok) {
+        throw new Error("Erro na requisição: " + response.statusText);
+      }
+      const data: Job[] = await response.json(); // Tipo explícito para a resposta
+      console.log("Data:", data);
+      setjoboffers(data);
+    } catch (error) {
+      console.error("error fetching data:", error);
+    }
+  };
+  useEffect(() => {
+    console.log("Fetching data...");
+    fetchdata();
+  }, []);
+
   return (
     <div className={styles.jobcardpagecontainer}>
       <section className={styles.titlejoboffersection}>
