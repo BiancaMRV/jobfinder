@@ -53,6 +53,7 @@ const createJobOffers = `CREATE TABLE IF NOT EXISTS "job_offers" (
     job_type VARCHAR(50),
     salary NUMERIC(10, 2),
     description TEXT NOT NULL,
+    location VARCHAR(255) NOT NULL,
     applicants_count INTEGER DEFAULT 0,
     company_id INTEGER NOT NULL references companies(id),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

@@ -33,14 +33,15 @@ export const createNewJobOffer = async (
   logo: string,
   companyId: number,
   experienceLevelId: number,
+  location: string,
   jobTypeId: number,
   salaryRangeId: number
 ) => {
   try {
     const result = await client.query(
       `
-      INSERT INTO job_offers (title, description,logo, company_id, experience_level_id, job_type_id, salary_range_id)
-      VALUES ($1, $2, $3, $4, $5, $6,$7)
+      INSERT INTO job_offers (title, description,logo, company_id, experience_level_id, location, job_type_id, salary_range_id)
+      VALUES ($1, $2, $3, $4, $5, $6,$7, $8)
       RETURNING *;
       `,
       [
@@ -49,6 +50,7 @@ export const createNewJobOffer = async (
         logo,
         companyId,
         experienceLevelId,
+        location,
         jobTypeId,
         salaryRangeId,
       ]
@@ -76,12 +78,13 @@ export const deleteJobOffer = async (jobOfferId: string) => {
 export const updateJobOffer = async (
   jobOfferId: string,
   title: string,
-  description: string
+  description: string,
+  location: string
 ) => {
   try {
     const result = await client.query(
-      "UPDATE jobOffers SET title=$1, description=$2 WHERE jobOfferId=$3",
-      [title, description, jobOfferId]
+      "UPDATE jobOffers SET title=$1, description=$2,location=$3 WHERE jobOfferId=$3",
+      [title, description, location, jobOfferId]
     );
     return result;
   } catch (error) {
