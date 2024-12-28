@@ -26,14 +26,15 @@ export interface FilterComponentProps {
   clearAll?: () => void;
 }
 
-export interface Job {
+export interface jobOffers {
   id: string;
-  logo: string;
-  company_logo: string;
   title: string;
+  description: string;
+  logo: SVGStringList;
+  location?: string;
   experience_level: string;
   job_type: string;
-  description: string;
+  salaryrange: string;
 }
 
 export interface JobCard {

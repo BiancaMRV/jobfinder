@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import styles from "./JobCards.module.css";
 import { Clock } from "lucide-react";
 type Job = {
-  id: string;
+  id: number;
   logo: string;
   company_logo: string;
   title: string;

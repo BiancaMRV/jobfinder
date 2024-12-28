@@ -3,46 +3,45 @@ import { useState, useEffect } from "react";
 import { Job } from "../types";
 
 export default function JobCardPage() {
-  const [jobOffers, setjoboffers] = useState<Job[]>([]);
+  const [jobOffer, setJobOffer] = useState<Job | null>(null); // Tipo atualizado para um único Job ou null
 
-  const fetchdata = async () => {
+  const fetchData = async () => {
     try {
-      let baseURL = "http://192.168.1.20:3000/jobs";
+      const baseURL = "http://192.168.1.20:3000/jobs/1";
       const response = await fetch(baseURL);
       if (!response.ok) {
         throw new Error("Erro na requisição: " + response.statusText);
       }
-      const data: Job[] = await response.json(); // Tipo explícito para a resposta
-      console.log("Data:", data);
-      setjoboffers(data);
+      const data: Job = await response.json(); // Tipo explícito para a resposta
+      setJobOffer(data);
     } catch (error) {
-      console.error("error fetching data:", error);
+      console.error("Error fetching data:", error);
     }
   };
+
   useEffect(() => {
     console.log("Fetching data...");
-    fetchdata();
+    fetchData();
   }, []);
 
   return (
-    <div className={styles.jobcardpagecontainer}>
-      <section className={styles.titlejoboffersection}>
-        <h1 className={styles.titlejoboffer}>TITLE JOB OFFER</h1>
-      </section>
-      <section className={styles.jobofferdescriptionsection}>
-        <p className={styles.jobofferdescription}>fbwbfjhbdjvbrfjksderw</p>
-      </section>
-      <section className={styles.jobofferdetailssection}>
-        <div className={styles.jobofferdetails}>
-          <p className={styles.jobofferdetail}>Location: Lisbon</p>
-          <p className={styles.jobofferdetail}>Salary: 1000€</p>
-          <p className={styles.jobofferdetail}>Experience: 2 years</p>
-          <p className={styles.jobofferdetail}>Job Type: Full-Time</p>
+    <div className={styles.jobofferpagecontainer}>
+      {jobOffer ? (
+        <div key={jobOffer.id} className={styles.jobcardpage}>
+          <h2 className={styles.titlejoboffer}> {jobOffer.title} </h2>
+          <p className={styles.description}> {jobOffer.description} </p>
+          <p className={styles.logo}> {jobOffer.logo} </p>
+          <p className={styles.location}> {jobOffer.location} </p>
+          <span className={styles.experience_level}>
+            {jobOffer.experience_level}
+          </span>
+          <span className={styles.job_type}> {jobOffer.job_type} </span>
+          <span className={styles.salaryrange}> {jobOffer.salaryrange} </span>
+          <button className={styles.applybutton}>Apply</button>
         </div>
-      </section>
-      <section className={styles.jobofferapplysection}>
-        <button className={styles.applybutton}>Apply</button>
-      </section>
+      ) : (
+        <p>No job offer available</p>
+      )}
     </div>
   );
 }
