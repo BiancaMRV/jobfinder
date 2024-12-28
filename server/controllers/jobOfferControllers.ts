@@ -33,14 +33,15 @@ export const createNewJobOffer = async (
   logo: string,
   companyId: number,
   experienceLevelId: number,
+  location: string,
   jobTypeId: number,
   salaryRangeId: number
 ) => {
   try {
     const result = await client.query(
       `
-      INSERT INTO job_offers (title, description,logo, company_id, experience_level_id, job_type_id, salary_range_id)
-      VALUES ($1, $2, $3, $4, $5, $6,$7)
+      INSERT INTO job_offers (title, description,logo, company_id, experience_level_id, location,job_type_id, salary_range_id)
+      VALUES ($1, $2, $3, $4, $5, $6,$7,$8)
       RETURNING *;
       `,
       [
@@ -49,6 +50,7 @@ export const createNewJobOffer = async (
         logo,
         companyId,
         experienceLevelId,
+        location,
         jobTypeId,
         salaryRangeId,
       ]
@@ -76,12 +78,13 @@ export const deleteJobOffer = async (jobOfferId: string) => {
 export const updateJobOffer = async (
   jobOfferId: string,
   title: string,
-  description: string
+  description: string,
+  location: string
 ) => {
   try {
     const result = await client.query(
-      "UPDATE jobOffers SET title=$1, description=$2 WHERE jobOfferId=$3",
-      [title, description, jobOfferId]
+      "UPDATE jobOffers SET title=$1, description=$2, location=$3 WHERE jobOfferId=$3",
+      [title, description, location, jobOfferId]
     );
     return result;
   } catch (error) {
@@ -101,6 +104,7 @@ export const getJobOffersBySalaryRange = async (
         jobOffers.title,
         jobOffers.logo,
         jobOffers.description,
+        jobOffers.location,
         jobOffers.hourly_rate,
         jobOffers.experience_level,
         jobOffers.job_type,
@@ -180,5 +184,33 @@ export const getJobOfferByExperienceLevel = async (
   } catch (error) {
     console.error("Error retrieving job offers by experience level", error);
     throw new Error("Error retrieving job offers by experience level");
+  }
+};
+
+export const getJobOffersByLocation = async (location: string) => {
+  try {
+    const result = await client.query(
+      `SELECT 
+      jobOffers.id,
+      jobOffers.title,
+      jobOffers.logo,
+      jobOffers.description,
+      jobOffers.hourly_rate,
+      jobOffers.experience_level,
+      jobOffers.location,
+      jobOffers.job_type,
+      jobOffers.applicants_count,
+      jobOffers.posted_date,
+      companies.name AS company_name,
+      companies.logo_url AS company_logo
+    FROM jobOffers
+    JOIN companies ON jobOffers.company_id = companies.id
+    WHERE jobOffers.location=$1`,
+      [location]
+    );
+    return result.rows;
+  } catch (error) {
+    console.error("Error retrieving job offers by location", error);
+    throw new Error("Error retrieving job offers by location");
   }
 };

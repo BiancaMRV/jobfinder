@@ -24,20 +24,6 @@ import client from "../config/database";
 
 export const router = express.Router();
 
-// router.get(
-//   "/jobs/:jobOfferId",
-//   validateRequest(getJobOfferByIdValidation),
-//   async (req, res) => {
-//     try {
-//       const { jobOfferId } = req.params;
-//       const job = await getJobOfferById(jobOfferId);
-//       res.send(job);
-//     } catch (error) {
-//       res.status(500).send("Error retrieving job");
-//     }
-//   }
-// );
-
 router.post(
   "/jobs",
   validateRequest(createNewJobOfferValidation),
@@ -48,6 +34,7 @@ router.post(
         title,
         logo,
         description,
+        location,
         companyId,
         experienceLevelId,
         jobTypeId,
@@ -57,6 +44,7 @@ router.post(
         title,
         logo,
         description,
+        location,
         companyId,
         experienceLevelId,
         jobTypeId,
@@ -89,8 +77,13 @@ router.patch(
   async (req, res) => {
     try {
       const { jobOfferId } = req.params;
-      const { title, description } = req.body;
-      const job = await updateJobOffer(jobOfferId, title, description);
+      const { title, description, location } = req.body;
+      const job = await updateJobOffer(
+        jobOfferId,
+        title,
+        location,
+        description
+      );
       res.send(job);
     } catch (error) {
       res.status(500).send("Error updating job");
@@ -147,3 +140,16 @@ router.get("/jobs/filter", validateRequest(getJobOffers), async (req, res) => {
     res.status(500).send("Error retrieving filtered job offers");
   }
 });
+router.get(
+  "/jobs/:jobOfferId",
+  validateRequest(getJobOfferByIdValidation),
+  async (req, res) => {
+    try {
+      const { jobOfferId } = req.params;
+      const job = await getJobOfferById(jobOfferId);
+      res.send(job);
+    } catch (error) {
+      res.status(500).send("Error retrieving job");
+    }
+  }
+);
