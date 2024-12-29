@@ -47,7 +47,7 @@ const createCompanies = `CREATE TABLE IF NOT EXISTS "companies" (
 )`;
 
 const createJobOffers = `CREATE TABLE IF NOT EXISTS "jobOffers" (
-    id SERIAL PRIMARY KEY, 
+    jobOfferId SERIAL PRIMARY KEY, 
     title VARCHAR(255) NOT NULL,
     logo TEXT,
     experience_level VARCHAR(50), 

@@ -51,24 +51,27 @@ async function seedDatabase() {
         description:
           "Leading technology company focused on innovative solutions",
         logo_url: "./logo.svg",
+        location: "Braga",
       },
       {
         name: "Global Consulting Group",
         description:
           "International consulting firm providing strategic business solutions",
         logo_url: "./logo.svg",
+        location: "Porto",
       },
       {
         name: "UpHold",
         description:
           "International consulting firm providing strategic business solutions",
         logo_url: "./logo.svg",
+        location: "Barcelos",
       },
     ];
 
     const companyInsertQuery = `
-      INSERT INTO companies (name, description, logo_url) 
-      VALUES ($1, $2, $3)
+      INSERT INTO companies (name, description, logo_url, location) 
+      VALUES ($1, $2, $3, $4)
     `;
 
     for (const company of companies) {
@@ -76,6 +79,7 @@ async function seedDatabase() {
         company.name,
         company.description,
         company.logo_url,
+        company.location,
       ]);
     }
 
@@ -91,6 +95,7 @@ async function seedDatabase() {
           "We are seeking an experienced software engineer to join our innovative team.",
         company_id: 1,
         location: "Braga",
+        jobOfferId: 1,
       },
       {
         title: "Product Manager",
@@ -102,6 +107,7 @@ async function seedDatabase() {
           "Looking for a strategic product manager to drive our product development.",
         company_id: 2,
         location: "Braga",
+        jobOfferId: 2,
       },
       // TODO: implementar a insercao de mais que um filtro do mesmo parametro
 
@@ -115,14 +121,15 @@ async function seedDatabase() {
           "We are seeking a data scientist to lead our data analytics team.",
         company_id: 3,
         location: "Porto",
+        jobOfferId: 3,
       },
     ];
 
     const jobOfferInsertQuery = `
       INSERT INTO job_offers (
-        title, logo, experience_level, job_type, 
+        title, logo, experience_level, location, job_type, 
         salary, description, company_id
-      ) VALUES ($1, $2, $3, $4, $5, $6, $7)
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7,$8)
     `;
 
     for (const jobOffer of jobOffers) {

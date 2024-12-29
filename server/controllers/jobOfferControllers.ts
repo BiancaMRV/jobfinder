@@ -40,13 +40,9 @@ export const createNewJobOffer = async (
   try {
     const result = await client.query(
       `
-<<<<<<< HEAD
       INSERT INTO job_offers (title, description,logo, company_id, experience_level_id, location,job_type_id, salary_range_id)
       VALUES ($1, $2, $3, $4, $5, $6,$7,$8)
-=======
-      INSERT INTO job_offers (title, description,logo, company_id, experience_level_id, location, job_type_id, salary_range_id)
-      VALUES ($1, $2, $3, $4, $5, $6,$7, $8)
->>>>>>> f362dd53885b11780d8b99029dd54c8e2ef39f31
+
       RETURNING *;
       `,
       [
