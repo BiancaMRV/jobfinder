@@ -15,9 +15,6 @@ import {
   createNewJobOfferValidation,
   deleteJobOfferValidation,
   updateJobOfferValidation,
-  getJobOfferByExperienceLevelValidation,
-  getJobOfferBySalaryRangeValidation,
-  getJobOfferByJobTypeValidation,
   getJobOffers,
 } from "../middleware/validationMiddleware";
 import client from "../config/database";
@@ -153,3 +150,4 @@ router.get(
     }
   }
 );
+// porque é que tive que meter getjobofferbyidvalidation depois de

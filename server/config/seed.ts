@@ -106,7 +106,7 @@ async function seedDatabase() {
         description:
           "Looking for a strategic product manager to drive our product development.",
         company_id: 2,
-        location: "Braga",
+        location: "Porto",
         jobOfferId: 2,
       },
       // TODO: implementar a insercao de mais que um filtro do mesmo parametro
@@ -120,7 +120,7 @@ async function seedDatabase() {
         description:
           "We are seeking a data scientist to lead our data analytics team.",
         company_id: 3,
-        location: "Porto",
+        location: "Barcelos",
         jobOfferId: 3,
       },
     ];
