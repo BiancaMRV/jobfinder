@@ -20,7 +20,7 @@ export const getJobOfferById = async (jobOfferId: string) => {
     const result = await client.query("SELECT * FROM job_offers WHERE id=$1", [
       jobOfferId,
     ]);
-    return result;
+    return result.rows[0];
   } catch (error) {
     console.log("Job offer doesnt exist");
     throw new Error("Job offer doesnt exist");
@@ -69,7 +69,7 @@ export const deleteJobOffer = async (jobOfferId: string) => {
       "DELETE FROM job_offers WHERE jobOfferId=$1",
       [jobOfferId]
     );
-    return result;
+    return result.rows;
   } catch (error) {
     console.log("Job offer deleted");
     throw new Error("Job offer deleted");
@@ -87,7 +87,7 @@ export const updateJobOffer = async (
       "UPDATE job_offers SET title=$1, description=$2, location=$3 WHERE jobOfferId=$3",
       [title, description, location, jobOfferId]
     );
-    return result;
+    return result.rows;
   } catch (error) {
     console.log("Job offer update failed");
     throw new Error("Job offer update failed");
@@ -182,6 +182,7 @@ export const getJobOfferByExperienceLevel = async (
     WHERE job_offers.hourly_rate BETWEEN $1 AND $2`,
       [entry, intermediate, senior]
     );
+    return result.rows;
   } catch (error) {
     console.error("Error retrieving job offers by experience level", error);
     throw new Error("Error retrieving job offers by experience level");
