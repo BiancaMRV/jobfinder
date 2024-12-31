@@ -91,36 +91,70 @@ async function seedDatabase() {
         experience_level: "Mid Level",
         job_type: "Freelance",
         salary: 120000.0,
-        description:
-          "We are seeking an experienced software engineer to join our innovative team.",
+        description: `
+          **About the role:**
+          Join a dynamic team to design, develop, and maintain high-performance software applications that scale globally. Collaborate with cross-functional teams to deliver impactful solutions and drive innovation.
+    
+          **Responsibilities:**
+          - Architect and implement complex backend services and APIs.
+          - Work closely with frontend developers to ensure seamless integration.
+          - Mentor junior developers and contribute to the team's growth.
+    
+          **Required Skills:**
+          - Proficiency in Node.js, TypeScript, and cloud platforms.
+          - Experience with RESTful APIs and microservices architecture.
+          - Strong debugging and optimization skills.
+        `,
         company_id: 1,
         location: "Braga",
         jobOfferId: 1,
       },
       {
-        title: "Product Manager",
-        logo: "./logo.svg",
-        experience_level: "Entry Level",
-        job_type: "Full Time",
-        salary: 95000.0,
-        description:
-          "Looking for a strategic product manager to drive our product development.",
+        title: "Sr. UX Designer",
+        logo: "./logo-ux.svg",
+        experience_level: "Expert",
+        job_type: "Part-Time, Remote",
+        salary: 65000.0,
+        description: `
+          **About the role:**
+          Help shape the user experience for millions of users by designing intuitive interfaces for a leading global platform. Collaborate with stakeholders to create user-centric designs.
+    
+          **Responsibilities:**
+          - Create wireframes, interactive prototypes, and high-fidelity designs.
+          - Conduct user research and usability testing to refine designs.
+          - Collaborate with developers to implement seamless user experiences.
+    
+          **Required Skills:**
+          - Proficiency in Figma, Adobe XD, and wireframing tools.
+          - Strong knowledge of UX/UI design principles.
+          - Excellent communication and teamwork skills.
+        `,
         company_id: 2,
-        location: "Porto",
+        location: "San Francisco",
         jobOfferId: 2,
       },
-      // TODO: implementar a insercao de mais que um filtro do mesmo parametro
-
       {
-        title: "Data Scientist",
-        logo: "./logo.svg",
-        experience_level: "Lead",
-        job_type: "Internship",
-        salary: 150000.0,
-        description:
-          "We are seeking a data scientist to lead our data analytics team.",
+        title: "Junior Backend Developer",
+        logo: "./logo-backend.svg",
+        experience_level: "Entry Level",
+        job_type: "Full-Time",
+        salary: 40000.0,
+        description: `
+          **About the role:**
+          Kickstart your career by joining a supportive team of experienced developers. Build and maintain scalable backend services that support our growing product base.
+    
+          **Responsibilities:**
+          - Develop and maintain backend APIs and services.
+          - Collaborate with frontend teams to integrate APIs.
+          - Participate in code reviews and agile development processes.
+    
+          **Required Skills:**
+          - Familiarity with Node.js, Python, or similar backend technologies.
+          - Understanding of database systems (SQL/NoSQL).
+          - Passion for learning and problem-solving.
+        `,
         company_id: 3,
-        location: "Barcelos",
+        location: "Porto",
         jobOfferId: 3,
       },
     ];
