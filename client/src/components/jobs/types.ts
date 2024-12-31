@@ -26,7 +26,7 @@ export interface FilterComponentProps {
   clearAll?: () => void;
 }
 
-export interface jobOffers {
+export interface Job {
   id: string;
   title: string;
   description: string;
@@ -40,6 +40,7 @@ export interface jobOffers {
 export interface JobCard {
   logo: string;
   title: string;
+
   tags: string[]; // Um array de tags
   description: string;
 }
