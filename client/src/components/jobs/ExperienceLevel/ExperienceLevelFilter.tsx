@@ -37,7 +37,7 @@ export const ExperienceLevelFilter: React.FC<FilterComponentProps> = ({
               name="experience"
               value={level.value}
               checked={filters.experienceLevels.includes(level.value)}
-              onClick={() => handleCheckboxChange(level.value)}
+              onChange={() => handleCheckboxChange(level.value)} // Corrigido
             />
             <label className={styles.label} htmlFor={level.value}>
               {level.label}
