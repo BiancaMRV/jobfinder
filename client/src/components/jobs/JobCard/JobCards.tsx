@@ -18,12 +18,9 @@ export default function JobCards() {
     try {
       let baseUrl = "http://192.168.1.20:3000/jobs/filter";
 
-      // TODO:verificar se começa com ? ou &
       if (filters.jobTypes) baseUrl += `?jobType=${filters.jobTypes.join(",")}`;
-
       if (filters.experienceLevels)
         baseUrl += `&experienceLevel=${filters.experienceLevels.join(",")}`;
-
       if (filters.salaryRange)
         baseUrl += `&minSalary=${filters.salaryRange[0]}&maxSalary=${filters.salaryRange[1]}`;
 
@@ -33,9 +30,15 @@ export default function JobCards() {
         throw new Error(`Erro na requisição: ${response.status}`);
       }
 
-      const data: Job[] = await response.json(); // Tipo explícito para a resposta
-      console.log("Data:", data);
-      setjoboffers(data);
+      const data = await response.json();
+      console.log("Fetched Data:", data);
+
+      // Verifique se é um array válido antes de definir no estado
+      if (Array.isArray(data)) {
+        setjoboffers(data);
+      } else {
+        console.error("Dados inválidos:", data);
+      }
     } catch (error) {
       console.error("Error fetching data:", error);
     }
