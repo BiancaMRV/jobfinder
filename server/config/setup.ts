@@ -46,8 +46,8 @@ const createCompanies = `CREATE TABLE IF NOT EXISTS "companies" (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )`;
 
-const createJobOffers = `CREATE TABLE IF NOT EXISTS "jobOffers" (
-    jobOfferId SERIAL PRIMARY KEY, 
+const createJobOffers = `CREATE TABLE IF NOT EXISTS "job_offers" (
+    id SERIAL PRIMARY KEY, 
     title VARCHAR(255) NOT NULL,
     logo TEXT,
     experience_level VARCHAR(50), 
@@ -59,6 +59,7 @@ const createJobOffers = `CREATE TABLE IF NOT EXISTS "jobOffers" (
     company_id INTEGER NOT NULL references companies(id),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+
 )`;
 
 const createJobApplication = `CREATE TABLE IF NOT EXISTS "application" (
@@ -100,7 +101,7 @@ async function dropTables() {
       client.query("DROP TABLE IF EXISTS posts CASCADE"),
       client.query("DROP TABLE IF EXISTS comments CASCADE"),
       client.query("DROP TABLE IF EXISTS companies CASCADE"),
-      client.query("DROP TABLE IF EXISTS jobOffers CASCADE"),
+      client.query("DROP TABLE IF EXISTS job_offers CASCADE"),
       client.query("DROP TABLE IF EXISTS application CASCADE"),
     ];
 

@@ -2,7 +2,7 @@ import client from "../config/database";
 
 export const getAllJobOffers = async () => {
   try {
-    const result = await client.query("SELECT * FROM jobOffers");
+    const result = await client.query("SELECT * FROM job_offers");
     return result;
   } catch (error) {
     console.log("Error retrieving job offers");
@@ -17,7 +17,7 @@ export const getAllJobOffers = async () => {
 
 export const getJobOfferById = async (jobOfferId: string) => {
   try {
-    const result = await client.query("SELECT * FROM jobOffers WHERE id=$1", [
+    const result = await client.query("SELECT * FROM job_offers WHERE id=$1", [
       jobOfferId,
     ]);
     return result;
@@ -66,7 +66,7 @@ export const createNewJobOffer = async (
 export const deleteJobOffer = async (jobOfferId: string) => {
   try {
     const result = await client.query(
-      "DELETE FROM jobOffers WHERE jobOfferId=$1",
+      "DELETE FROM job_offers WHERE jobOfferId=$1",
       [jobOfferId]
     );
     return result;
@@ -84,7 +84,7 @@ export const updateJobOffer = async (
 ) => {
   try {
     const result = await client.query(
-      "UPDATE jobOffers SET title=$1, description=$2, location=$3 WHERE jobOfferId=$3",
+      "UPDATE job_offers SET title=$1, description=$2, location=$3 WHERE jobOfferId=$3",
       [title, description, location, jobOfferId]
     );
     return result;
@@ -113,9 +113,9 @@ export const getJobOffersBySalaryRange = async (
         jobOffers.posted_date,
         companies.name AS company_name,
         companies.logo_url AS company_logo
-      FROM jobOffers
-      JOIN companies ON jobOffers.company_id = companies.id
-      WHERE jobOffers.hourly_rate BETWEEN $1 AND $2
+      FROM job_offers
+      JOIN companies ON job_offers.company_id = companies.id
+      WHERE job_offers.hourly_rate BETWEEN $1 AND $2
     `,
       [minSalary, maxSalary]
     ); // Passa os valores para o SQL
@@ -146,8 +146,8 @@ export const getJobOffersByJobType = async (
       jobOffers.posted_date,
       companies.name AS company_name,
       companies.logo_url AS company_logo
-    FROM jobOffers
-    JOIN companies ON jobOffers.company_id = companies.id
+    FROM job_offers
+    JOIN companies ON job_offers.company_id = companies.id
     WHERE jobOffers.hourly_rate BETWEEN $1 AND $2`,
       [fulltime, partime, internship, voluntering]
     );
@@ -177,9 +177,9 @@ export const getJobOfferByExperienceLevel = async (
       jobOffers.posted_date,
       companies.name AS company_name,
       companies.logo_url AS company_logo
-    FROM jobOffers
-    JOIN companies ON jobOffers.company_id = companies.id
-    WHERE jobOffers.hourly_rate BETWEEN $1 AND $2`,
+    FROM job_offers
+    JOIN companies ON job_offers.company_id = companies.id
+    WHERE job_offers.hourly_rate BETWEEN $1 AND $2`,
       [entry, intermediate, senior]
     );
   } catch (error) {
@@ -204,9 +204,9 @@ export const getJobOffersByLocation = async (location: string) => {
       jobOffers.posted_date,
       companies.name AS company_name,
       companies.logo_url AS company_logo
-    FROM jobOffers
-    JOIN companies ON jobOffers.company_id = companies.id
-    WHERE jobOffers.location=$1`,
+    FROM job_offers
+    JOIN companies ON job_offers.company_id = companies.id
+    WHERE job_offers.location=$1`,
       [location]
     );
     return result.rows;
