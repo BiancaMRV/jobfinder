@@ -28,20 +28,20 @@ export default function JobCardPage() {
     <div className={styles.jobofferpagecontainer}>
       {jobOffer ? (
         <div key={jobOffer.id} className={styles.jobcardpage}>
-          <section className={styles.titleandtagssection}>
+          <div className={styles.titleandtagssection}>
             <h2 className={styles.titlejoboffer}> {jobOffer.title} </h2>
             <span className={styles.experience_level}>
               {jobOffer.experience_level}
             </span>
             <span className={styles.job_type}> {jobOffer.job_type} </span>
-          </section>
-
-          <p className={styles.description}> {jobOffer.description} </p>
+          </div>
+          <div>
+            <p className={styles.description}> {jobOffer.description} </p>
+          </div>
           <p className={styles.logo}> {jobOffer.logo} </p>
           <p className={styles.location}> {jobOffer.location} </p>
-
           <span className={styles.salaryrange}> {jobOffer.salaryrange} </span>
-          <button className={styles.applybutton}>Apply</button>
+          <button className={styles.applybutton}>Apply now</button>
         </div>
       ) : (
         <p>No job offer available</p>
