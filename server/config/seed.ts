@@ -112,8 +112,8 @@ async function seedDatabase() {
       {
         title: "Sr. UX Designer",
         logo: "./logo-ux.svg",
-        experience_level: "Expert",
-        job_type: "Part-Time, Remote",
+        experience_level: "Senior",
+        job_type: "Part Time",
         salary: 65000.0,
         description: `
           **About the role:**
@@ -137,7 +137,7 @@ async function seedDatabase() {
         title: "Junior Backend Developer",
         logo: "./logo-backend.svg",
         experience_level: "Entry Level",
-        job_type: "Full-Time",
+        job_type: "Full Time",
         salary: 40000.0,
         description: `
           **About the role:**
