@@ -1,11 +1,91 @@
 .jobofferpagecontainer {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-top: 2rem;
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
 }
+
+.jobcardpage {
+  flex: 1;
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
 .titleandtagssection {
   display: flex;
-  border-bottom: 1px solid rgb(118, 110, 110);
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid rgb(188, 188, 188);
+  padding-bottom: 1rem;
+}
+
+.titlejoboffer {
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.experience_level {
+  background-color: #f3e8ff;
+  color: #6b21a8;
+  padding: 0.25rem 1rem;
+  border-radius: 16px;
+  font-size: 0.875rem;
+}
+
+.job_type {
+  background-color: #dcfce7;
+  color: #166534;
+  padding: 0.25rem 1rem;
+  border-radius: 16px;
+  font-size: 0.875rem;
+}
+
+.description {
+  margin: 1.5rem 0;
+  line-height: 1.6;
+}
+
+.logo {
+  margin-bottom: 1rem;
+}
+
+.location {
+  color: #666;
+  margin-bottom: 0.5rem;
+}
+
+.salaryrange {
+  display: block;
+  font-weight: 500;
+  color: #1f2937;
+  margin-bottom: 1.5rem;
+}
+
+.applybutton {
+  display: block;
+
+  padding: 0.875rem;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.applybutton:hover {
+  background-color: #1d4ed8;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .titleandtagssection {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }

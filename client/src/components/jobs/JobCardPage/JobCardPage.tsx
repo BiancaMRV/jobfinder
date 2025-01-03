@@ -35,9 +35,7 @@ export default function JobCardPage() {
             </span>
             <span className={styles.job_type}> {jobOffer.job_type} </span>
           </div>
-          <div>
-            <p className={styles.description}> {jobOffer.description} </p>
-          </div>
+
           <p className={styles.logo}> {jobOffer.logo} </p>
           <p className={styles.location}> {jobOffer.location} </p>
           <span className={styles.salaryrange}> {jobOffer.salaryrange} </span>
