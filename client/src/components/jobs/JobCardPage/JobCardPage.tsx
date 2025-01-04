@@ -1,6 +1,7 @@
 import styles from "./JobCardPage.module.css";
 import { useState, useEffect } from "react";
 import { Job } from "../types";
+import { useParams } from "react-router-dom";
 
 export default function JobCardPage() {
   const [jobOffer, setJobOffer] = useState<Job | null>(null); // Tipo atualizado para um único Job ou null
@@ -35,7 +36,6 @@ export default function JobCardPage() {
             </span>
             <span className={styles.job_type}> {jobOffer.job_type} </span>
           </div>
-
           <p className={styles.logo}> {jobOffer.logo} </p>
           <p className={styles.location}> {jobOffer.location} </p>
           <span className={styles.salaryrange}> {jobOffer.salaryrange} </span>
@@ -47,3 +47,4 @@ export default function JobCardPage() {
     </div>
   );
 }
+//TODO: FORMATAR O TEXTO DE DISCRIPTION, PROCURAR OUTRA LIVRARIA

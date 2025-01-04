@@ -62,6 +62,7 @@ export default function JobCards() {
               ? job.description.substring(0, 100) + "..."
               : "Descrição não disponível"
           }
+          // Abre o modal ao clicar no card
         />
       ))}
     </div>
