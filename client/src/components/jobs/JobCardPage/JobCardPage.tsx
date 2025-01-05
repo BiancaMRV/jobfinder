@@ -4,11 +4,12 @@ import { Job } from "../types";
 import { useParams } from "react-router-dom";
 
 export default function JobCardPage() {
+  const { id } = useParams();
   const [jobOffer, setJobOffer] = useState<Job | null>(null); // Tipo atualizado para um único Job ou null
 
   const fetchData = async () => {
     try {
-      const baseURL = "http://192.168.1.20:3000/jobs/1";
+      const baseURL = "http://192.168.1.79:3000/jobs/1";
       const response = await fetch(baseURL);
       if (!response.ok) {
         throw new Error("Erro na requisição: " + response.statusText);
