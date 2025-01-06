@@ -9,7 +9,7 @@ export default function JobCardPage() {
 
   const fetchData = async () => {
     try {
-      const baseURL = "http://192.168.1.79:3000/jobs/1";
+      const baseURL = "http://192.168.1.83:3000/jobs/1";
       const response = await fetch(baseURL);
       if (!response.ok) {
         throw new Error("Erro na requisição: " + response.statusText);

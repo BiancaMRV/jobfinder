@@ -84,7 +84,7 @@ async function seedDatabase() {
     }
 
     // Seed Job Offers
-    const jobOffers = [
+    const job_offers = [
       {
         title: "Senior Software Engineer",
         logo: "./logo.svg",
@@ -166,7 +166,7 @@ async function seedDatabase() {
       ) VALUES ($1, $2, $3, $4, $5, $6, $7,$8)
     `;
 
-    for (const jobOffer of jobOffers) {
+    for (const jobOffer of job_offers) {
       await client.query(jobOfferInsertQuery, [
         jobOffer.title,
         jobOffer.logo,
