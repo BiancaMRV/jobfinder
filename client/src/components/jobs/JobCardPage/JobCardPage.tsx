@@ -2,6 +2,7 @@ import styles from "./JobCardPage.module.css";
 import { useState, useEffect } from "react";
 import { Job } from "../types";
 import { useParams } from "react-router-dom";
+import Markdown from "react-markdown";
 
 export default function JobCardPage() {
   const { id } = useParams();
@@ -9,17 +10,32 @@ export default function JobCardPage() {
 
   const fetchData = async () => {
     try {
-      const baseURL = "http://192.168.1.83:3000/jobs/1";
+      const baseURL = "http://0.0.0.0:3000/jobs/1";
       const response = await fetch(baseURL);
       if (!response.ok) {
         throw new Error("Erro na requisição: " + response.statusText);
       }
       const data: Job = await response.json(); // Tipo explícito para a resposta
       setJobOffer(data);
+      console.log("Fetched Data:", data);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
+  const markdown = ` 
+**About the role:**
+Join a dynamic team to design, develop, and maintain high-performance software applications that scale globally. Collaborate with cross-functional teams to deliver impactful solutions and drive innovation.
+    
+**Responsibilities:**
+- Architect and implement complex backend services and APIs.
+- Work closely with frontend developers to ensure seamless integration.
+- Mentor junior developers and contribute to the team's growth.
+    
+**Required Skills:**
+- Proficiency in Node.js, TypeScript, and cloud platforms.
+- Experience with RESTful APIs and microservices architecture.
+- Strong debugging and optimization skills.
+  `;
 
   useEffect(() => {
     console.log("Fetching data...");
@@ -35,12 +51,18 @@ export default function JobCardPage() {
             <span className={styles.experience_level}>
               {jobOffer.experience_level}
             </span>
+
             <span className={styles.job_type}> {jobOffer.job_type} </span>
           </div>
-          <p className={styles.logo}> {jobOffer.logo} </p>
-          <p className={styles.location}> {jobOffer.location} </p>
-          <span className={styles.salaryrange}> {jobOffer.salaryrange} </span>
-          <button className={styles.applybutton}>Apply now</button>
+          <div>
+            <Markdown>{jobOffer.description}</Markdown>
+          </div>
+          <div className={styles.companysection}>
+            <p className={styles.logo}> {jobOffer.logo} </p>
+            <p className={styles.location}> {jobOffer.location} </p>
+            <span className={styles.salaryrange}> {jobOffer.salaryrange} </span>
+            <button className={styles.applybutton}>Apply now</button>
+          </div>
         </div>
       ) : (
         <p>No job offer available</p>

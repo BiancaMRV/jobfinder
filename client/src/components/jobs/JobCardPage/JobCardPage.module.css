@@ -82,6 +82,11 @@
   background-color: #1d4ed8;
 }
 
+.companysection {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
 /* Responsividade */
 @media (max-width: 768px) {
   .titleandtagssection {
