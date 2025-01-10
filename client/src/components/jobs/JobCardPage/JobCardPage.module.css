@@ -6,11 +6,12 @@
 }
 
 .jobcardpage {
-  flex: 1;
+  display: flex;
   background: white;
   padding: 2rem;
   border-radius: 8px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  gap: 2rem;
 }
 
 .titleandtagssection {
@@ -81,12 +82,14 @@
 .applybutton:hover {
   background-color: #1d4ed8;
 }
-
-.companysection {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
+.rightsection {
+  width: 100%;
 }
+
+.leftsection {
+  width: 100%;
+}
+
 /* Responsividade */
 @media (max-width: 768px) {
   .titleandtagssection {

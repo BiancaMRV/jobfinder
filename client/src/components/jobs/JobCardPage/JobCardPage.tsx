@@ -46,18 +46,19 @@ Join a dynamic team to design, develop, and maintain high-performance software a
     <div className={styles.jobofferpagecontainer}>
       {jobOffer ? (
         <div key={jobOffer.id} className={styles.jobcardpage}>
-          <div className={styles.titleandtagssection}>
-            <h2 className={styles.titlejoboffer}> {jobOffer.title} </h2>
-            <span className={styles.experience_level}>
-              {jobOffer.experience_level}
-            </span>
-
-            <span className={styles.job_type}> {jobOffer.job_type} </span>
+          <div className={styles.leftsection}>
+            <div className={styles.titleandtagssection}>
+              <h2 className={styles.titlejoboffer}> {jobOffer.title} </h2>
+              <span className={styles.experience_level}>
+                {jobOffer.experience_level}
+              </span>
+              <span className={styles.job_type}> {jobOffer.job_type} </span>
+            </div>
+            <div>
+              <Markdown>{jobOffer.description}</Markdown>
+            </div>
           </div>
-          <div>
-            <Markdown>{jobOffer.description}</Markdown>
-          </div>
-          <div className={styles.companysection}>
+          <div className={styles.rightsection}>
             <p className={styles.logo}> {jobOffer.logo} </p>
             <p className={styles.location}> {jobOffer.location} </p>
             <span className={styles.salaryrange}> {jobOffer.salaryrange} </span>

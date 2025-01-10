@@ -92,18 +92,18 @@ async function seedDatabase() {
         job_type: "Freelance",
         salary: 120000.0,
         description: `
-          **About the role:**
-          Join a dynamic team to design, develop, and maintain high-performance software applications that scale globally. Collaborate with cross-functional teams to deliver impactful solutions and drive innovation.
+**About the role:**
+Join a dynamic team to design, develop, and maintain high-performance software applications that scale globally. Collaborate with cross-functional teams to deliver impactful solutions and drive innovation.
     
-          **Responsibilities:**
-          - Architect and implement complex backend services and APIs.
-          - Work closely with frontend developers to ensure seamless integration.
-          - Mentor junior developers and contribute to the team's growth.
+**Responsibilities:**
+- Architect and implement complex backend services and APIs.
+- Work closely with frontend developers to ensure seamless integration.
+- Mentor junior developers and contribute to the team's growth.
     
-          **Required Skills:**
-          - Proficiency in Node.js, TypeScript, and cloud platforms.
-          - Experience with RESTful APIs and microservices architecture.
-          - Strong debugging and optimization skills.
+**Required Skills:**
+- Proficiency in Node.js, TypeScript, and cloud platforms.
+- Experience with RESTful APIs and microservices architecture.
+- Strong debugging and optimization skills.
         `,
         company_id: 1,
         location: "Braga",
@@ -116,18 +116,18 @@ async function seedDatabase() {
         job_type: "Part Time",
         salary: 65000.0,
         description: `
-          **About the role:**
-          Help shape the user experience for millions of users by designing intuitive interfaces for a leading global platform. Collaborate with stakeholders to create user-centric designs.
+**About the role:**
+Help shape the user experience for millions of users by designing intuitive interfaces for a leading global platform. Collaborate with stakeholders to create user-centric designs.
     
-          **Responsibilities:**
-          - Create wireframes, interactive prototypes, and high-fidelity designs.
-          - Conduct user research and usability testing to refine designs.
-          - Collaborate with developers to implement seamless user experiences.
+**Responsibilities:**
+- Create wireframes, interactive prototypes, and high-fidelity designs.
+- Conduct user research and usability testing to refine designs.
+- Collaborate with developers to implement seamless user experiences.
     
-          **Required Skills:**
-          - Proficiency in Figma, Adobe XD, and wireframing tools.
-          - Strong knowledge of UX/UI design principles.
-          - Excellent communication and teamwork skills.
+**Required Skills:**
+- Proficiency in Figma, Adobe XD, and wireframing tools.
+- Strong knowledge of UX/UI design principles.
+- Excellent communication and teamwork skills.
         `,
         company_id: 2,
         location: "San Francisco",
@@ -140,18 +140,18 @@ async function seedDatabase() {
         job_type: "Full Time",
         salary: 40000.0,
         description: `
-          **About the role:**
-          Kickstart your career by joining a supportive team of experienced developers. Build and maintain scalable backend services that support our growing product base.
+**About the role:**
+Kickstart your career by joining a supportive team of experienced developers. Build and maintain scalable backend services that support our growing product base.
     
-          **Responsibilities:**
-          - Develop and maintain backend APIs and services.
-          - Collaborate with frontend teams to integrate APIs.
-          - Participate in code reviews and agile development processes.
+**Responsibilities:**
+- Develop and maintain backend APIs and services.
+- Collaborate with frontend teams to integrate APIs.
+- Participate in code reviews and agile development processes.
     
-          **Required Skills:**
-          - Familiarity with Node.js, Python, or similar backend technologies.
-          - Understanding of database systems (SQL/NoSQL).
-          - Passion for learning and problem-solving.
+**Required Skills:**
+- Familiarity with Node.js, Python, or similar backend technologies.
+- Understanding of database systems (SQL/NoSQL).
+- Passion for learning and problem-solving.
         `,
         company_id: 3,
         location: "Porto",
