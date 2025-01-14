@@ -5,7 +5,7 @@
   padding: 0 2rem;
 }
 
-/* Card do job offer */
+/* pagina do jobcard */
 .jobcardpage {
   display: grid;
   grid-template-columns: 2fr 1fr; /* Left section maior que right section */
@@ -112,24 +112,26 @@
 
 /* Responsividade */
 @media (max-width: 768px) {
+  /* Quando a tela for menor que 768px: */
+
   .jobcardpage {
-    grid-template-columns: 1fr;
-    gap: 2rem;
+    grid-template-columns: 1fr; /* Muda de 2 colunas para 1 coluna */
+    gap: 2rem; /* Reduz o espaço entre seções */
   }
 
   .leftsection {
-    padding-right: 0;
-    border-right: none;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 2rem;
+    padding-right: 0; /* Remove o padding direito pois não é mais necessário */
+    border-right: none; /* Remove a borda direita */
+    border-bottom: 1px solid #eee; /* Adiciona borda embaixo para separar as seções */
+    padding-bottom: 2rem; /* Adiciona espaço abaixo */
   }
 
   .titleandtagssection {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: column; /* Empilha título e tags */
+    align-items: flex-start; /* Alinha à esquerda */
   }
 
   .rightsection {
-    padding: 0;
+    padding: 0; /* Remove padding pois não é necessário em tela pequena */
   }
 }

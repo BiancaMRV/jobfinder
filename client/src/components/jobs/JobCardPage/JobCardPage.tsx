@@ -5,12 +5,12 @@ import { useParams } from "react-router-dom";
 import Markdown from "react-markdown";
 
 export default function JobCardPage() {
-  const { id } = useParams();
+  const { jobOfferId } = useParams();
   const [jobOffer, setJobOffer] = useState<Job | null>(null); // Tipo atualizado para um único Job ou null
 
   const fetchData = async () => {
     try {
-      const baseURL = "http://0.0.0.0:3000/jobs/1";
+      const baseURL = `http://0.0.0.0:3000/jobs/${jobOfferId}`;
       const response = await fetch(baseURL);
       if (!response.ok) {
         throw new Error("Erro na requisição: " + response.statusText);
@@ -40,7 +40,7 @@ Join a dynamic team to design, develop, and maintain high-performance software a
   useEffect(() => {
     console.log("Fetching data...");
     fetchData();
-  }, []);
+  }, [jobOfferId]); //Adicionei jobId como dependência do useEffect para recarregar quando o ID mudar
 
   return (
     <div className={styles.jobofferpagecontainer}>
@@ -55,7 +55,7 @@ Join a dynamic team to design, develop, and maintain high-performance software a
               <span className={styles.job_type}> {jobOffer.job_type} </span>
             </div>
             <div>
-              <Markdown>{jobOffer.description}</Markdown>
+              <Markdown>{jobOffer.description || markdown}</Markdown>
             </div>
           </div>
           <div className={styles.rightsection}>

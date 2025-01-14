@@ -81,7 +81,7 @@ type JobCardProps = {
 const JobCard = ({ logo, title, tags, description, id }: JobCardProps) => {
   console.log(logo);
   return (
-    <Link to={`/job/${id}`} className={styles.jobCardLink}>
+    <Link to={`/jobs/${id}`} className={styles.jobCardLink}>
       <div className={styles.jobcontainer}>
         <div className={styles.headercontainer}>
           <div className={styles.titlejoboffersandlogo}>
