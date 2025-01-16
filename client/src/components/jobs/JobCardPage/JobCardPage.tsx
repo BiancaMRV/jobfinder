@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { Job } from "../types";
 import { useParams } from "react-router-dom";
 import Markdown from "react-markdown";
+import Header from "../../layout/Header/Header";
 
 export default function JobCardPage() {
   const { jobOfferId } = useParams();
@@ -44,6 +45,9 @@ Join a dynamic team to design, develop, and maintain high-performance software a
 
   return (
     <div className={styles.jobofferpagecontainer}>
+      <div className={styles.headercontainer}>
+        <Header />
+      </div>
       {jobOffer ? (
         <div key={jobOffer.id} className={styles.jobcardpage}>
           <div className={styles.leftsection}>
