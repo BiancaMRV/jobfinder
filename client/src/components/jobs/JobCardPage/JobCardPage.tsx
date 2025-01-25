@@ -1,7 +1,7 @@
 import styles from "./JobCardPage.module.css";
 import { useState, useEffect } from "react";
 import { Job } from "../types";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import Markdown from "react-markdown";
 import Header from "../../layout/Header/Header";
 
@@ -44,34 +44,38 @@ Join a dynamic team to design, develop, and maintain high-performance software a
   }, [jobOfferId]); //Adicionei jobId como dependência do useEffect para recarregar quando o ID mudar
 
   return (
-    <div className={styles.jobofferpagecontainer}>
+    <div className={styles.jobofferpage}>
       <div className={styles.headercontainer}>
         <Header />
       </div>
-      {jobOffer ? (
-        <div key={jobOffer.id} className={styles.jobcardpage}>
-          <div className={styles.leftsection}>
-            <div className={styles.titleandtagssection}>
-              <h2 className={styles.titlejoboffer}> {jobOffer.title} </h2>
-              <span className={styles.experience_level}>
-                {jobOffer.experience_level}
-              </span>
-              <span className={styles.job_type}> {jobOffer.job_type} </span>
+      <div className={styles.jobcardpagecontainer}>
+        {jobOffer ? (
+          <div key={jobOffer.id} className={styles.jobcardpage}>
+            <div className={styles.leftsection}>
+              <div className={styles.titleandtagssection}>
+                <h2 className={styles.titlejoboffer}>{jobOffer.title}</h2>
+                <span className={styles.experience_level}>
+                  {jobOffer.experience_level}
+                </span>
+                <span className={styles.job_type}>{jobOffer.job_type}</span>
+              </div>
+              <div className={styles.description}>
+                <Markdown>{jobOffer.description || markdown}</Markdown>
+              </div>
             </div>
-            <div>
-              <Markdown>{jobOffer.description || markdown}</Markdown>
+            <div className={styles.rightsection}>
+              <p className={styles.logo}>{jobOffer.logo}</p>
+              <p className={styles.location}>{jobOffer.location}</p>
+              <span className={styles.salaryrange}>{jobOffer.salaryrange}</span>
+              <Link to={`/apply/${jobOfferId}`} className={styles.applybutton}>
+                Apply now
+              </Link>
             </div>
           </div>
-          <div className={styles.rightsection}>
-            <p className={styles.logo}> {jobOffer.logo} </p>
-            <p className={styles.location}> {jobOffer.location} </p>
-            <span className={styles.salaryrange}> {jobOffer.salaryrange} </span>
-            <button className={styles.applybutton}>Apply now</button>
-          </div>
-        </div>
-      ) : (
-        <p>No job offer available</p>
-      )}
+        ) : (
+          <p>No job offer available</p>
+        )}
+      </div>
     </div>
   );
 }
