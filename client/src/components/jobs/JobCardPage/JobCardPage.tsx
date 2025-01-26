@@ -67,7 +67,10 @@ Join a dynamic team to design, develop, and maintain high-performance software a
               <p className={styles.logo}>{jobOffer.logo}</p>
               <p className={styles.location}>{jobOffer.location}</p>
               <span className={styles.salaryrange}>{jobOffer.salaryrange}</span>
-              <Link to={`/apply/${jobOfferId}`} className={styles.applybutton}>
+              <Link
+                to={`/applynow/${jobOfferId}`}
+                className={styles.applybutton}
+              >
                 Apply now
               </Link>
             </div>
