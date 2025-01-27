@@ -1,7 +1,31 @@
 import { Link } from "react-router-dom";
 import styles from "./SignUp.module.css";
+import { useState } from "react";
+interface FormData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
 
 export default function SignUp() {
+  const [formData, setFormData] = useState({
+    firstName: "", //tudo vazio no começo
+    lastName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  }; // handle change serve para capturar as mudanças
+
   return (
     <main className={styles.main}>
       <section className={styles.left}>
@@ -47,6 +71,8 @@ export default function SignUp() {
                   type="text"
                   id="firstName"
                   name="firstName"
+                  value={formData.firstName}
+                  onChange={handleChange}
                   placeholder="First Name"
                   required
                   minLength={2}
@@ -58,6 +84,8 @@ export default function SignUp() {
                   type="text"
                   id="lastName"
                   name="lastName"
+                  value={formData.lastName}
+                  onChange={handleChange}
                   placeholder="Last Name"
                   required
                   minLength={2}
@@ -101,12 +129,12 @@ export default function SignUp() {
               />
             </div>
 
-            <div className={styles.terms}>
+            {/* <div className={styles.terms}>
               <input type="checkbox" id="terms" name="terms" required />
               <label htmlFor="terms">
                 I agree to the <a href="/terms">Terms of Service</a>
               </label>
-            </div>
+            </div> */}
 
             <button type="submit" className={styles.buttonPrimary}>
               Create Account
