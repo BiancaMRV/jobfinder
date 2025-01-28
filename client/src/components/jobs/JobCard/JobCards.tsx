@@ -18,7 +18,7 @@ export default function JobCards() {
 
   const fetchdata = async (filters: any) => {
     try {
-      let baseUrl = "http://0.0.0.0:3000/jobs/filter";
+      let baseUrl = "http://localhost:3000/jobs/filter";
 
       if (filters.jobTypes) baseUrl += `?jobType=${filters.jobTypes.join(",")}`;
       if (filters.experienceLevels)

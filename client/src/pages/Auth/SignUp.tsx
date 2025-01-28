@@ -1,17 +1,29 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./SignUp.module.css";
 import { useState } from "react";
-interface FormData {
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-}
+import React from "react";
+import { Toaster, toast } from "react-hot-toast";
+import useMediaQuery from "../../utils/useMediaQuery";
 
-export default function SignUp() {
+export const SignUp: React.FC = () => {
+  const isMobile = useMediaQuery("(max-width:768)");
+  const navigate = useNavigate();
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const toasterConfig = {
+    position: isMobile ? "bottom-center" : "top-right",
+    style: {
+      margin: isMobile ? "10px" : "16px",
+      padding: isMobile ? "16px" : "12px",
+      fontSize: isMobile ? "16px" : "14px",
+      maxWidth: isMobile ? "90vw" : "350px",
+    },
+    duration: isMobile ? 4000 : 3000,
+  };
+
   const [formData, setFormData] = useState({
-    firstName: "", //tudo vazio no começo
+    firstName: "",
     lastName: "",
     email: "",
     password: "",
@@ -20,14 +32,82 @@ export default function SignUp() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+    setError("");
     setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
-  }; // handle change serve para capturar as mudanças
+  };
 
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      const response = await fetch("http://localhost:3000/auth/signUp", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(formData),
+      });
+
+      // Pegamos os dados da resposta apenas uma vez
+      const data = await response.json();
+      console.log("Resposta do servidor:", data); // Para debug
+
+      if (!response.ok) {
+        // Verificamos se é um email duplicado
+        if (data.error === "Email already exists") {
+          toast.error("This email already exists. Please click on Login");
+          setError("This email already exists");
+          return;
+        }
+        // Para outros tipos de erro
+        throw new Error(data.error || "Error creating account");
+      }
+
+      // Se chegou aqui, o registo foi bem sucedido
+      toast.success("Account created successfully, browse your dream jobs :)");
+      navigate("/");
+    } catch (error) {
+      console.error("Erro:", error);
+      toast.error("Error connecting to server");
+      setError(
+        error instanceof Error ? error.message : "Error connecting to server"
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <main className={styles.main}>
+      <Toaster
+        position={isMobile ? "bottom-center" : "top-right"}
+        toastOptions={{
+          duration: 4000,
+          style: {
+            background: "#333",
+            color: "#fff",
+            padding: isMobile ? "16px" : "12px",
+            fontSize: isMobile ? "16px" : "14px",
+            maxWidth: isMobile ? "90vw" : "350px",
+          },
+          error: {
+            style: {
+              background: "#FEE2E2",
+              color: "#991B1B",
+            },
+          },
+          success: {
+            style: {
+              background: "#D1FAE5",
+              color: "#065F46",
+            },
+          },
+        }}
+      />
       <section className={styles.left}>
         <div className={styles.imgContainer}>
           <img
@@ -58,13 +138,18 @@ export default function SignUp() {
         <div className={styles.formContainer}>
           <h1>Create an account</h1>
           <p>
-            Already have an account?
+            Already have an account?{" "}
             <Link to="/LogIn" className={styles.link}>
               Login
             </Link>
           </p>
 
-          <form method="POST" autoComplete="off" noValidate>
+          <form
+            method="POST"
+            autoComplete="off"
+            noValidate
+            onSubmit={handleSubmit}
+          >
             <div className={styles.name}>
               <div className={styles.inputContainer}>
                 <input
@@ -99,6 +184,8 @@ export default function SignUp() {
                 type="email"
                 id="email"
                 name="email"
+                value={formData.email}
+                onChange={handleChange}
                 placeholder="Email"
                 required
                 autoComplete="username"
@@ -110,6 +197,8 @@ export default function SignUp() {
                 type="password"
                 id="password"
                 name="password"
+                value={formData.password}
+                onChange={handleChange}
                 placeholder="Password"
                 required
                 minLength={8}
@@ -122,6 +211,8 @@ export default function SignUp() {
                 type="password"
                 id="confirmPassword"
                 name="confirmPassword"
+                value={formData.confirmPassword}
+                onChange={handleChange}
                 placeholder="Confirm Password"
                 required
                 minLength={8}
@@ -129,19 +220,16 @@ export default function SignUp() {
               />
             </div>
 
-            {/* <div className={styles.terms}>
-              <input type="checkbox" id="terms" name="terms" required />
-              <label htmlFor="terms">
-                I agree to the <a href="/terms">Terms of Service</a>
-              </label>
-            </div> */}
-
-            <button type="submit" className={styles.buttonPrimary}>
-              Create Account
+            <button
+              type="submit"
+              className={styles.buttonPrimary}
+              disabled={loading}
+            >
+              {loading ? "Creating Account..." : "Create Account"}
             </button>
           </form>
         </div>
       </section>
     </main>
   );
-}
+};

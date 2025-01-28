@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import "./App.css";
-import SignUp from "./pages/Auth/SignUp";
+import { SignUp } from "./pages/Auth/SignUp";
 import LogIn from "./pages/Auth/LogIn";
 import HomePage from "./components/jobs/HomePage/HomePage";
 import JobCardPage from "./components/jobs/JobCardPage/JobCardPage";
