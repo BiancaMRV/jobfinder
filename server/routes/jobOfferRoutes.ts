@@ -55,7 +55,7 @@ router.post(
 );
 
 router.delete(
-  "/jobs/:jobOfferId",
+  "/:jobOfferId",
   validateRequest(deleteJobOfferValidation),
   async (req, res) => {
     try {
@@ -69,7 +69,7 @@ router.delete(
 );
 
 router.patch(
-  "/jobs/:jobOfferId",
+  "/:jobOfferId",
   validateRequest(updateJobOfferValidation),
   async (req, res) => {
     try {
@@ -88,7 +88,7 @@ router.patch(
   }
 );
 
-router.get("/jobs/filter", validateRequest(getJobOffers), async (req, res) => {
+router.get("/filter", validateRequest(getJobOffers), async (req, res) => {
   try {
     const { minSalary, maxSalary, jobType, experienceLevel } = req.query;
 
@@ -138,7 +138,7 @@ router.get("/jobs/filter", validateRequest(getJobOffers), async (req, res) => {
   }
 });
 router.get(
-  "/jobs/:jobOfferId",
+  "/:jobOfferId",
   validateRequest(getJobOfferByIdValidation),
   async (req, res) => {
     try {

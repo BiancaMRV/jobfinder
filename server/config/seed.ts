@@ -7,21 +7,24 @@ async function seedDatabase() {
     const hashedPassword = "test";
     const users = [
       {
-        name: "John Doe",
+        firstName: "John",
+        lastName: "Doe",
         email: "john@example.com",
         password: hashedPassword,
         currentJob: "Software Engineer",
         isWorking: "true",
       },
       {
-        name: "Jane Smith",
+        firstName: "Jane",
+        lastName: "Smith",
         email: "jane@example.com",
         password: hashedPassword,
         currentJob: "Product Manager",
         isWorking: "true",
       },
       {
-        name: "Alice Johnson",
+        firstName: "Alice",
+        lastName: "Johnson",
         email: "biancamargarida2014@gmail.com",
         password: hashedPassword,
         currentJob: "Data Scientist",
@@ -30,13 +33,14 @@ async function seedDatabase() {
     ];
 
     const userInsertQuery = `
-      INSERT INTO users (name, email, password, currentJob, isWorking) 
-      VALUES ($1, $2, $3, $4, $5)
+      INSERT INTO users (firstName, lastName, email, password, currentJob, isWorking) 
+      VALUES ($1, $2, $3, $4, $5, $6)
     `;
 
     for (const user of users) {
       await client.query(userInsertQuery, [
-        user.name,
+        user.firstName,
+        user.lastName,
         user.email,
         user.password,
         user.currentJob,

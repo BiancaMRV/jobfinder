@@ -8,7 +8,8 @@ import { sha256 } from "@oslojs/crypto/sha2";
 import type { Response } from "express";
 
 export const signUp = async (
-  username: string,
+  firstName: string,
+  lastName: string,
   email: string,
   password: string
 ) => {
@@ -18,12 +19,13 @@ export const signUp = async (
       [email]
     );
     if (existingUser.rows.length > 0) {
-      throw new Error("Email already exists");
+      throw { statusCode: 400, message: "Email already exists" };
     }
+    console.log("Password:", password);
     const hashedPassword = await bcrypt.hash(password, 10);
     const result = await client.query(
-      "INSERT INTO users(name,email,password) VALUES ($1,$2,$3) RETURNING *",
-      [username, email, hashedPassword]
+      "INSERT INTO users(firstName,lastName,email,password) VALUES ($1,$2,$3,$4) RETURNING *",
+      [firstName, lastName, email, hashedPassword]
     );
     console.log("result", result);
     return result.rows[0];

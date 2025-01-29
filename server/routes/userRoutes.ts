@@ -16,22 +16,18 @@ import {
 
 export const router = Router();
 
-router.get(
-  "/users/:userId",
-  validateRequest(getUserValidation),
-  async (req, res) => {
-    try {
-      const { userId } = req.params;
-      const user = await getUserById(Number(userId));
-      res.send(user);
-    } catch (error) {
-      res.status(500).send("Error retrieving user");
-    }
+router.get("/:userId", validateRequest(getUserValidation), async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const user = await getUserById(Number(userId));
+    res.send(user);
+  } catch (error) {
+    res.status(500).send("Error retrieving user");
   }
-);
+});
 
 router.delete(
-  "/users/:userId",
+  "/:userId",
   validateRequest(updateUserValidation),
   async (req, res) => {
     try {
@@ -45,15 +41,23 @@ router.delete(
 );
 
 router.patch(
-  "/users/:userId",
+  "/:userId",
   validateRequest(updateUserValidation),
   async (req, res) => {
     try {
       const { userId } = req.params;
-      const { username, email, password, age, isWorking, currentJob } =
-        req.body;
+      const {
+        first_name,
+        last_name,
+        email,
+        password,
+        age,
+        isWorking,
+        currentJob,
+      } = req.body;
       const user = await updateUser(
-        username,
+        first_name,
+        last_name,
         password,
         age,
         email,

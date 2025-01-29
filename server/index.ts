@@ -11,13 +11,21 @@ const app = express(); // gerencia as requisicoes , rotas, URLS etc
 app.use(cookieParser());
 app.use(express.json());
 app.use(urlencoded({ extended: true }));
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5173", // URL exata do seu frontend
+    credentials: true, // Permite envio de cookies
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    exposedHeaders: ["set-cookie"],
+  })
+);
 
-app.use("/", authRouter); // rota de autenticação
-app.use("/", applicationRouter); // rota de aplicação
-app.use("/", companyRouter); // rota de empresa
-app.use("/", jobRouter); // rota de trabalho
-app.use("/", userRouter); // rota de utilizador
+app.use("/auth", authRouter);
+app.use("/applications", applicationRouter);
+app.use("/companies", companyRouter);
+app.use("/jobs", jobRouter);
+app.use("/users", userRouter);
 
 app.listen(3000, "0.0.0.0"); // porta que o servidor vai rodar
 console.log("Server running at http://localhost:3000/"); // mensagem no terminal
