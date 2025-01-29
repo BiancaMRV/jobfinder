@@ -11,17 +11,6 @@ export const SignUp: React.FC = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const toasterConfig = {
-    position: isMobile ? "bottom-center" : "top-right",
-    style: {
-      margin: isMobile ? "10px" : "16px",
-      padding: isMobile ? "16px" : "12px",
-      fontSize: isMobile ? "16px" : "14px",
-      maxWidth: isMobile ? "90vw" : "350px",
-    },
-    duration: isMobile ? 4000 : 3000,
-  };
-
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -53,61 +42,31 @@ export const SignUp: React.FC = () => {
         body: JSON.stringify(formData),
       });
 
-      // Pegamos os dados da resposta apenas uma vez
-      const data = await response.json();
-      console.log("Resposta do servidor:", data); // Para debug
-
       if (!response.ok) {
-        // Verificamos se é um email duplicado
-        if (data.error === "Email already exists") {
-          toast.error("This email already exists. Please click on Login");
-          setError("This email already exists");
-          return;
-        }
-        // Para outros tipos de erro
-        throw new Error(data.error || "Error creating account");
+        const error = await response.text();
+        console.log("Erro do backend:", error);
+        toast.error(error);
+        setError(error);
+        return;
       }
-
-      // Se chegou aqui, o registo foi bem sucedido
       toast.success("Account created successfully, browse your dream jobs :)");
+      console.log("1", 1);
       navigate("/");
     } catch (error) {
       console.error("Erro:", error);
-      toast.error("Error connecting to server");
-      setError(
-        error instanceof Error ? error.message : "Error connecting to server"
-      );
+      if (error instanceof Error && error.message === "Failed to fetch") {
+        toast.error("Error connecting to server");
+      } else {
+        toast.error(
+          error instanceof Error ? error.message : "Unknown error occurred"
+        );
+      }
     } finally {
       setLoading(false);
     }
   };
   return (
     <main className={styles.main}>
-      <Toaster
-        position={isMobile ? "bottom-center" : "top-right"}
-        toastOptions={{
-          duration: 4000,
-          style: {
-            background: "#333",
-            color: "#fff",
-            padding: isMobile ? "16px" : "12px",
-            fontSize: isMobile ? "16px" : "14px",
-            maxWidth: isMobile ? "90vw" : "350px",
-          },
-          error: {
-            style: {
-              background: "#FEE2E2",
-              color: "#991B1B",
-            },
-          },
-          success: {
-            style: {
-              background: "#D1FAE5",
-              color: "#065F46",
-            },
-          },
-        }}
-      />
       <section className={styles.left}>
         <div className={styles.imgContainer}>
           <img
