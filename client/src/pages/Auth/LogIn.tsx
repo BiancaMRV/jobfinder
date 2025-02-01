@@ -1,7 +1,66 @@
 import styles from "./LogIn.module.css";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import useMediaQuery from "../../utils/useMediaQuery";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
 
 export default function LogIn() {
+  const isMobile = useMediaQuery("(max-width:768)");
+  const navigate = useNavigate();
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setError("");
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      const response = await fetch("http://localhost:3000/auth/logIn", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        // credentials: "include",
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        const error = await response.text();
+        console.log("Erro do backend:", error);
+        toast.error(error);
+        setError(error);
+        return;
+      } else {
+        toast.success("Login successfully");
+        console.log("1", 1);
+        navigate("/");
+      }
+    } catch (error) {
+      console.error("Erro:", error);
+      if (error instanceof Error && error.message === "Failed to fetch") {
+        toast.error("Error connecting to server");
+      } else {
+        toast.error("Error connecting to server");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <main className={styles.main}>
       <section className={styles.left}>
@@ -106,12 +165,19 @@ export default function LogIn() {
             </Link>
           </p>
 
-          <form method="POST" autoComplete="off" noValidate>
+          <form
+            method="POST"
+            autoComplete="off"
+            noValidate
+            onSubmit={handleSubmit}
+          >
             <div className={styles.inputContainer}>
               <input
                 type="email"
                 id="email"
                 name="email"
+                value={formData.email}
+                onChange={handleChange}
                 placeholder="Email"
                 required
                 autoComplete="username"
@@ -123,6 +189,8 @@ export default function LogIn() {
                 type="password"
                 id="password"
                 name="password"
+                value={formData.password}
+                onChange={handleChange}
                 placeholder="Password"
                 required
                 minLength={8}
