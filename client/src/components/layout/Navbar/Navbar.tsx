@@ -1,8 +1,34 @@
 import { Link } from "react-router-dom";
 import styles from "./Navbar.module.css";
 import { Bell, UserPen } from "lucide-react";
+import { useState, useEffect } from "react";
 
 export default function Navbar() {
+  const [user, setUsers] = useState(null);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/auth/user", {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        if (!response.ok) {
+          throw new Error("Failed to fetch user data");
+        }
+
+        const userdata = await response.json();
+        setUsers(userdata);
+      } catch (error) {
+        console.error("Error fetching user:", error);
+      }
+    };
+    fetchUser();
+  }, []);
+
   return (
     <nav className={styles.navbar}>
       <div className={styles.leftnavbar}>
