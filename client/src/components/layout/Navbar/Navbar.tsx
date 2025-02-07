@@ -3,29 +3,35 @@ import styles from "./Navbar.module.css";
 import { Bell, UserPen } from "lucide-react";
 import { useState, useEffect } from "react";
 
+interface User {
+  firstname: string;
+  lastname: string;
+}
+
 export default function Navbar() {
-  const [user, setUsers] = useState(null);
+  const [user, setUsers] = useState<User | null>(null);
+
+  const fetchUser = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/auth/user", {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (!response.ok) {
+        throw new Error("Failed to fetch user data");
+      }
+
+      const userdata = await response.json();
+      setUsers(userdata);
+    } catch (error) {
+      console.error("Error fetching user:", error);
+    }
+  };
 
   useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const response = await fetch("http://localhost:3000/auth/user", {
-          method: "GET",
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-        if (!response.ok) {
-          throw new Error("Failed to fetch user data");
-        }
-
-        const userdata = await response.json();
-        setUsers(userdata);
-      } catch (error) {
-        console.error("Error fetching user:", error);
-      }
-    };
     fetchUser();
   }, []);
 
@@ -52,7 +58,9 @@ export default function Navbar() {
           <Bell size={24} />
         </Link>
         <Link className={styles.link} to={"/"}>
-          <p className={styles.nome}>José Silva</p>
+          <p className={styles.nome}>
+            {user ? `${user.firstname} ${user.lastname}` : "Guest"}
+          </p>
           <UserPen />
         </Link>
       </div>
