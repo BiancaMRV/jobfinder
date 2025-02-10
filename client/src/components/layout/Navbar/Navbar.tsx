@@ -57,7 +57,7 @@ export default function Navbar() {
         <Link className={styles.link} to={"/"}>
           <Bell size={24} />
         </Link>
-        <Link className={styles.link} to={"/"}>
+        <Link className={styles.link} to={"/profile"}>
           <p className={styles.nome}>
             {user ? `${user.firstname} ${user.lastname}` : "Guest"}
           </p>

@@ -1,10 +1,6 @@
 .jobcardpagecontainer {
   margin-top: 15px;
 }
-.headercontainer {
-  width: 100%;
-  font-size: smaller;
-}
 
 .jobcardpage {
   display: grid;

@@ -8,11 +8,9 @@ export default function Header() {
     <header className={styles.header}>
       <Navbar></Navbar>
       <div className={styles.bottomheader}>
-        <div className={styles.title}>
-          <h1>
-            Find your dream job here <Sparkle size={24} />
-          </h1>
-        </div>
+        <h1 className={styles.title}>
+          Find your dream job here <Sparkle size={24} />
+        </h1>
         <Searchbar></Searchbar>
       </div>
     </header>

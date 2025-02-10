@@ -7,6 +7,7 @@ import LogIn from "./pages/Auth/LogIn";
 import HomePage from "./components/jobs/HomePage/HomePage";
 import JobCardPage from "./components/jobs/JobCardPage/JobCardPage";
 import ApplyNow from "./components/jobs/ApplyNow/ApplyNow";
+import { Profile } from "./components/profile/Profile/Profile";
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
         <Route path="/login" element={<LogIn />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/applynow/:jobOfferId" element={<ApplyNow />} />
+        <Route path="profile" element={<Profile />} />
       </Routes>
     </Router>
   );
