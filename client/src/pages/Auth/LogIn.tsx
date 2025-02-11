@@ -141,11 +141,11 @@ export default function LogIn() {
               </defs>
             </svg>
           </div>
-          <div className={styles.back}>
+          {/* <div className={styles.back}>
             <a href="/" className={styles.buttonSecondary}>
               Back to website
             </a>
-          </div>
+          </div> */}
         </div>
 
         <div className={styles.title}>

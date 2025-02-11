@@ -80,11 +80,11 @@ export const SignUp: React.FC = () => {
           <div className={styles.logo}>
             <img src="./logo.svg" alt="Logo" width={70} />
           </div>
-          <div className={styles.back}>
+          {/* <div className={styles.back}>
             <a href="/" className={styles.buttonSecondary}>
               Back to website
             </a>
-          </div>
+          </div> */}
         </div>
 
         <div className={styles.title}>
