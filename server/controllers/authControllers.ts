@@ -185,6 +185,24 @@ export const logOut = async (sessionId: string, response: Response) => {
   }
 };
 
+export const getCurrentUser = async (userId: number) => {
+  try {
+    const result = await client.query(
+      "SELECT firstname, lastname FROM users WHERE id = $1",
+      [userId]
+    );
+
+    if (result.rows.length === 0) {
+      throw new Error("User not found");
+    }
+
+    return result.rows[0];
+  } catch (error) {
+    console.error("Error fetching user:", error);
+    throw new Error("Error fetching user data");
+  }
+};
+
 export interface Session {
   id: string;
   userId: number;

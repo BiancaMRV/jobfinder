@@ -6,6 +6,7 @@ import {
   generateSessionToken,
   createSession,
   setSessionTokenCookie,
+  getCurrentUser,
   logOut,
 } from "../controllers/authControllers";
 import authenticationMiddleWare from "../middleware/authMiddleware";
@@ -104,5 +105,16 @@ router.patch("/logOut", authenticationMiddleWare, async (req, res) => {
     res.sendStatus(200);
   } catch (error) {
     res.status(500).send("error signing out");
+  }
+});
+
+router.get("/user", authenticationMiddleWare, async (req, res) => {
+  try {
+    const userId = req.userId;
+    const user = await getCurrentUser(userId);
+    res.json(user);
+  } catch (error) {
+    console.log("Error fetching current user:", error);
+    res.status(500).send("error fetching data");
   }
 });

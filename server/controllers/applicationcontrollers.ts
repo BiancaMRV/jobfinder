@@ -138,3 +138,35 @@ export const updateApplicationStatus1 = async (
     res.status(500).send("Error updating application status");
   }
 };
+export const getApplicationStats = async (userId: number) => {
+  try {
+    const result = await client.query(
+      `
+      SELECT 
+        COUNT(*) as total_applications,
+        COUNT(CASE WHEN status = 'reviewing' THEN 1 END) as total_interviews,
+        COUNT(CASE WHEN status = 'approved' THEN 1 END) as total_offers,
+        COUNT(CASE WHEN status = 'rejected' THEN 1 END) as total_rejections,
+        COUNT(CASE WHEN status = 'pending' THEN 1 END) as total_pending
+      FROM application 
+      WHERE userId = $1
+    `,
+      [userId]
+    );
+
+    if (result.rows.length === 0) {
+      return {
+        total_applications: 0,
+        total_interviews: 0,
+        total_offers: 0,
+        total_rejections: 0,
+        total_pending: 0,
+      };
+    }
+
+    return result.rows[0];
+  } catch (error) {
+    console.log("Error getting application stats:", error);
+    throw new Error("Error getting application stats");
+  }
+};

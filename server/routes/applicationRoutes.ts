@@ -8,6 +8,7 @@ import {
   updateApplicationResume,
   updateApplicationStatus,
   updateApplicationStatus1,
+  getApplicationStats,
 } from "../controllers/applicationControllers";
 import {
   createUserValidation,
@@ -118,3 +119,15 @@ router.patch(
     }
   }
 );
+
+// No teu router de applications
+router.get("/stats", authenticationMiddleWare, async (req, res) => {
+  try {
+    const userId = req.userId;
+    const stats = await getApplicationStats(userId);
+    res.json(stats);
+  } catch (error) {
+    console.error("Error fetching application stats:", error);
+    res.status(500).send("Error fetching application statistics");
+  }
+});
