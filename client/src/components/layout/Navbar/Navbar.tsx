@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import styles from "./Navbar.module.css";
-import { Bell, UserPen } from "lucide-react";
+import { Bell, UserPen, Menu } from "lucide-react";
 import { useState, useEffect } from "react";
+import cloudlogo from "../../../assets/cloudlogo.svg";
 
 interface User {
   firstname: string;
@@ -10,6 +11,11 @@ interface User {
 
 export default function Navbar() {
   const [user, setUsers] = useState<User | null>(null);
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
 
   const fetchUser = async () => {
     try {
@@ -39,29 +45,29 @@ export default function Navbar() {
     <nav className={styles.navbar}>
       <div className={styles.leftnavbar}>
         <div className={styles.logo}>
-          <img src="./logo.svg" alt="Logo" width={35} />
+          <img src={cloudlogo} alt="Logo" width={35} />
         </div>
       </div>
-      <div className={styles.centernavbar}>
-        <Link className={styles.link} to={"/"}>
+      <button className={styles.menuButton} onClick={toggleMenu}>
+        <Menu color="#6e54b5" size={28} />
+      </button>
+      <div className={`${styles.centernavbar} ${menuOpen ? styles.open : ""}`}>
+        <Link className={styles.link} to="/">
           Find Jobs
         </Link>
-        <Link className={styles.link} to={"/"}>
+        <Link className={styles.link} to="/upload">
           Upload Job
         </Link>
-        <Link className={styles.link} to={"/"}>
+        <Link className={styles.link} to="/about">
           About Us
         </Link>
       </div>
       <div className={styles.rightnavbar}>
-        <Link className={styles.link} to={"/"}>
+        <Link className={styles.link} to="/notifications">
           <Bell size={24} />
         </Link>
-        <Link className={styles.link} to={"/profile"}>
-          <p className={styles.nome}>
-            {user ? `${user.firstname} ${user.lastname}` : "Guest"}
-          </p>
-          <UserPen />
+        <Link className={styles.link} to="/profile">
+          <UserPen size={24} />
         </Link>
       </div>
     </nav>
