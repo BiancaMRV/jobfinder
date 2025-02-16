@@ -14,6 +14,7 @@ export function Profile() {
       total_offers: 0,
     }
   );
+
   useEffect(() => {
     const fetchApplicationStats = async () => {
       try {
@@ -36,6 +37,11 @@ export function Profile() {
     };
     fetchApplicationStats();
   }, []);
+  const [activeTab, setActiveTab] = useState<string>("overview");
+
+  const handleTabClick = (tab: string) => {
+    setActiveTab(tab);
+  };
 
   return (
     <div className={styles.profilecontainer}>
@@ -46,15 +52,15 @@ export function Profile() {
             color="#9158d6"
             size={100}
           />
-          <h2> jose silva</h2>
+          <h2> Bianca Vilaverde</h2>
           <div className={styles.profileinfo}>
             <div className={styles.location}>
               <MapPin size={20} />
-              <span>location </span>
+              <span>Braga,Portugal </span>
             </div>
             <div className={styles.email}>
               <Mail size={20} />
-              <span> email </span>
+              <span> biancamargarida2014@gmail.com </span>
             </div>
           </div>
           <button
@@ -87,6 +93,20 @@ export function Profile() {
             <span className={styles.statLabel}>Offers</span>
           </div>
         </div>
+      </div>
+      <div className={styles.informationcontainer}>
+        <span
+          className={activeTab === "overview" ? styles.active : ""}
+          onClick={() => handleTabClick("overview")}
+        >
+          Overview
+        </span>
+        <span
+          className={activeTab === "documents" ? styles.active : ""}
+          onClick={() => handleTabClick("documents")}
+        >
+          Documents
+        </span>
       </div>
     </div>
   );
