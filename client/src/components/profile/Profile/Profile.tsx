@@ -43,7 +43,7 @@ export function Profile() {
         <div className={styles.profileheader}>
           <CircleUser
             className={styles.circleuser}
-            color="#6e54b5"
+            color="#9158d6"
             size={100}
           />
           <h2> jose silva</h2>
@@ -65,10 +65,31 @@ export function Profile() {
             <span> Edit Profile </span>
           </button>
         </div>
+        <div className={styles.statsContainer}>
+          <div className={styles.statCard}>
+            <span className={styles.statValue}>
+              {applicationStatus.total_applications}
+            </span>
+            <span className={styles.statLabel}>Applications</span>
+          </div>
+
+          <div className={styles.statCard}>
+            <span className={styles.statValue}>
+              {applicationStatus.total_interviews}
+            </span>
+            <span className={styles.statLabel}>Interviews</span>
+          </div>
+
+          <div className={styles.statCard}>
+            <span className={styles.statValue}>
+              {applicationStatus.total_offers}
+            </span>
+            <span className={styles.statLabel}>Offers</span>
+          </div>
+        </div>
       </div>
-      <div className={styles.stats}></div>
     </div>
   );
 }
 
-//TODO: upload de foto no circulo user
+//TODO: upload de foto no circulo users

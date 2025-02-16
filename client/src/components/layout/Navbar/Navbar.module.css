@@ -33,7 +33,7 @@
   justify-content: center;
 }
 
-.popupMenu {
+/* .popupMenu {
   position: absolute;
   top: 100%;
   right: 10px;
@@ -46,13 +46,13 @@
   pointer-events: none;
   transition: transform 0.3s ease, opacity 0.3s ease;
   z-index: 999;
-}
+} */
 
-.popupMenu.open {
+/* .popupMenu.open {
   transform: translateY(10px);
   opacity: 1;
   pointer-events: auto;
-}
+} */
 
 .rightnavbar {
   display: flex;
@@ -119,9 +119,9 @@
     padding: 1rem;
     z-index: 1000;
   }
-  .rightnavbar {
+  /* .rightnavbar {
     flex-direction: row-reverse;
-  }
+  } */
   .menuButton {
     order: 1;
   }

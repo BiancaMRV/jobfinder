@@ -7,13 +7,13 @@
   display: inline-block;
   justify-content: space-between;
 
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
 .profilecard {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.5rem;
   padding: 1rem;
   border-radius: 8px;
   background-color: white;
@@ -44,7 +44,7 @@
 }
 
 .buttonprofile:hover {
-  background-color: #553c9a;
+  background-color: #9158d6;
 }
 
 .location,
@@ -64,7 +64,97 @@ h2 {
 }
 
 .circleuser {
-  background-color: rgb(212, 191, 232);
+  background-color: rgb(233 210 255);
   border-radius: 70%;
   padding: 0.6rem;
 }
+.statsContainer {
+  display: flex;
+  flex-direction: row; /* Organiza os cards na vertical */
+  gap: 1rem; /* Espaço entre cada card */
+}
+
+.statCard {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  background-color: #f3e8ff; /* Fundo roxo claro */
+  border-radius: 0.75rem; /* Cantos arredondados */
+  width: 100px; /* Largura fixa para cada card */
+  margin-left: auto; /* Alinha os cards à direita */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  transition: transform 0.2s; /* Animação suave ao hover */
+  justify-content: center;
+}
+
+.statCard:hover {
+  transform: translateY(-2px); /* Levanta ligeiramente ao passar o rato */
+}
+
+.statValue {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #6b46c1; /* Roxo */
+  margin-bottom: 0.25rem;
+}
+
+.statLabel {
+  font-size: 1rem;
+  color: #666;
+}
+
+@media (max-width: 768px) {
+  .statsContainer {
+    flex-direction: row; /* Organiza os cards na horizontal */
+  }
+
+  .statCard {
+    width: 100%; /* Ocupa toda a largura do ecrã */
+    margin-left: 0; /* Alinha ao centro */
+  }
+}
+/* @media (max-width: 768px) {
+  .profilecontainer {
+    margin: 1rem auto;
+    padding: 0 0.5rem;
+  }
+
+  .profilecard {
+    padding: 0.75rem;
+  }
+
+  .statsContainer {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .statCard {
+    width: 100%;
+    max-width: 250px;
+  }
+
+  .buttonprofile {
+    width: 100%;
+    justify-content: center;
+  }
+
+  h2 {
+    font-size: 1.25rem;
+    text-align: center;
+  }
+
+  .location,
+  .email {
+    font-size: 0.875rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .profilecontainer {
+    margin: 0.5rem auto;
+  }
+
+  .statCard {
+    max-width: 200px;
+  }
+} */

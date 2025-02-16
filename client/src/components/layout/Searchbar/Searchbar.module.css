@@ -33,7 +33,7 @@
 }
 .button {
   padding: var(--spacing-sm);
-  background-color: var(--color-accent);
+  background-color: #6b46c1;
   color: var(--color-text);
   border: none;
   border-radius: 30px;
@@ -45,5 +45,5 @@
 }
 
 .button:hover {
-  background-color: var(--color-accent-light);
+  background-color: #9158d6;
 }

@@ -60,7 +60,7 @@
 .buttonSecondary {
   display: inline-block;
   text-decoration: none;
-  background-color: var(--color-accent-lighter);
+  background-color: #6b46c1;
   padding: var(--spacing-xs) var(--spacing-sm);
   border-radius: var(--radius-pill);
   color: var(--color-text);
@@ -68,7 +68,7 @@
 }
 
 .buttonSecondary:hover {
-  background-color: var(--color-accent-light);
+  background-color: #9158d6;
 }
 
 .title {
@@ -158,29 +158,10 @@
   border-color: #ff4646;
 }
 
-.terms {
-  display: flex;
-  gap: var(--spacing-xs);
-  align-items: center;
-  margin: var(--spacing-xs) 0;
-}
-
-.terms input[type="checkbox"] {
-  width: 20px;
-  height: 20px;
-  accent-color: var(--color-accent);
-  cursor: pointer;
-}
-
-.terms label {
-  font-size: 0.9rem;
-  color: var(--color-text-muted);
-}
-
 .buttonPrimary {
   width: 100%;
   padding: var(--spacing-sm);
-  background-color: var(--color-accent);
+  background-color: #6b46c1;
   color: var(--color-text);
   border: none;
   border-radius: var(--radius-sm);
@@ -190,7 +171,7 @@
 }
 
 .buttonPrimary:hover {
-  background-color: var(--color-accent-light);
+  background-color: #9158d6;
 }
 
 /* Global Link Styles */
