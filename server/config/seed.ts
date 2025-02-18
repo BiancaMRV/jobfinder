@@ -92,8 +92,8 @@ async function seedDatabase() {
       {
         title: "Senior Software Engineer",
         logo: "./logo.svg",
-        experience_level: "Mid Level",
-        job_type: "Freelance",
+        experience_level: "mid",
+        job_type: "freelance",
         salary: 120000.0,
         description: `
 **About the role:**
@@ -116,8 +116,8 @@ Join a dynamic team to design, develop, and maintain high-performance software a
       {
         title: "Sr. UX Designer",
         logo: "./logo-ux.svg",
-        experience_level: "Senior",
-        job_type: "Part Time",
+        experience_level: "senior",
+        job_type: "part-time",
         salary: 65000.0,
         description: `
 **About the role:**
@@ -140,8 +140,8 @@ Help shape the user experience for millions of users by designing intuitive inte
       {
         title: "Junior Backend Developer",
         logo: "./logo-backend.svg",
-        experience_level: "Entry Level",
-        job_type: "Full Time",
+        experience_level: "entry",
+        job_type: "full-time",
         salary: 40000.0,
         description: `
 **About the role:**

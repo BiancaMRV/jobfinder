@@ -25,6 +25,7 @@ export const validateRequest = (schema: ValidationSchema) => {
 
     // Se houver qualquer erro de validação, retorna uma resposta com status 400
     if (bodyError || paramsError || queryError) {
+      console.log("Erro de validação:", bodyError || paramsError || queryError);
       res.status(400).json({
         error: bodyError?.details[0].message || paramsError?.details[0].message,
       });
@@ -174,17 +175,45 @@ export const getJobOffers: ValidationSchema = {
   query: Joi.object({
     minSalary: Joi.number().optional(),
     maxSalary: Joi.number().optional(),
-    jobtype: Joi.string()
+    jobType: Joi.string()
       .optional()
-      .valid("fulltime", "partime", "internship", "voluntering")
+      .allow("")
       .custom((value) => {
-        return value.split(",");
+        const jobTypes = value.split(",");
+        const validJobTypes = [
+          "full-time",
+          "part-time",
+          "contract",
+          "freelance",
+          "internship",
+          "voluntering",
+        ];
+        if (jobTypes.some((type: any) => !validJobTypes.includes(type))) {
+          throw new Error("Invalid job type");
+        }
+        return jobTypes;
       }),
     experienceLevel: Joi.string()
       .optional()
-      .valid("entry", "intermediate", "senior")
+      .allow("")
+      .valid("entry", "mid", "senior", "lead", "executive")
       .custom((value) => {
-        return value.split(",");
+        const experienceLevels = value.split(",");
+        const validExperienceLevels = [
+          "entry",
+          "mid",
+          "senior",
+          "lead",
+          "executive",
+        ];
+        if (
+          experienceLevels.some(
+            (level: any) => !validExperienceLevels.includes(level)
+          )
+        ) {
+          throw new Error("Invalid experience level");
+        }
+        return experienceLevels;
       }),
   }),
 };

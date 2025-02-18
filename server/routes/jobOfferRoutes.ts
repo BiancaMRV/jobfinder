@@ -111,19 +111,19 @@ router.get("/filter", validateRequest(getJobOffers), async (req, res) => {
     const values: any[] = [];
 
     if (minSalary && maxSalary) {
-      query += `AND job_offers.salary BETWEEN $${values.length + 1} AND $${
+      query += ` AND job_offers.salary BETWEEN $${values.length + 1} AND $${
         values.length + 2
       }`;
       values.push(Number(minSalary), Number(maxSalary));
     }
 
     if (jobType) {
-      query += `AND job_offers.job_type = $${values.length + 1}`;
+      query += ` AND job_offers.job_type = $${values.length + 1}`;
       values.push(jobType);
     }
 
     if (experienceLevel) {
-      query += `AND job_offers.experience_level = $${values.length + 1}`;
+      query += ` AND job_offers.experience_level = $${values.length + 1}`;
       values.push(experienceLevel);
     }
 
@@ -137,6 +137,7 @@ router.get("/filter", validateRequest(getJobOffers), async (req, res) => {
     res.status(500).send("Error retrieving filtered job offers");
   }
 });
+
 router.get(
   "/:jobOfferId",
   validateRequest(getJobOfferByIdValidation),

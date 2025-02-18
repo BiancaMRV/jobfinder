@@ -120,7 +120,6 @@ router.patch(
   }
 );
 
-// No teu router de applications
 router.get("/stats", authenticationMiddleWare, async (req, res) => {
   try {
     const userId = req.userId;
