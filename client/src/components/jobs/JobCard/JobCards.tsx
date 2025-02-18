@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import styles from "./JobCards.module.css";
 import { Clock } from "lucide-react";
 import { Link } from "react-router-dom";
+import { JobType } from "../types";
 
 type Job = {
   id: number;
@@ -13,17 +14,33 @@ type Job = {
   description: string;
 };
 
-export default function JobCards() {
+const jobTypes: JobType[] = [
+  { value: "full-time", label: "Full Time" },
+  { value: "part-time", label: "Part Time" },
+  { value: "contract", label: "Contract" },
+  { value: "freelance", label: "Freelance" },
+  { value: "internship", label: "Internship" },
+  { value: "volunteering", label: "Volunteering" },
+
+  { value: "entry", label: "Entry Level" },
+  { value: "mid", label: "Mid Level" },
+  { value: "senior", label: "Senior" },
+  { value: "lead", label: "Lead" },
+  { value: "executive", label: "Executive" },
+];
+
+export default function JobCards({ filters }: { filters: any }) {
   const [joboffers, setjoboffers] = useState<Job[]>([]);
 
-  const fetchdata = async (filters: any) => {
+  const fetchdata = async () => {
     try {
       let baseUrl = "http://localhost:3000/jobs/filter";
 
-      if (filters.jobTypes) baseUrl += `?jobType=${filters.jobTypes.join(",")}`;
-      if (filters.experienceLevels)
+      if (filters?.jobTypes)
+        baseUrl += `?jobType=${filters.jobTypes.join(",")}`;
+      if (filters?.experienceLevels)
         baseUrl += `&experienceLevel=${filters.experienceLevels.join(",")}`;
-      if (filters.salaryRange)
+      if (filters?.salaryRange)
         baseUrl += `&minSalary=${filters.salaryRange[0]}&maxSalary=${filters.salaryRange[1]}`;
 
       const response = await fetch(baseUrl);
@@ -47,8 +64,8 @@ export default function JobCards() {
 
   useEffect(() => {
     console.log("Fetching data...");
-    fetchdata({});
-  }, []);
+    fetchdata();
+  }, [filters]);
 
   return (
     <div className={styles.jobCardsContainer}>
@@ -73,13 +90,13 @@ export default function JobCards() {
 type JobCardProps = {
   logo: string;
   title: string;
-  tags: string[]; // Um array de tags
+  tags: string[];
   description: string;
   id: number;
 };
 
 const JobCard = ({ logo, title, tags, description, id }: JobCardProps) => {
-  console.log(logo);
+  console.log("JobCard:", { logo, title, tags, description });
   return (
     <Link to={`/jobs/${id}`} className={styles.jobCardLink}>
       <div className={styles.jobcontainer}>
@@ -91,35 +108,39 @@ const JobCard = ({ logo, title, tags, description, id }: JobCardProps) => {
         </div>
         <div className={styles.tagcontainer}>
           <div className={styles.tags}>
-            {tags.map((tag, index) => (
-              <span
-                key={index}
-                className={`${styles.tag} ${
-                  tag === "Full Time"
-                    ? styles.fullTime
-                    : tag === "Part Time"
-                    ? styles.partTime
-                    : tag === "Senior"
-                    ? styles.senior
-                    : tag === "Entry Level"
-                    ? styles.entryLevel
-                    : tag === "Mid Level"
-                    ? styles.midLevel
-                    : tag === "Freelance"
-                    ? styles.freelance
-                    : tag === "Internship"
-                    ? styles.internship
-                    : tag === "Contract"
-                    ? styles.contract
-                    : tag === "Lead"
-                    ? styles.lead
-                    : ""
-                  // TODO: Adicionar mais classes para outras tags
-                }`}
-              >
-                {tag}
-              </span>
-            ))}
+            {tags
+              .map((tag) => {
+                const jobType = jobTypes.find((type) => type.value === tag);
+                return jobType?.label;
+              })
+              .map((tag, index) => (
+                <span
+                  key={index}
+                  className={`${styles.tag} ${
+                    tag === "Full Time"
+                      ? styles.fullTime
+                      : tag === "Part Time"
+                      ? styles.partTime
+                      : tag === "Senior"
+                      ? styles.senior
+                      : tag === "Entry Level"
+                      ? styles.entryLevel
+                      : tag === "Mid Level"
+                      ? styles.midLevel
+                      : tag === "Freelance"
+                      ? styles.freelance
+                      : tag === "Internship"
+                      ? styles.internship
+                      : tag === "Contract"
+                      ? styles.contract
+                      : tag === "Lead"
+                      ? styles.lead
+                      : ""
+                  }`}
+                >
+                  {tag}
+                </span>
+              ))}
           </div>
           <div className={styles.jobdescriptioncontainer}>
             <p>{description}</p>
@@ -130,7 +151,7 @@ const JobCard = ({ logo, title, tags, description, id }: JobCardProps) => {
               <p>$1000,00</p>
             </div>
             <div className={styles.time}>
-              <Clock size={16}> </Clock>
+              <Clock size={16} />
               <p>2 days ago</p>
             </div>
           </div>

@@ -162,3 +162,16 @@
   text-decoration: none;
   color: black;
 }
+.pageContainer {
+  display: flex;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.loadingState,
+.emptyState {
+  width: 100%;
+  text-align: center;
+  padding: 2rem;
+  color: #666;
+}

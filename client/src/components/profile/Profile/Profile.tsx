@@ -1,6 +1,9 @@
 import styles from "./Profile.module.css";
 import { CircleUser, MapPin, Mail, Edit2 } from "lucide-react";
 import { useEffect, useState } from "react";
+import { Briefcase, Pencil } from "lucide-react";
+import Overview from "./Overview";
+import Documents from "./Documents";
 interface ApplicationStatus {
   total_applications: number;
   total_interviews: number;
@@ -107,6 +110,11 @@ export function Profile() {
         >
           Documents
         </span>
+      </div>
+
+      <div className={styles.contentContainer}>
+        {activeTab === "overview" && <Overview />}
+        {activeTab === "documents" && <Documents />}
       </div>
     </div>
   );

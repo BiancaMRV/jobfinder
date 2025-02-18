@@ -44,7 +44,7 @@ export const JobFilter: React.FC<FilterComponentProps> = ({
               name="jobType"
               value={type.value}
               checked={filters.jobTypes.includes(type.value)}
-              onClick={() => handleCheckboxChange(type.value)}
+              onChange={() => handleCheckboxChange(type.value)}
             />
             <label className={styles.label} htmlFor={type.value}>
               {type.label}

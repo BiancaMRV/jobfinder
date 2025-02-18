@@ -1,13 +1,15 @@
+// HomePage.tsx
 import styles from "./HomePage.module.css";
 import Header from "../../layout/Header/Header";
 import { FiltersInterface } from "../FiltersInterface/FiltersInterface";
-import JobCard from "../JobCard/JobCards";
+import JobCards from "../JobCard/JobCards";
 import { useState } from "react";
 import useMediaQuery from "../../../utils/useMediaQuery";
 
 export default function HomePage() {
-  const [showFilters, setShowFilters] = useState(true); // Controla visibilidade dos filtros no mobile
-  const isMobile = useMediaQuery("(max-width: 768px)"); // Verifica se a tela é mobile
+  const [showFilters, setShowFilters] = useState(true);
+  const [filters, setFilters] = useState({});
+  const isMobile = useMediaQuery("(max-width: 768px)");
 
   return (
     <section className={styles.homepagecontainer}>
@@ -30,8 +32,10 @@ export default function HomePage() {
       </div>
 
       <div className={styles.maincontent}>
-        {(showFilters || !isMobile) && <FiltersInterface />}
-        {!(showFilters && isMobile) && <JobCard />}
+        {(showFilters || !isMobile) && (
+          <FiltersInterface onFiltersChange={setFilters} />
+        )}
+        {!(showFilters && isMobile) && <JobCards filters={filters} />}
       </div>
     </section>
   );
