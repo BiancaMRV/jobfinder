@@ -4,6 +4,9 @@ import { useEffect, useState } from "react";
 import { Briefcase, Pencil } from "lucide-react";
 import Overview from "./Overview";
 import Documents from "./Documents";
+import Education from "./Education";
+import Experience from "./Experience";
+
 interface ApplicationStatus {
   total_applications: number;
   total_interviews: number;
@@ -98,23 +101,39 @@ export function Profile() {
         </div>
       </div>
       <div className={styles.informationcontainer}>
-        <span
-          className={activeTab === "overview" ? styles.active : ""}
-          onClick={() => handleTabClick("overview")}
-        >
-          Overview
-        </span>
-        <span
-          className={activeTab === "documents" ? styles.active : ""}
-          onClick={() => handleTabClick("documents")}
-        >
-          Documents
-        </span>
-      </div>
+        <div className={styles.tabs}>
+          <span
+            className={activeTab === "overview" ? styles.active : ""}
+            onClick={() => handleTabClick("overview")}
+          >
+            Overview
+          </span>
+          <span
+            className={activeTab === "education" ? styles.active : ""}
+            onClick={() => handleTabClick("education")}
+          >
+            Education
+          </span>
+          <span
+            className={activeTab === "experience" ? styles.active : ""}
+            onClick={() => handleTabClick("experience")}
+          >
+            Experience
+          </span>
+          <span
+            className={activeTab === "documents" ? styles.active : ""}
+            onClick={() => handleTabClick("documents")}
+          >
+            Documents
+          </span>
+        </div>
 
-      <div className={styles.contentContainer}>
-        {activeTab === "overview" && <Overview />}
-        {activeTab === "documents" && <Documents />}
+        <div className={styles.contentContainer}>
+          {activeTab === "overview" && <Overview />}
+          {activeTab === "education" && <Education />}
+          {activeTab === "experience" && <Experience />}
+          {activeTab === "documents" && <Documents />}
+        </div>
       </div>
     </div>
   );

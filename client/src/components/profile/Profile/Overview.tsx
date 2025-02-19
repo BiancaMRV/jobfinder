@@ -1,5 +1,5 @@
 import styles from "./Overview.module.css";
-import { Briefcase, Pencil } from "lucide-react";
+import { Briefcase, Pencil, GraduationCap } from "lucide-react";
 
 export default function Overview() {
   return (
@@ -8,28 +8,60 @@ export default function Overview() {
         <Briefcase size={24} />
         <span> Experience </span>
         <Pencil size={24} />
+        <div className={styles.inputcontainerexperience}>
+          <div className={styles.inputtilte}>
+            <input
+              type="title"
+              id="title"
+              name="title"
+              placeholder="Title"
+              required
+            />
+          </div>
+          <div className={styles.inputdateandcompany}>
+            <input
+              type="date and name of company"
+              id="date and name of company"
+              name="date and name of company"
+              placeholder="Date and Name of Company"
+              required
+            />
+          </div>
+          <div className={styles.inputdescriptionexperience}>
+            <input
+              type="description"
+              id="description"
+              name="description"
+              placeholder="Description"
+              maxLength={100}
+              required
+            />
+          </div>
+        </div>
       </div>
-      <div className={styles.inputcontaineroverview}>
-        <div className={styles.inputtilte}>
+      <div className={styles.education}>
+        <GraduationCap size={24} />
+        <span> Education </span>
+        <Pencil size={24} />
+        <div className={styles.inputcontainereducation}>
           <input
+            className={styles.inputtitle}
             type="title"
             id="title"
             name="title"
-            placeholder="Title"
+            placeholder="CourseName"
             required
           />
-        </div>
-        <div className={styles.inputdateandcompany}>
           <input
-            type="date and name of company"
-            id="date and name of company"
-            name="date and name of company"
-            placeholder="Date and Name of Company"
+            className={styles.inputdateandinstitution}
+            type="title"
+            id="title"
+            name="title"
+            placeholder="Institution And Date"
             required
           />
-        </div>
-        <div className={styles.inputdescription}>
           <input
+            className={styles.inputdescriptioneducation}
             type="description"
             id="description"
             name="description"
@@ -38,6 +70,9 @@ export default function Overview() {
             required
           />
         </div>
+      </div>
+      <div className={styles.documents}>
+        <span> Documents </span>
       </div>
     </div>
   );
