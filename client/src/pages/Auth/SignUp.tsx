@@ -112,6 +112,22 @@ export const SignUp: React.FC = () => {
             <div className={styles.name}>
               <div className={styles.inputContainer}>
                 <input
+                  type="radio"
+                  id="candidate"
+                  name="role"
+                  value="jobSeeker"
+                />
+                <label htmlFor="candidate">Job Seeker</label>
+                <input
+                  type="radio"
+                  id="employer"
+                  name="role"
+                  value="employer"
+                />
+                <label htmlFor="company">Company</label>
+              </div>
+              <div className={styles.inputContainer}>
+                <input
                   type="text"
                   id="firstName"
                   name="firstName"
