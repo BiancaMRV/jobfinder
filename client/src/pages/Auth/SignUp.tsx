@@ -17,6 +17,7 @@ export const SignUp: React.FC = () => {
     email: "",
     password: "",
     confirmPassword: "",
+    role: "jobSeeker",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,6 +42,8 @@ export const SignUp: React.FC = () => {
         credentials: "include",
         body: JSON.stringify(formData),
       });
+
+      console.log("formData", formData);
 
       if (!response.ok) {
         const error = await response.text();
@@ -113,16 +116,20 @@ export const SignUp: React.FC = () => {
               <div className={styles.inputContainer}>
                 <input
                   type="radio"
-                  id="candidate"
+                  id="jobSeeker"
                   name="role"
                   value="jobSeeker"
+                  checked={formData.role === "jobSeeker"}
+                  onChange={handleChange}
                 />
                 <label htmlFor="candidate">Job Seeker</label>
                 <input
                   type="radio"
-                  id="employer"
+                  id="company"
                   name="role"
-                  value="employer"
+                  value="company"
+                  checked={formData.role === "company"}
+                  onChange={handleChange}
                 />
                 <label htmlFor="company">Company</label>
               </div>

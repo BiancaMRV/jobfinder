@@ -13,6 +13,7 @@ async function seedDatabase() {
         password: hashedPassword,
         currentJob: "Software Engineer",
         isWorking: "true",
+        role: "jobSeeker",
       },
       {
         firstName: "Jane",
@@ -21,6 +22,7 @@ async function seedDatabase() {
         password: hashedPassword,
         currentJob: "Product Manager",
         isWorking: "true",
+        role: "jobSeeker",
       },
       {
         firstName: "Alice",
@@ -29,26 +31,60 @@ async function seedDatabase() {
         password: hashedPassword,
         currentJob: "Data Scientist",
         isWorking: "true",
+        role: "jobSeeker",
+      },
+      {
+        firstName: "Tech",
+        lastName: "Admin",
+        email: "tech@example.com",
+        password: hashedPassword,
+        currentJob: "",
+        isWorking: "false",
+        role: "company",
+      },
+      {
+        firstName: "Global",
+        lastName: "Consulting",
+        email: "global@example.com",
+        password: hashedPassword,
+        currentJob: "",
+        isWorking: "false",
+        role: "company",
+      },
+      {
+        firstName: "UpHold",
+        lastName: "Manager",
+        email: "uphold@example.com",
+        password: hashedPassword,
+        currentJob: "",
+        isWorking: "false",
+        role: "company",
       },
     ];
 
     const userInsertQuery = `
-      INSERT INTO users (firstName, lastName, email, password, currentJob, isWorking) 
-      VALUES ($1, $2, $3, $4, $5, $6)
+      INSERT INTO users (firstName, lastName, email, password, currentJob, isWorking, role) 
+      VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id
     `;
+    const companyUserIds: number[] = [];
 
     for (const user of users) {
-      await client.query(userInsertQuery, [
+      const usersResult = await client.query(userInsertQuery, [
         user.firstName,
         user.lastName,
         user.email,
         user.password,
         user.currentJob,
         user.isWorking,
+        user.role,
       ]);
-    }
 
-    // Seed Companies
+      const userId = usersResult.rows[0].id;
+
+      if (user.role === "company") {
+        companyUserIds.push(userId);
+      } //se for um usuario de empresa adiciona o id do usuario ao array companyUserIds, armazena o ID
+    }
     const companies = [
       {
         name: "Tech Innovations Inc.",
@@ -56,6 +92,7 @@ async function seedDatabase() {
           "Leading technology company focused on innovative solutions",
         logo_url: "./logo.svg",
         location: "Braga",
+        user_id: companyUserIds[0],
       },
       {
         name: "Global Consulting Group",
@@ -63,6 +100,7 @@ async function seedDatabase() {
           "International consulting firm providing strategic business solutions",
         logo_url: "./logo.svg",
         location: "Porto",
+        user_id: companyUserIds[1],
       },
       {
         name: "UpHold",
@@ -70,12 +108,13 @@ async function seedDatabase() {
           "International consulting firm providing strategic business solutions",
         logo_url: "./logo.svg",
         location: "Barcelos",
+        user_id: companyUserIds[2],
       },
     ];
 
     const companyInsertQuery = `
-      INSERT INTO companies (name, description, logo_url, location) 
-      VALUES ($1, $2, $3, $4)
+      INSERT INTO companies (name, description, logo_url, location, user_id) 
+      VALUES ($1, $2, $3, $4,$5)
     `;
 
     for (const company of companies) {
@@ -84,6 +123,7 @@ async function seedDatabase() {
         company.description,
         company.logo_url,
         company.location,
+        company.user_id,
       ]);
     }
 

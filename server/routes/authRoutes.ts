@@ -19,7 +19,8 @@ router.post("/signUp", async (req: any, res: any) => {
       corpo: req.body,
       cookies: req.cookies,
     });
-    const { firstName, lastName, email, password, confirmPassword } = req.body;
+    const { firstName, lastName, email, password, confirmPassword, role } =
+      req.body;
 
     if (!firstName || firstName.trim() === "") {
       return res.status(400).send("First Name is required");
@@ -56,7 +57,7 @@ router.post("/signUp", async (req: any, res: any) => {
 
     const username = `${firstName}${lastName}`;
 
-    const user = await signUp(firstName, lastName, email, password);
+    const user = await signUp(firstName, lastName, email, password, role);
     const token = await generateSessionToken();
     const session = await createSession(token, user.id);
     setSessionTokenCookie(res, token, session.expiresAt);

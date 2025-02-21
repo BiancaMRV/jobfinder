@@ -9,6 +9,8 @@ const createUsers = `CREATE TABLE IF NOT EXISTS "users" (
     password VARCHAR(255) NOT NULL,
     currentJob VARCHAR(255),
     isWorking VARCHAR(255),
+    jobSeeker VARCHAR(255),
+    role VARCHAR(20) NOT NULL DEFAULT 'jobSeeker',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )`;
@@ -39,6 +41,7 @@ const createComments = `CREATE TABLE IF NOT EXISTS "comments" (
 
 const createCompanies = `CREATE TABLE IF NOT EXISTS "companies" (
     id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES users(id) UNIQUE NOT NULL, 
     name VARCHAR(255) NOT NULL,
     description TEXT NOT NULL,
     location VARCHAR (255) NOT NULL,
@@ -46,7 +49,7 @@ const createCompanies = `CREATE TABLE IF NOT EXISTS "companies" (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )`;
-
+//user_id INTEGER REFERENCES users(id): Cria uma chave estrangeira que referencia a tabela users, unique garante que um usuario so pode ter uma empresa not null garante que toda empresa deve estar associada a um usuario
 const createJobOffers = `CREATE TABLE IF NOT EXISTS "job_offers" (
     id SERIAL PRIMARY KEY, 
     title VARCHAR(255) NOT NULL,
