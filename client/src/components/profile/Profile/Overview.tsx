@@ -1,78 +1,82 @@
 import styles from "./Overview.module.css";
-import { Briefcase, Pencil, GraduationCap } from "lucide-react";
+import { Briefcase, Pencil, GraduationCap, FileText } from "lucide-react";
+import { useState } from "react";
 
 export default function Overview() {
+  const [editExperience, seteditExperience] = useState(false);
+  const [editEducation, seteditEducation] = useState(false);
+
   return (
-    <div className={styles.overviewcontainer}>
-      <div className={styles.experience}>
-        <Briefcase size={24} />
-        <span> Experience </span>
-        <Pencil size={24} />
-        <div className={styles.inputcontainerexperience}>
-          <div className={styles.inputtilte}>
-            <input
-              type="title"
-              id="title"
-              name="title"
-              placeholder="Title"
-              required
-            />
-          </div>
-          <div className={styles.inputdateandcompany}>
-            <input
-              type="date and name of company"
-              id="date and name of company"
-              name="date and name of company"
-              placeholder="Date and Name of Company"
-              required
-            />
-          </div>
-          <div className={styles.inputdescriptionexperience}>
-            <input
-              type="description"
-              id="description"
-              name="description"
-              placeholder="Description"
-              maxLength={100}
-              required
-            />
-          </div>
+    <div className={styles.overviewContainer}>
+      <div className={styles.sectionContainer}>
+        <div className={styles.sectionHeader}>
+          <Briefcase size={24} />
+          <span className={styles.sectionTitle}>Experience</span>
+          <Pencil size={24} className={styles.editIcon} />
         </div>
-      </div>
-      <div className={styles.education}>
-        <GraduationCap size={24} />
-        <span> Education </span>
-        <Pencil size={24} />
-        <div className={styles.inputcontainereducation}>
+
+        <div className={styles.inputGroup}>
           <input
-            className={styles.inputtitle}
-            type="title"
-            id="title"
-            name="title"
-            placeholder="CourseName"
+            type="text"
+            placeholder="Title"
+            className={styles.inputField}
             required
           />
+
           <input
-            className={styles.inputdateandinstitution}
-            type="title"
-            id="title"
-            name="title"
-            placeholder="Institution And Date"
+            type="text"
+            placeholder="Date and Name of Company"
+            className={styles.inputField}
             required
           />
+
           <input
-            className={styles.inputdescriptioneducation}
-            type="description"
-            id="description"
-            name="description"
+            type="text"
             placeholder="Description"
-            maxLength={100}
+            className={styles.inputField}
             required
           />
         </div>
       </div>
-      <div className={styles.documents}>
-        <span> Documents </span>
+
+      <div className={styles.sectionContainer}>
+        <div className={styles.sectionHeader}>
+          <GraduationCap size={24} />
+          <span className={styles.sectionTitle}>Education</span>
+          <Pencil size={24} className={styles.editIcon} />
+        </div>
+
+        <div className={styles.inputGroup}>
+          <input
+            type="text"
+            placeholder="CourseName"
+            className={styles.inputField}
+            required
+          />
+
+          <input
+            type="text"
+            placeholder="Institution And Date"
+            className={styles.inputField}
+            required
+          />
+
+          <input
+            type="text"
+            placeholder="Description"
+            className={styles.inputField}
+            required
+          />
+        </div>
+      </div>
+
+      <div className={styles.sectionContainer}>
+        <div className={styles.sectionHeader}>
+          <FileText size={24} />
+          <span className={styles.sectionTitle}>Documents</span>
+          <Pencil size={24} className={styles.editIcon} />
+        </div>
+        <div className={styles.inputGroup}></div>
       </div>
     </div>
   );
