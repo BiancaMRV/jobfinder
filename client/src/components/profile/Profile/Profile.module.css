@@ -1,11 +1,13 @@
 .profilecontainer {
-  max-width: 1200px;
-  margin: 2rem auto;
-  padding: 0 1rem;
+  padding: 2rem 2rem;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  background-color: rgba(254, 219, 255, 0.186);
+  box-sizing: border-box;
+  width: 100%;
 }
+
 .profileheader {
   display: inline-block;
   justify-content: space-between;
@@ -36,12 +38,13 @@
   gap: 0.5rem;
   padding: 1rem;
   border-radius: 8px;
-  background-color: white;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  /* background-color: white; */
+  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
   margin: 0 auto;
   align-items: center;
   width: 100%;
   text-align: center;
+  box-sizing: border-box;
 }
 .profileinfo {
   flex-direction: column;
@@ -153,6 +156,7 @@ h2 {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   margin: 0 auto;
   width: 100%;
+  box-sizing: border-box;
 }
 
 @media (max-width: 768px) {

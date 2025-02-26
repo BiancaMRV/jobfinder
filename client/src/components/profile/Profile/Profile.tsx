@@ -1,11 +1,11 @@
 import styles from "./Profile.module.css";
 import { CircleUser, MapPin, Mail, Edit2 } from "lucide-react";
 import { useEffect, useState } from "react";
-import { Briefcase, Pencil } from "lucide-react";
 import Overview from "./Overview";
 import Documents from "./Documents";
 import Education from "./Education";
 import Experience from "./Experience";
+import Skills from "./Skills";
 
 interface ApplicationStatus {
   total_applications: number;
@@ -121,17 +121,23 @@ export function Profile() {
             Experience
           </span>
           <span
+            className={activeTab === "skills" ? styles.active : ""}
+            onClick={() => handleTabClick("skills")}
+          >
+            Skills
+          </span>
+          <span
             className={activeTab === "documents" ? styles.active : ""}
             onClick={() => handleTabClick("documents")}
           >
             Documents
           </span>
         </div>
-
         <div className={styles.contentContainer}>
           {activeTab === "overview" && <Overview />}
           {activeTab === "education" && <Education />}
           {activeTab === "experience" && <Experience />}
+          {activeTab === "Skills" && <Skills />}
           {activeTab === "documents" && <Documents />}
         </div>
       </div>

@@ -19,7 +19,7 @@
 }
 
 .sectionIcon {
-  color: #8a4baf; /* Cor roxa como na captura de tela */
+  color: #8a4baf;
 }
 
 .sectionTitle {
@@ -67,7 +67,7 @@
 }
 
 .displayContent {
-  border-left: 2px solid #e0e0e0;
+  border-left: 2px solid#e1cafc;
   padding-left: 15px;
   margin-left: 12px;
 }
