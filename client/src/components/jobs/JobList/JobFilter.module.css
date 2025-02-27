@@ -2,7 +2,6 @@
   display: flex; /* Alinha o título e o botão Clear All */
   justify-content: space-between; /* Coloca o botão à direita */
   align-items: center; /* Centraliza verticalmente */
-
   gap: 0.1rem; /* Espaçamento entre os elementos */
 }
 
@@ -26,4 +25,8 @@
 .label {
   font-size: small;
   font-weight: 500;
+}
+/* Para alterar a cor do checkbox marcado */
+input[type="checkbox"]:checked {
+  accent-color: #2c2738; /* Exemplo com cor roxa - substitua pelo código da cor desejada */
 }

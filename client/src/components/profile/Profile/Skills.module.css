@@ -1,0 +1,28 @@
+.overviewContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  width: auto;
+  padding: 20px;
+}
+
+.sectionContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sectionIcon {
+  color: #8a4baf;
+}
+
+.sectionTitle {
+  font-size: 18px;
+  font-weight: 500;
+}

@@ -1,6 +1,6 @@
 import styles from "./Profile.module.css";
-import { CircleUser, MapPin, Mail, Edit2 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { CircleUser, MapPin, Mail, Edit2, Upload } from "lucide-react";
+import { useEffect, useState, useRef } from "react";
 import Overview from "./Overview";
 import Documents from "./Documents";
 import Education from "./Education";
@@ -49,14 +49,50 @@ export function Profile() {
     setActiveTab(tab);
   };
 
+  const [profileImage, setProfileImage] = useState<string | null>(null);
+
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        // quando o ficheiro terminar de ser lido, o evento onload é chamado e o resultado é guardado no state profileimage, o reader.result vai ser imagem convertida em base64
+        setProfileImage(reader.result as string);
+      };
+      reader.readAsDataURL(file); // aqui lemos realmente o ficheiro
+    }
+  };
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const triggerFileInput = () => {
+    fileInputRef.current?.click();
+  };
   return (
     <div className={styles.profilecontainer}>
       <div className={styles.profilecard}>
         <div className={styles.profileheader}>
-          <CircleUser
-            className={styles.circleuser}
-            color="#9158d6"
-            size={100}
+          <label htmlFor="profile-image" className={styles.profileimage}>
+            {profileImage ? (
+              <img
+                src={profileImage}
+                alt="Profile"
+                className={styles.profileImage}
+              />
+            ) : (
+              <CircleUser
+                className={styles.circleuser}
+                color="#9158d6"
+                size={100}
+              />
+            )}
+            <Upload className={styles.upload} size={20} />
+          </label>
+          <input
+            id="upload-photo"
+            type="file"
+            accept="image/*"
+            onChange={handleImageUpload}
+            className={styles.fileinput}
           />
           <h2> Bianca Vilaverde</h2>
           <div className={styles.profileinfo}>
@@ -137,7 +173,7 @@ export function Profile() {
           {activeTab === "overview" && <Overview />}
           {activeTab === "education" && <Education />}
           {activeTab === "experience" && <Experience />}
-          {activeTab === "Skills" && <Skills />}
+          {activeTab === "skills" && <Skills />}
           {activeTab === "documents" && <Documents />}
         </div>
       </div>
