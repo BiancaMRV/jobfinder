@@ -112,27 +112,27 @@ export const SignUp: React.FC = () => {
             noValidate
             onSubmit={handleSubmit}
           >
+            <div className={styles.roleSelection}>
+              <button
+                type="button"
+                className={`${styles.roleButton} ${
+                  formData.role === "jobSeeker" ? styles.active : ""
+                }`}
+                onClick={() => setFormData({ ...formData, role: "jobSeeker" })}
+              >
+                Job Seeker
+              </button>
+              <button
+                type="button"
+                className={`${styles.roleButton} ${
+                  formData.role === "company" ? styles.active : ""
+                }`}
+                onClick={() => setFormData({ ...formData, role: "company" })}
+              >
+                Company
+              </button>
+            </div>
             <div className={styles.name}>
-              <div className={styles.inputContainer}>
-                <input
-                  type="radio"
-                  id="jobSeeker"
-                  name="role"
-                  value="jobSeeker"
-                  checked={formData.role === "jobSeeker"}
-                  onChange={handleChange}
-                />
-                <label htmlFor="candidate">Job Seeker</label>
-                <input
-                  type="radio"
-                  id="company"
-                  name="role"
-                  value="company"
-                  checked={formData.role === "company"}
-                  onChange={handleChange}
-                />
-                <label htmlFor="company">Company</label>
-              </div>
               <div className={styles.inputContainer}>
                 <input
                   type="text"

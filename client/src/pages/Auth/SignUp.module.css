@@ -185,8 +185,36 @@
   color: var(--color-accent-light);
   text-decoration: underline;
 }
+.roleSelection {
+  display: flex;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-sm);
+  justify-content: center;
+}
 
-/* Responsive Design */
+.roleButton {
+  padding: 10px;
+  border: 1px solid var(--color-accent);
+  background-color: transparent;
+  color: var(--color-text);
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  min-width: 100px;
+}
+
+.roleButton:hover {
+  background-color: var(--color-accent-light);
+}
+
+.roleButton.active {
+  background-color: var(--color-accent);
+  color: white;
+  box-shadow: 0 0 10px rgba(110, 84, 181, 0.6);
+}
+
+/* Responsive */
 @media (max-width: 1000px) {
   .main {
     flex-direction: column;

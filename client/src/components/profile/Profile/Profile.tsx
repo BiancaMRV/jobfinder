@@ -59,14 +59,12 @@ export function Profile() {
       reader.onload = () => {
         // quando o ficheiro terminar de ser lido, o evento onload é chamado e o resultado é guardado no state profileimage, o reader.result vai ser imagem convertida em base64
         setProfileImage(reader.result as string);
+        console.log(reader.result);
       };
       reader.readAsDataURL(file); // aqui lemos realmente o ficheiro
     }
   };
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const triggerFileInput = () => {
-    fileInputRef.current?.click();
-  };
+
   return (
     <div className={styles.profilecontainer}>
       <div className={styles.profilecard}>
