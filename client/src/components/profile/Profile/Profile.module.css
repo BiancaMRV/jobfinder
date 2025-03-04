@@ -22,7 +22,15 @@
   justify-content: center;
   width: 100%;
 }
+.fileinput {
+  display: none;
+}
 
+.profileimage {
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+}
 .tabs * {
   padding: 0.5rem 1rem;
 }

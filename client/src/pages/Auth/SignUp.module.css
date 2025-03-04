@@ -206,6 +206,7 @@
 
 .roleButton:hover {
   background-color: var(--color-accent-light);
+  transform: translateY(-3px);
 }
 
 .roleButton.active {

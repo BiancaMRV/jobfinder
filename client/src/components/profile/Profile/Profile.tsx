@@ -1,6 +1,6 @@
 import styles from "./Profile.module.css";
 import { CircleUser, MapPin, Mail, Edit2, Upload } from "lucide-react";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import Overview from "./Overview";
 import Documents from "./Documents";
 import Education from "./Education";
@@ -59,7 +59,6 @@ export function Profile() {
       reader.onload = () => {
         // quando o ficheiro terminar de ser lido, o evento onload é chamado e o resultado é guardado no state profileimage, o reader.result vai ser imagem convertida em base64
         setProfileImage(reader.result as string);
-        console.log(reader.result);
       };
       reader.readAsDataURL(file); // aqui lemos realmente o ficheiro
     }
@@ -69,7 +68,7 @@ export function Profile() {
     <div className={styles.profilecontainer}>
       <div className={styles.profilecard}>
         <div className={styles.profileheader}>
-          <label htmlFor="profile-image" className={styles.profileimage}>
+          <label htmlFor="upload-photo" className={styles.profileimage}>
             {profileImage ? (
               <img
                 src={profileImage}
@@ -83,7 +82,6 @@ export function Profile() {
                 size={100}
               />
             )}
-            <Upload className={styles.upload} size={20} />
           </label>
           <input
             id="upload-photo"

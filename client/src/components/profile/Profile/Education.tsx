@@ -1,4 +1,4 @@
-import styles from "./Experience.module.css";
+import styles from "./Education.module.css";
 import { useEffect } from "react";
 import { GraduationCap } from "lucide-react";
 import Entry from "./Entry";
