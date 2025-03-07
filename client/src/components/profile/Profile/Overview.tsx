@@ -4,9 +4,7 @@ import Entry from "./Entry";
 import { useEffect } from "react";
 
 export default function Overview() {
-  useEffect(() => {
-    //buscar dados do servidor
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <div className={styles.overviewContainer}>

@@ -24,7 +24,7 @@ router.post("/signUp", async (req: any, res: any) => {
 
     if (!firstName || firstName.trim() === "") {
       return res.status(400).send("First Name is required");
-    } // !firstName casos onde o campo está completamente vazio, firstName.trim()==='' casos quando o campo so esta com espaços
+    }
 
     if (!lastName || lastName.trim() === "") {
       return res.status(400).send("Last Name is required");

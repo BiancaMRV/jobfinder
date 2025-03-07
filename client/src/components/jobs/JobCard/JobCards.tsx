@@ -37,7 +37,6 @@ export default function JobCards({ filters }: { filters: any }) {
       let baseUrl = "http://localhost:3000/jobs/filter";
 
       if (filters?.jobTypes)
-        // se filtros tem propriedade jobtypes entao adicione a url senao da null The optional chaining (?.) operator accesses an object's property or calls a function. If the object accessed or function called using this operator is undefined or null, the expression short circuits and evaluates to undefined instead of throwing an error.
         baseUrl += `?jobType=${filters.jobTypes.join(",")}`;
       if (filters?.experienceLevels)
         baseUrl += `&experienceLevel=${filters.experienceLevels.join(",")}`;
