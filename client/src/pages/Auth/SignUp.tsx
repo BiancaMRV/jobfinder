@@ -54,7 +54,7 @@ export const SignUp: React.FC = () => {
       }
       toast.success("Account created successfully, browse your dream jobs :)");
       console.log("1", 1);
-      navigate("/");
+      navigate(formData.role === "jobSeeker" ? "/" : "/companyprofile");
     } catch (error) {
       console.error("Erro:", error);
       if (error instanceof Error && error.message === "Failed to fetch") {
@@ -68,6 +68,7 @@ export const SignUp: React.FC = () => {
       setLoading(false);
     }
   };
+
   return (
     <main className={styles.main}>
       <section className={styles.left}>
