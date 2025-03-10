@@ -13,6 +13,20 @@ interface ApplicationStatus {
   total_offers: number;
 }
 export function Profile() {
+  const [profileImage, setProfileImage] = useState<string | null>(null);
+  useEffect(() => {
+    const savedImage = localStorage.getItem("profileImage");
+    if (savedImage) {
+      setProfileImage(savedImage);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (profileImage) {
+      localStorage.setItem("profileImage", profileImage);
+    }
+  }, [profileImage]);
+
   const [applicationStatus, setApplicationStatus] = useState<ApplicationStatus>(
     {
       total_applications: 0,
@@ -49,18 +63,20 @@ export function Profile() {
     setActiveTab(tab);
   };
 
-  const [profileImage, setProfileImage] = useState<string | null>(null);
-
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
-
     if (file) {
+      const maxSize = 2 * 1024 * 1024; // 2MB
+      if (file.size > maxSize) {
+        alert("A imagem é muito grande! Escolha uma de até 2MB.");
+        return;
+      }
+
       const reader = new FileReader();
       reader.onload = () => {
-        // quando o ficheiro terminar de ser lido, o evento onload é chamado e o resultado é guardado no state profileimage, o reader.result vai ser imagem convertida em base64
         setProfileImage(reader.result as string);
       };
-      reader.readAsDataURL(file); // aqui lemos realmente o ficheiro
+      reader.readAsDataURL(file);
     }
   };
 
@@ -176,5 +192,3 @@ export function Profile() {
     </div>
   );
 }
-
-//TODO: upload de foto no circulo users
