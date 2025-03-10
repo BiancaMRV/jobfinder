@@ -20,11 +20,11 @@ export const getAllCompaniesById = async (companyId: string) => {
   }
 };
 
-export const createNewCompany = async (name: string, description: string) => {
+export const createNewCompany = async (name: string) => {
   try {
     const result = await client.query(
-      "INSERT INTO companies(name, description) VALUES ($1, $2)",
-      [name, description]
+      "INSERT INTO companies(name) VALUES ($1)",
+      [name]
     );
     return result;
   } catch (error) {
@@ -47,21 +47,20 @@ export const searchCompany = async (name: string) => {
 
 export const deleteCompany = async (companyId: string) => {
   try {
-    const result = await client.query(
-      "DELETE FROM companies WHERE companyId=$1",
-      [companyId]
-    );
+    const result = await client.query("DELETE FROM companies WHERE id=$1", [
+      companyId,
+    ]);
     return result;
   } catch (error) {
     console.log("Company deleted");
     throw new Error("Company deleted");
   }
 };
-export const updateCompany = async (companyId: string, description: string) => {
+export const updateCompany = async (companyId: string, name: string) => {
   try {
     const result = await client.query(
-      "UPDATE companies SET description=$1 WHERE companyId=$2",
-      [description, companyId]
+      "UPDATE companies SET name=$2 WHERE id=$1",
+      [companyId, name]
     );
     return result;
   } catch (error) {

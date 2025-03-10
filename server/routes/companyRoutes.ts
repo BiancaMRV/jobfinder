@@ -39,8 +39,8 @@ router.post(
   validateRequest(createCompanyValidation),
   async (req, res) => {
     try {
-      const { name, description } = req.body; // Assuming the function requires 'name' and 'otherArg'
-      const company = await createNewCompany(name, description);
+      const name = req.body.name; // Assuming the function requires 'name' and 'otherArg'
+      const company = await createNewCompany(name);
       res.send(company);
     } catch (error) {
       res.status(500).send("Error creating company");
@@ -75,19 +75,19 @@ router.delete(
   }
 );
 
-router.patch(
-  "/companies",
-  validateRequest(updateCompanyValidation),
-  async (req, resp) => {
-    try {
-      const { companyId, description } = req.body;
-      const company = await updateCompany(companyId, description);
-      resp.send(company);
-    } catch (error) {
-      resp.status(500).send("Error updating company");
-    }
-  }
-);
+// router.patch(
+//   "/companies",
+//   validateRequest(updateCompanyValidation),
+//   async (req, resp) => {
+//     try {
+//       const { companyId } = req.body;
+//       const company = await updateCompany(companyId);
+//       resp.send(company);
+//     } catch (error) {
+//       resp.status(500).send("Error updating company");
+//     }
+//   }
+// );
 
 router.get(
   "/companies/:companyId/jobOffers",

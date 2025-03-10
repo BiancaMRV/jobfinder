@@ -12,7 +12,8 @@ export const signUp = async (
   lastName: string,
   email: string,
   password: string,
-  role: string
+  role: string,
+  location: string
 ) => {
   try {
     const existingUser = await client.query(
@@ -25,8 +26,8 @@ export const signUp = async (
     console.log("Password:", password);
     const hashedPassword = await bcrypt.hash(password, 10);
     const result = await client.query(
-      "INSERT INTO users(firstName,lastName,email,password,role) VALUES ($1,$2,$3,$4,$5) RETURNING *",
-      [firstName, lastName, email, hashedPassword, role]
+      "INSERT INTO users(firstName,lastName,email,password,role,location) VALUES ($1,$2,$3,$4,$5,$6) RETURNING *",
+      [firstName, lastName, email, hashedPassword, role, location]
     );
     if (role === "company") {
       //se for uma empresa cria um registo na tabela companies

@@ -8,6 +8,7 @@ const createUsers = `CREATE TABLE IF NOT EXISTS "users" (
     email VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
     currentJob VARCHAR(255),
+location VARCHAR (255),
     isWorking VARCHAR(255),
     jobSeeker VARCHAR(255),
     role VARCHAR(20) NOT NULL DEFAULT 'jobSeeker',
@@ -43,8 +44,9 @@ const createCompanies = `CREATE TABLE IF NOT EXISTS "companies" (
     id SERIAL PRIMARY KEY,
     user_id INTEGER REFERENCES users(id) UNIQUE NOT NULL, 
     name VARCHAR(255) NOT NULL,
-    description TEXT NOT NULL,
-    location VARCHAR (255) NOT NULL,
+    description TEXT,
+  
+    location VARCHAR (255),
     logo_url TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
