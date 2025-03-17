@@ -1,7 +1,7 @@
 import styles from "./Education.module.css";
 import { useEffect } from "react";
 import { GraduationCap } from "lucide-react";
-import Entry from "./Entry";
+import Entry from "../../../utils/Entry";
 
 export default function Education() {
   const educationData = [

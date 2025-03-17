@@ -1,0 +1,230 @@
+.profilecontainer {
+  padding: 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background-color: rgba(254, 219, 255, 0.186);
+  box-sizing: border-box;
+  width: 100%;
+}
+.profileImage {
+  width: 120px; /* ou o mesmo tamanho do CircleUser */
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover; /* Garante que a imagem preencha o espaço sem distorcer */
+}
+
+.profileheader {
+  display: inline-block;
+  justify-content: space-between;
+
+  margin-bottom: 1rem;
+}
+.tabs {
+  display: flex;
+
+  gap: 1rem;
+  margin: 1rem 0;
+  justify-content: center;
+  width: 100%;
+}
+.fileinput {
+  display: none;
+}
+
+.profileimage {
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+}
+.tabs * {
+  padding: 0.5rem 1rem;
+}
+.tabs .active {
+  border-bottom: 2px solid #6b46c1;
+
+  color: #6b46c1;
+}
+
+.profilecard {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+  border-radius: 8px;
+  /* background-color: white; */
+  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+  margin: 0 auto;
+  align-items: center;
+  width: 100%;
+  text-align: center;
+  box-sizing: border-box;
+}
+.profileinfo {
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin: 1rem 0;
+  width: 100%;
+  max-width: 300px;
+  justify-content: center;
+  flex: 1;
+}
+.buttonprofile {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #6b46c1;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  height: 40px;
+  margin: 1rem auto;
+  font-size: 1rem;
+  font-weight: normal;
+  align-self: flex-end;
+}
+
+.buttonprofile:hover {
+  background-color: #9158d6;
+}
+
+.location {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: #666;
+  font-size: 1rem;
+  font-weight: normal;
+  width: 100%;
+  padding: 0.5rem 0;
+  padding-left: 4rem;
+}
+
+.email {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: #666;
+  font-size: 1rem;
+  font-weight: normal;
+  width: 100%;
+  padding: 0.5rem 0;
+}
+
+h2 {
+  margin: 1rem 0;
+  font-size: 2rem;
+  font-weight: bold;
+  align-items: center;
+}
+
+.circleuser {
+  background-color: rgb(233 210 255);
+  border-radius: 70%;
+  padding: 1rem;
+
+  align-items: center;
+  justify-content: center;
+}
+.statsContainer {
+  display: flex;
+  flex-direction: row; /* Organiza os cards na vertical */
+  gap: 1rem; /* Espaço entre cada card */
+}
+
+.statCard {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  background-color: #f3e8ff; /* Fundo roxo claro */
+  border-radius: 0.75rem; /* Cantos arredondados */
+  width: 100px; /* Largura fixa para cada card */
+  margin-left: auto; /* Alinha os cards à direita */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  transition: transform 0.2s; /* Animação suave ao hover */
+  justify-content: center;
+}
+
+.statCard:hover {
+  transform: translateY(-2px); /* Levanta ligeiramente ao passar o rato */
+}
+
+.statValue {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #6b46c1; /* Roxo */
+  margin-bottom: 0.25rem;
+}
+
+.statLabel {
+  font-size: 1rem;
+  color: #666;
+}
+.informationcontainer {
+  padding: 1rem;
+  border-radius: 8px;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .statsContainer {
+    flex-direction: row; /* Organiza os cards na horizontal */
+  }
+
+  .statCard {
+    width: 100%; /* Ocupa toda a largura do ecrã */
+    margin-left: 0; /* Alinha ao centro */
+  }
+}
+/* @media (max-width: 768px) {
+    .profilecontainer {
+      margin: 1rem auto;
+      padding: 0 0.5rem;
+    }
+  
+    .profilecard {
+      padding: 0.75rem;
+    }
+  
+    .statsContainer {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .statCard {
+      width: 100%;
+      max-width: 250px;
+    }
+  
+    .buttonprofile {
+      width: 100%;
+      justify-content: center;
+    }
+  
+    h2 {
+      font-size: 1.25rem;
+      text-align: center;
+    }
+  
+    .location,
+    .email {
+      font-size: 0.875rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .profilecontainer {
+      margin: 0.5rem auto;
+    }
+  
+    .statCard {
+      max-width: 200px;
+    }
+  } */

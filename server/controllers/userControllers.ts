@@ -21,6 +21,7 @@ export const getUserById = async (userId: number) => {
     throw new Error("user doesnt exist");
   }
 };
+type UserType = "jobSeeker" | "company";
 
 export const createNewUser = async (
   first_name: string,
@@ -29,12 +30,22 @@ export const createNewUser = async (
   age: string,
   email: string,
   currentJob: string,
-  isWorking: string
+  isWorking: string,
+  userType: UserType
 ) => {
   try {
     const result = await client.query(
-      "INSERT INTO users(first_name,last_name, password, age, email, currentJob, isWorking) VALUES($1, $2, $3, $4, $5, $6,$7)",
-      [first_name, last_name, password, age, email, currentJob, isWorking]
+      "INSERT INTO users(first_name,last_name, password, age, email, currentJob, isWorking, userType) VALUES($1, $2, $3, $4, $5, $6,$7,$8)",
+      [
+        first_name,
+        last_name,
+        password,
+        age,
+        email,
+        currentJob,
+        isWorking,
+        userType,
+      ]
     );
     console.log("User created successfully");
     return result;
@@ -52,11 +63,12 @@ export const updateUser = async (
   email: string,
   userId: number,
   currentJob: string,
-  isWorking: string
+  isWorking: string,
+  userType: UserType
 ) => {
   try {
     const result = await client.query(
-      "UPDATE users SET first_name=$1,last_name=$2, password=$3, age=$4, email=$5, currentJob=$6, isWorking=$7 WHERE id=$5",
+      "UPDATE users SET first_name=$1,last_name=$2, password=$3, age=$4, email=$5, currentJob=$6, isWorking=$7,userType=$8, WHERE id=$5",
       [
         first_name,
         last_name,
@@ -66,6 +78,7 @@ export const updateUser = async (
         userId,
         currentJob,
         isWorking,
+        userType,
       ]
     );
     if (result.rows.length === 0) {

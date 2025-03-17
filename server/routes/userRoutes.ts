@@ -15,6 +15,7 @@ import {
 } from "../controllers/userControllers";
 
 export const router = Router();
+type UserType = "jobSeeker" | "company";
 
 router.get("/:userId", validateRequest(getUserValidation), async (req, res) => {
   try {
@@ -54,6 +55,7 @@ router.patch(
         age,
         isWorking,
         currentJob,
+        userType,
       } = req.body;
       const user = await updateUser(
         first_name,
@@ -63,7 +65,8 @@ router.patch(
         email,
         Number(userId),
         currentJob,
-        isWorking
+        isWorking,
+        userType
       );
       res.send(user);
     } catch (error) {

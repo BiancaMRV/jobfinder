@@ -52,9 +52,20 @@ export const SignUp: React.FC = () => {
         setError(error);
         return;
       }
-      toast.success("Account created successfully, browse your dream jobs :)");
-      console.log("1", 1);
-      navigate(formData.role === "jobSeeker" ? "/" : "/companyprofile");
+      const responseJson = await response.json();
+      console.log("responseJson", responseJson);
+      localStorage.setItem("user", responseJson.userId);
+      if (formData.role === "jobSeeker") {
+        toast.success(
+          "Account created successfully, browse your dream jobs :)"
+        );
+
+        navigate("/");
+      } else {
+        toast.success("Account created successfully, make dreams come true :)");
+
+        navigate("/companyprofile");
+      }
     } catch (error) {
       console.error("Erro:", error);
       if (error instanceof Error && error.message === "Failed to fetch") {
@@ -134,32 +145,50 @@ export const SignUp: React.FC = () => {
               </button>
             </div>
             <div className={styles.name}>
-              <div className={styles.inputContainer}>
-                <input
-                  type="text"
-                  id="firstName"
-                  name="firstName"
-                  value={formData.firstName}
-                  onChange={handleChange}
-                  placeholder="First Name"
-                  required
-                  minLength={2}
-                  pattern="[A-Za-z]+"
-                />
-              </div>
-              <div className={styles.inputContainer}>
-                <input
-                  type="text"
-                  id="lastName"
-                  name="lastName"
-                  value={formData.lastName}
-                  onChange={handleChange}
-                  placeholder="Last Name"
-                  required
-                  minLength={2}
-                  pattern="[A-Za-z]+"
-                />
-              </div>
+              {formData.role === "jobSeeker" ? (
+                <>
+                  <div className={styles.inputContainer}>
+                    <input
+                      type="text"
+                      id="firstName"
+                      name="firstName"
+                      value={formData.firstName}
+                      onChange={handleChange}
+                      placeholder="First Name"
+                      required
+                      minLength={2}
+                      pattern="[A-Za-z]+"
+                    />
+                  </div>
+                  <div className={styles.inputContainer}>
+                    <input
+                      type="text"
+                      id="lastName"
+                      name="lastName"
+                      value={formData.lastName}
+                      onChange={handleChange}
+                      placeholder="Last Name"
+                      required
+                      minLength={2}
+                      pattern="[A-Za-z]+"
+                    />
+                  </div>
+                </>
+              ) : (
+                <div className={styles.inputContainer}>
+                  <input
+                    type="text"
+                    id="companyName"
+                    name="firstName"
+                    value={formData.firstName}
+                    onChange={handleChange}
+                    placeholder="Company Name"
+                    required
+                    minLength={2}
+                    pattern="[A-Za-z]+"
+                  />
+                </div>
+              )}
             </div>
 
             <div className={styles.inputContainer}>

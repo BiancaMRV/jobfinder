@@ -1,6 +1,6 @@
 import styles from "./Overview.module.css";
 import { Briefcase, GraduationCap, Lightbulb } from "lucide-react";
-import Entry from "./Entry";
+import Entry from "../../../utils/Entry";
 import { useEffect } from "react";
 
 export default function Overview() {

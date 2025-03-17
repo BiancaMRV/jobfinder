@@ -32,7 +32,7 @@ export const signUp = async (
     if (role === "company") {
       //se for uma empresa cria um registo na tabela companies
       await client.query("INSERT INTO companies(name,user_id) VALUES ($1,$2)", [
-        firstName + " " + lastName,
+        firstName,
         result.rows[0].id,
       ]);
     }

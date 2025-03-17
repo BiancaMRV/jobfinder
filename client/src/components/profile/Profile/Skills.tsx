@@ -1,7 +1,7 @@
 import styles from "./Skills.module.css";
 import { useEffect } from "react";
 import { Lightbulb } from "lucide-react";
-import Entry from "./Entry";
+import Entry from "../../../utils/Entry";
 
 export default function Skills() {
   const skillsData = [

@@ -33,9 +33,6 @@ router.post("/signUp", async (req: any, res: any) => {
       return res.status(400).send("First Name is required");
     }
 
-    if (!lastName || lastName.trim() === "") {
-      return res.status(400).send("Last Name is required");
-    }
     if (!email || email.trim() === "") {
       return res.status(400).send("Email is required");
     }
@@ -81,6 +78,8 @@ router.post("/signUp", async (req: any, res: any) => {
       user: {
         username,
         email,
+        userId: user.id,
+        role: user.role,
       },
     });
   } catch (error) {

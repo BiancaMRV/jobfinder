@@ -1,7 +1,7 @@
 import styles from "./Experience.module.css";
 import { useEffect } from "react";
 import { Briefcase } from "lucide-react";
-import Entry from "./Entry";
+import Entry from "../../../utils/Entry";
 
 export default function Experience() {
   const experienceData = [
