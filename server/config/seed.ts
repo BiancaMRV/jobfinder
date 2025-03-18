@@ -132,9 +132,9 @@ async function seedDatabase() {
       {
         title: "Senior Software Engineer",
         logo: "./logo.svg",
-        experience_level: "mid",
-        job_type: "freelance",
-        salary: 120000.0,
+        experienceLevelId: "mid",
+        jobTypeId: "freelance",
+        salaryRangeId: 120000.0,
         description: `
 **About the role:**
 Join a dynamic team to design, develop, and maintain high-performance software applications that scale globally. Collaborate with cross-functional teams to deliver impactful solutions and drive innovation.
@@ -149,16 +149,16 @@ Join a dynamic team to design, develop, and maintain high-performance software a
 - Experience with RESTful APIs and microservices architecture.
 - Strong debugging and optimization skills.
         `,
-        company_id: 1,
+        companyId: 1,
         location: "Braga",
         jobOfferId: 1,
       },
       {
         title: "Sr. UX Designer",
         logo: "./logo-ux.svg",
-        experience_level: "senior",
-        job_type: "part-time",
-        salary: 65000.0,
+        experienceLevelId: "senior",
+        jobTypeId: "part-time",
+        salaryRangeId: 65000.0,
         description: `
 **About the role:**
 Help shape the user experience for millions of users by designing intuitive interfaces for a leading global platform. Collaborate with stakeholders to create user-centric designs.
@@ -173,16 +173,16 @@ Help shape the user experience for millions of users by designing intuitive inte
 - Strong knowledge of UX/UI design principles.
 - Excellent communication and teamwork skills.
         `,
-        company_id: 2,
+        companyId: 2,
         location: "San Francisco",
         jobOfferId: 2,
       },
       {
         title: "Junior Backend Developer",
         logo: "./logo-backend.svg",
-        experience_level: "entry",
-        job_type: "full-time",
-        salary: 40000.0,
+        experienceLevelId: "entry",
+        jobTypeId: "full-time",
+        salaryRangeId: 40000.0,
         description: `
 **About the role:**
 Kickstart your career by joining a supportive team of experienced developers. Build and maintain scalable backend services that support our growing product base.
@@ -197,7 +197,7 @@ Kickstart your career by joining a supportive team of experienced developers. Bu
 - Understanding of database systems (SQL/NoSQL).
 - Passion for learning and problem-solving.
         `,
-        company_id: 3,
+        companyId: 3,
         location: "Porto",
         jobOfferId: 3,
       },
@@ -205,8 +205,8 @@ Kickstart your career by joining a supportive team of experienced developers. Bu
 
     const jobOfferInsertQuery = `
       INSERT INTO job_offers (
-        title, logo, experience_level, location, job_type, 
-        salary, description, company_id
+        title, logo, experienceLevelId, location, jobTypeId, 
+        salaryRangeId, description, company_id
       ) VALUES ($1, $2, $3, $4, $5, $6, $7,$8)
     `;
 
@@ -214,12 +214,12 @@ Kickstart your career by joining a supportive team of experienced developers. Bu
       await client.query(jobOfferInsertQuery, [
         jobOffer.title,
         jobOffer.logo,
-        jobOffer.experience_level,
+        jobOffer.experienceLevelId,
         jobOffer.location,
-        jobOffer.job_type,
-        jobOffer.salary,
+        jobOffer.jobTypeId,
+        jobOffer.salaryRangeId,
         jobOffer.description,
-        jobOffer.company_id,
+        jobOffer.companyId,
       ]);
     }
 

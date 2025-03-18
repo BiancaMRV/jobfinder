@@ -40,7 +40,7 @@ export const createNewJobOffer = async (
   try {
     const result = await client.query(
       `
-      INSERT INTO job_offers (title, description,logo, company_id, experience_level_id, location,job_type_id, salary_range_id)
+      INSERT INTO job_offers (title, description,logo, companyId, experienceLevelId, location,jobTypeId, salaryRangeId)
       VALUES ($1, $2, $3, $4, $5, $6,$7,$8)
 
       RETURNING *;
@@ -107,8 +107,8 @@ export const getJobOffersBySalaryRange = async (
         jobOffers.description,
         jobOffers.location,
         jobOffers.hourly_rate,
-        jobOffers.experience_level,
-        jobOffers.job_type,
+        jobOffers.experienceLevelId,
+        jobOffers.jobTypeId,
         jobOffers.applicants_count,
         jobOffers.posted_date,
         companies.name AS company_name,
@@ -140,8 +140,8 @@ export const getJobOffersByJobType = async (
       jobOffers.logo,
       jobOffers.description,
       jobOffers.hourly_rate,
-      jobOffers.experience_level,
-      jobOffers.job_type,
+      jobOffers.experienceLevelId,
+      jobOffers.jobTypeId,
       jobOffers.applicants_count,
       jobOffers.posted_date,
       companies.name AS company_name,
@@ -171,8 +171,8 @@ export const getJobOfferByExperienceLevel = async (
       JobOffers.logo,
       jobOffers.description,
       jobOffers.hourly_rate,
-      jobOffers.experience_level,
-      jobOffers.job_type,
+      jobOffers.experienceLevelId,
+      jobOffers.jobTypeId,
       jobOffers.applicants_count,
       jobOffers.posted_date,
       companies.name AS company_name,
@@ -198,9 +198,9 @@ export const getJobOffersByLocation = async (location: string) => {
       jobOffers.logo,
       jobOffers.description,
       jobOffers.hourly_rate,
-      jobOffers.experience_level,
+      jobOffers.experienceLevelId,
       jobOffers.location,
-      jobOffers.job_type,
+      jobOffers.jobTypeId,
       jobOffers.applicants_count,
       jobOffers.posted_date,
       companies.name AS company_name,

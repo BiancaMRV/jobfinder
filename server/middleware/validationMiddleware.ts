@@ -139,7 +139,12 @@ export const getJobOfferByIdValidation: ValidationSchema = {
 export const createNewJobOfferValidation: ValidationSchema = {
   body: Joi.object({
     title: Joi.string().min(3).max(30).required(),
+    location: Joi.string().min(3).max(30).required(),
+    logo: Joi.string().min(3).max(500).required(),
     description: Joi.string().min(3).max(500).required(),
+    experienceLevelId: Joi.number().integer().positive().required(),
+    jobTypeId: Joi.array().items(Joi.number().integer().positive()).required(),
+    salaryRangeId: Joi.number().integer().positive().required(),
     companyId: Joi.number().integer().positive().required(),
   }),
 };

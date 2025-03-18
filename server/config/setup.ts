@@ -2,18 +2,17 @@ import client from "./database";
 import seedDatabase from "./seed";
 
 const createUsers = `CREATE TABLE IF NOT EXISTS "users" (
-    id SERIAL PRIMARY KEY,
-    firstName VARCHAR(255) NOT NULL,
-    lastName VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL,
-    password VARCHAR(255) NOT NULL,
-    currentJob VARCHAR(255),
-location VARCHAR (255),
-    isWorking VARCHAR(255),
-    jobSeeker VARCHAR(255),
-    role VARCHAR(20) NOT NULL DEFAULT 'jobSeeker',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  id SERIAL PRIMARY KEY,
+  firstName VARCHAR(255) NOT NULL,
+  lastName VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL,
+  password VARCHAR(255) NOT NULL,
+  currentJob VARCHAR(255),
+  location VARCHAR(255),
+  isWorking BOOLEAN DEFAULT false,
+  role VARCHAR(20) NOT NULL DEFAULT 'jobSeeker',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )`;
 
 const createSessions = `CREATE TABLE IF NOT EXISTS "sessions" (
@@ -45,7 +44,6 @@ const createCompanies = `CREATE TABLE IF NOT EXISTS "companies" (
     user_id INTEGER REFERENCES users(id) UNIQUE NOT NULL, 
     name VARCHAR(255) NOT NULL,
     description TEXT,
-  
     location VARCHAR (255),
     logo_url TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -53,31 +51,30 @@ const createCompanies = `CREATE TABLE IF NOT EXISTS "companies" (
 )`;
 //user_id INTEGER REFERENCES users(id): Cria uma chave estrangeira que referencia a tabela users, unique garante que um usuario so pode ter uma empresa not null garante que toda empresa deve estar associada a um usuario
 const createJobOffers = `CREATE TABLE IF NOT EXISTS "job_offers" (
-    id SERIAL PRIMARY KEY, 
-    title VARCHAR(255) NOT NULL,
-    logo TEXT,
-    experience_level VARCHAR(50), 
-    job_type VARCHAR(50),
-    salary NUMERIC(10, 2),
-    description TEXT NOT NULL,
-    location VARCHAR(255) NOT NULL,
-    applicants_count INTEGER DEFAULT 0,
-    company_id INTEGER NOT NULL references companies(id),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-
+  id SERIAL PRIMARY KEY, 
+  title VARCHAR(255) NOT NULL,
+  logo TEXT,
+  experienceLevelId VARCHAR(50), 
+  jobTypeId VARCHAR(50),
+  salaryRangeId NUMERIC(10, 2),
+  description TEXT NOT NULL,
+  location VARCHAR(255) NOT NULL,
+  applicants_count INTEGER DEFAULT 0,
+  company_id INTEGER NOT NULL REFERENCES companies(id),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )`;
 
 const createJobApplication = `CREATE TABLE IF NOT EXISTS "application" (
-   id SERIAL PRIMARY KEY, 
-   user_id VARCHAR(255) NOT NULL,
-   job_offer_id INTEGER NOT NULL, 
-   cover_letter TEXT NOT NULL, 
-   resume TEXT NOT NULL,
-   status VARCHAR(50) DEFAULT 'pending',
-   company_id TEXT NOT NULL,
-   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  id SERIAL PRIMARY KEY, 
+  user_id INTEGER NOT NULL REFERENCES users(id),
+  job_offer_id INTEGER NOT NULL REFERENCES job_offers(id), 
+  cover_letter TEXT NOT NULL, 
+  resume TEXT NOT NULL,
+  status VARCHAR(50) DEFAULT 'pending',
+  company_id INTEGER NOT NULL REFERENCES companies(id),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )`;
 
 // serial- o valor é incrementado de linha para linha, primary siginifca que o valor é unico e nao pode ser nulo
