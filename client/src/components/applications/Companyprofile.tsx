@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import styles from "./CompanyProfile.module.css";
 import { CircleUser, MapPin, Mail, Edit2, Upload } from "lucide-react";
 import OverviewCompany from "./OverviewCompany";
+import CompanyInfo from "./CompanyInfo";
+import PostedJobs from "./PostedJobs";
 
 interface jobofferstatus {
   total_activejobs: number;
@@ -157,6 +159,8 @@ export default function CompanyProfile() {
         </div>
         <div className={styles.contentContainer}>
           {activeTab === "overview" && <OverviewCompany />}
+          {activeTab === "Company Info" && <CompanyInfo />}
+          {activeTab === "Posted Jobs" && <PostedJobs jobOffers={[]} />}
         </div>
       </div>
     </div>

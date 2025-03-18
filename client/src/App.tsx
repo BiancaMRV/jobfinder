@@ -9,6 +9,7 @@ import JobCardPage from "./components/jobs/JobCardPage/JobCardPage";
 import ApplyNow from "./components/jobs/ApplyNow/ApplyNow";
 import { Profile } from "./components/profile/Profile/Profile";
 import CompanyProfile from "./components/applications/Companyprofile";
+import JobApplication from "./components/applications/JobApplication";
 
 function App() {
   return (
@@ -47,6 +48,7 @@ function App() {
         <Route path="/applynow/:jobOfferId" element={<ApplyNow />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/companyprofile" element={<CompanyProfile />} />
+        <Route path="/jobapplication" element={<JobApplication />} />
       </Routes>
     </Router>
   );

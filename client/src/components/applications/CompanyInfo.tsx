@@ -38,13 +38,7 @@ const CompanyInfo: FC = () => {
             <span>Website</span>
           </div>
           <div className={styles.infoValue}>
-            <a
-              href="https://uphold.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              uphold.com
-            </a>
+            <a href="https://uphold.com">uphold.com</a>
           </div>
         </div>
 

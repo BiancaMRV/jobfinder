@@ -1,0 +1,145 @@
+.postedJobsContainer {
+  padding: 24px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.headerContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.sectionTitle {
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+.publishButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background-color: #6247aa;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.publishButton:hover {
+  background-color: #5438a0;
+}
+
+.noJobs {
+  text-align: center;
+  padding: 40px 0;
+  background-color: #f9f9fe;
+  border-radius: 8px;
+  color: #666;
+}
+
+.jobCard {
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+  background-color: #fff;
+}
+
+.jobHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.jobTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+.jobActions {
+  display: flex;
+  gap: 8px;
+}
+
+.actionButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  border: 1px solid #eee;
+  background-color: #fff;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.actionButton:hover {
+  background-color: #f5f5f5;
+}
+
+.actionButton:nth-child(2):hover {
+  background-color: #ffebee;
+  color: #e53935;
+  border-color: #ffcdd2;
+}
+
+.jobDetails {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.jobDetail {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #666;
+  font-size: 14px;
+}
+
+.jobDescription {
+  font-size: 14px;
+  color: #444;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.jobStats {
+  display: flex;
+  gap: 16px;
+  border-top: 1px solid #eee;
+  padding-top: 12px;
+}
+
+.statItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.statLabel {
+  font-size: 14px;
+  color: #666;
+}
+
+.statValue {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}

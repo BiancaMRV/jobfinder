@@ -1,0 +1,168 @@
+.jobApplicationContainer {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px #0000001a;
+}
+
+.jobApplicationHeader {
+  margin-bottom: 30px;
+  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: 15px;
+}
+
+.jobApplicationHeader h1 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #333;
+}
+
+.jobApplicationForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.jobApplicationForm form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.inputField {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+}
+
+.inputField:focus {
+  outline: none;
+  border-color: #6b46c1;
+  box-shadow: 0 0 0 3px rgba(107, 70, 193, 0.2);
+}
+
+.jobtypes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 20px;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-right: 5px;
+  text-align: center;
+  border: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Job type specific styles with your requested colors */
+.fullTime {
+  background-color: #b2fab4; /* Verde pastel para Full-Time */
+  color: #2e7d32;
+}
+
+.partTime {
+  background-color: #ffd6a5; /* Laranja pastel para Part-Time */
+  color: #e65100;
+}
+
+.contract {
+  background-color: #ffe4b2; /* Bege pastel para Contract */
+  color: #b07d0f;
+}
+
+.freelance {
+  background-color: #d5f4e6; /* Verde-água pastel para Freelance */
+  color: #00796b;
+}
+
+.internship {
+  background-color: #d7eaff; /* Azul pastel para Internship */
+  color: #1565c0;
+}
+
+.volunteering {
+  background-color: #f982f9; /* Rosa pastel para Volunteering */
+  color: #9c27b0;
+}
+
+/* Experience Level */
+.entryLevel {
+  background-color: #c8b6e2; /* Roxo pastel para Entry Level */
+  color: #4527a0;
+}
+
+.midLevel {
+  background-color: #f6d6ad; /* Amarelo pastel para Mid Level */
+  color: #ef6c00;
+}
+
+.senior {
+  background-color: #ffd9e2; /* Rosa claro pastel para Senior */
+  color: #c2185b;
+}
+
+.lead {
+  background-color: #5db3ff; /* Azul pastel para Lead */
+  color: #0d47a1;
+}
+
+.executive {
+  background-color: #e5e5e5; /* Cinza claro pastel para Executive */
+  color: #424242;
+}
+.saveButton {
+  background-color: #6b46c1;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 10px;
+  align-self: flex-start;
+}
+
+.saveButton:hover {
+  background-color: #553c9a;
+}
+
+/* Fix for checkbox alignment issue */
+.jobtypes input[type="checkbox"] {
+  /* display: none; */
+  margin: 0 5px;
+  vertical-align: middle;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .jobApplicationContainer {
+    padding: 15px;
+  }
+
+  .jobtypes {
+    gap: 8px;
+  }
+
+  .tag {
+    padding: 6px 10px;
+    font-size: 13px;
+  }
+
+  .saveButton {
+    width: 100%;
+  }
+}

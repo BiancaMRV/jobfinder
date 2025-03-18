@@ -38,7 +38,6 @@ const OverviewCompany: FC = () => {
       window.removeEventListener("jobOffersUpdated", handleJobUpdate);
     };
   }, []);
-
   return (
     <div className={styles.overviewContainer}>
       {/* Company Info Section */}

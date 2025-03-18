@@ -1,0 +1,91 @@
+.companyInfoContainer {
+  padding: 24px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.sectionTitle {
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.infoCard {
+  background-color: #f9f9fe;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 24px;
+}
+
+.infoRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.infoRow:last-child {
+  border-bottom: none;
+}
+
+.infoLabel {
+  display: flex;
+  align-items: center;
+  color: #666;
+  font-size: 14px;
+}
+
+.infoLabel span {
+  margin-left: 8px;
+}
+
+.infoValue {
+  font-weight: 500;
+  color: #333;
+}
+
+.infoValue a {
+  color: #6247aa;
+  text-decoration: none;
+}
+
+.infoValue a:hover {
+  text-decoration: underline;
+}
+
+.infoSection {
+  margin-bottom: 20px;
+}
+
+.infoSubtitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 12px;
+}
+
+.infoParagraph {
+  color: #555;
+  line-height: 1.6;
+  font-size: 14px;
+}
+
+.tagContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag {
+  background-color: #f0ebff;
+  color: #6247aa;
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 13px;
+  font-weight: 500;
+}

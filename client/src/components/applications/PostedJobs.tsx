@@ -1,6 +1,7 @@
 import { FC } from "react";
 import styles from "./PostedJobs.module.css";
-import { Briefcase, MapPin, Calendar, Trash2, Edit } from "lucide-react";
+import { Briefcase, MapPin, Calendar, Trash2, Edit, Plus } from "lucide-react";
+import { Link } from "react-router-dom";
 
 interface JobOffer {
   id: string;
@@ -17,7 +18,13 @@ interface PostedJobsProps {
 const PostedJobs: FC<PostedJobsProps> = ({ jobOffers }) => {
   return (
     <div className={styles.postedJobsContainer}>
-      <h3 className={styles.sectionTitle}>Your Posted Job Offers</h3>
+      <div className={styles.headerContainer}>
+        <h3 className={styles.sectionTitle}>Your Posted Job Offers</h3>
+        <Link to="/jobapplication" className={styles.publishButton}>
+          <Plus size={16} />
+          Publish Job Offer
+        </Link>
+      </div>
 
       {jobOffers.length === 0 ? (
         <div className={styles.noJobs}>
@@ -33,36 +40,15 @@ const PostedJobs: FC<PostedJobsProps> = ({ jobOffers }) => {
             <div className={styles.jobHeader}>
               <h4 className={styles.jobTitle}>{job.title}</h4>
               <div className={styles.jobActions}>
-                <button className={styles.actionButton}>
+                <Link
+                  to={`/edit-job-offer/${job.id}`}
+                  className={styles.actionButton}
+                >
                   <Edit size={16} />
-                </button>
+                </Link>
                 <button className={styles.actionButton}>
                   <Trash2 size={16} />
                 </button>
-              </div>
-            </div>
-
-            <div className={styles.jobDetails}>
-              <div className={styles.jobDetail}>
-                <MapPin size={16} />
-                <span>{job.location}</span>
-              </div>
-              <div className={styles.jobDetail}>
-                <Calendar size={16} />
-                <span>{job.date}</span>
-              </div>
-            </div>
-
-            <p className={styles.jobDescription}>{job.description}</p>
-
-            <div className={styles.jobStats}>
-              <div className={styles.statItem}>
-                <span className={styles.statLabel}>Views:</span>
-                <span className={styles.statValue}>0</span>
-              </div>
-              <div className={styles.statItem}>
-                <span className={styles.statLabel}>Applications:</span>
-                <span className={styles.statValue}>0</span>
               </div>
             </div>
           </div>
