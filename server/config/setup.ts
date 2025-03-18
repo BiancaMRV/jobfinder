@@ -56,7 +56,7 @@ const createJobOffers = `CREATE TABLE IF NOT EXISTS "job_offers" (
   logo TEXT,
   experienceLevelId VARCHAR(50), 
   jobTypeId VARCHAR(50),
-  salaryRangeId NUMERIC(10, 2),
+  salary NUMERIC(10, 2),
   description TEXT NOT NULL,
   location VARCHAR(255) NOT NULL,
   applicants_count INTEGER DEFAULT 0,

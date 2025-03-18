@@ -10,12 +10,47 @@ interface jobofferstatus {
   total_application: number;
   total_interviews: number;
 }
+interface companydata {
+  name: string;
+  location: string;
+  email: string;
+}
+
 export default function CompanyProfile() {
   const [jobofferstatus, setjobofferstatus] = useState<jobofferstatus>({
     total_activejobs: 0,
     total_application: 0,
     total_interviews: 0,
   });
+  const [companydata, setcompanydata] = useState<companydata>({
+    name: "",
+    location: "",
+    email: "",
+  });
+
+  useEffect(() => {
+    const fetchCompanyData = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/companies", {
+          method: "GET",
+          credentials: "include",
+        });
+        if (!response.ok) {
+          throw new Error("Failed to fetch company data");
+        }
+        const data = await response.json();
+        setcompanydata({
+          name: data.name || "",
+          location: data.location || "",
+          email: data.email || "",
+        });
+      } catch (error) {
+        console.error("Error fetching company:", error);
+      }
+    };
+    fetchCompanyData();
+  }, []);
+  console.log("companydata", companydata);
 
   useEffect(() => {
     const fetchjobofferstatus = async () => {
@@ -68,6 +103,7 @@ export default function CompanyProfile() {
   const handleTabClick = (tab: string) => {
     setActiveTab(tab);
   };
+  const name = companydata.name;
   return (
     <div className={styles.profilecontainer}>
       <div className={styles.profilecard}>
@@ -94,15 +130,15 @@ export default function CompanyProfile() {
             onChange={handleImageUpload}
             className={styles.fileinput}
           />
-          <h2> Uphold</h2>
+          <h2> {name || "utilizador"}</h2>
           <div className={styles.profileinfo}>
             <div className={styles.location}>
               <MapPin size={20} />
-              <span>Braga,Portugal </span>
+              <span>{companydata.location || "Local não especificado"} </span>
             </div>
             <div className={styles.email}>
               <Mail size={20} />
-              <span> biancamargarida2014@gmail.com </span>
+              <span> {companydata.email || "Email não especificado"} </span>
             </div>
           </div>
           <button

@@ -1,20 +1,15 @@
 import styles from "./JobFilter.module.css";
 import { FilterComponentProps } from "../types";
-import { JobType } from "../types";
+import { jobTypesAndExerienceLevels } from "../JobCard/JobCards";
 
 export const JobFilter: React.FC<FilterComponentProps> = ({
   filters,
   onFilterChange,
   clearAll,
 }) => {
-  const jobTypes: JobType[] = [
-    { value: "full-time", label: "Full Time" },
-    { value: "part-time", label: "Part Time" },
-    { value: "contract", label: "Contract" },
-    { value: "freelance", label: "Freelance" },
-    { value: "internship", label: "Internship" },
-    { value: "volunteering", label: "Volunteering" },
-  ];
+  const jobTypes = jobTypesAndExerienceLevels.filter(
+    (type) => type.type === "jobType"
+  );
 
   const handleCheckboxChange = (value: string) => {
     const currentTypes = new Set(filters.jobTypes);

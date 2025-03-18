@@ -21,12 +21,12 @@
   margin-bottom: 1rem;
 }
 .tabs {
-  display: flex;
+  padding: 1rem 0;
 
-  gap: 1rem;
-  margin: 1rem 0;
-  justify-content: center;
-  width: 100%;
+  width: min-content;
+  max-width: 100%;
+  margin: auto;
+  overflow-x: scroll;
 }
 .fileinput {
   display: none;
@@ -100,7 +100,6 @@
   font-weight: normal;
   width: 100%;
   padding: 0.5rem 0;
-  padding-left: 4rem;
 }
 
 .email {

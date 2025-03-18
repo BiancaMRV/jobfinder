@@ -14,6 +14,7 @@ export interface ExperienceLevel {
 export interface JobType {
   value: string;
   label: string;
+  type: string;
 }
 export interface salaryRange {
   value: string;
@@ -32,8 +33,8 @@ export interface Job {
   description: string;
   logo: SVGStringList;
   location?: string;
-  experience_level: string;
-  job_type: string;
+  experiencelevelid: string;
+  jobtypeid: string;
   salaryrange: string;
 }
 

@@ -132,9 +132,9 @@ async function seedDatabase() {
       {
         title: "Senior Software Engineer",
         logo: "./logo.svg",
-        experienceLevelId: "mid",
-        jobTypeId: "freelance",
-        salaryRangeId: 120000.0,
+        experienceLevelId: ["mid"],
+        jobTypeId: ["freelance"],
+        salary: 120000.0,
         description: `
 **About the role:**
 Join a dynamic team to design, develop, and maintain high-performance software applications that scale globally. Collaborate with cross-functional teams to deliver impactful solutions and drive innovation.
@@ -156,9 +156,9 @@ Join a dynamic team to design, develop, and maintain high-performance software a
       {
         title: "Sr. UX Designer",
         logo: "./logo-ux.svg",
-        experienceLevelId: "senior",
-        jobTypeId: "part-time",
-        salaryRangeId: 65000.0,
+        experienceLevelId: ["senior"],
+        jobTypeId: ["part-time"],
+        salary: 65000.0,
         description: `
 **About the role:**
 Help shape the user experience for millions of users by designing intuitive interfaces for a leading global platform. Collaborate with stakeholders to create user-centric designs.
@@ -180,9 +180,9 @@ Help shape the user experience for millions of users by designing intuitive inte
       {
         title: "Junior Backend Developer",
         logo: "./logo-backend.svg",
-        experienceLevelId: "entry",
-        jobTypeId: "full-time",
-        salaryRangeId: 40000.0,
+        experienceLevelId: ["entry", "mid"],
+        jobTypeId: ["full-time"],
+        salary: 40000.0,
         description: `
 **About the role:**
 Kickstart your career by joining a supportive team of experienced developers. Build and maintain scalable backend services that support our growing product base.
@@ -206,7 +206,7 @@ Kickstart your career by joining a supportive team of experienced developers. Bu
     const jobOfferInsertQuery = `
       INSERT INTO job_offers (
         title, logo, experienceLevelId, location, jobTypeId, 
-        salaryRangeId, description, company_id
+        salary, description, company_id
       ) VALUES ($1, $2, $3, $4, $5, $6, $7,$8)
     `;
 
@@ -214,10 +214,10 @@ Kickstart your career by joining a supportive team of experienced developers. Bu
       await client.query(jobOfferInsertQuery, [
         jobOffer.title,
         jobOffer.logo,
-        jobOffer.experienceLevelId,
+        jobOffer.experienceLevelId.join(","),
         jobOffer.location,
-        jobOffer.jobTypeId,
-        jobOffer.salaryRangeId,
+        jobOffer.jobTypeId.join(","),
+        jobOffer.salary,
         jobOffer.description,
         jobOffer.companyId,
       ]);

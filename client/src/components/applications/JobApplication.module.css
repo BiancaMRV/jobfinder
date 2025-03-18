@@ -40,6 +40,7 @@
   transition: all 0.3s;
   background-color: white;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
+  resize: vertical;
 }
 
 .inputField:focus {
@@ -52,7 +53,7 @@
   color: #aaa;
 }
 
-.jobtypes {
+.tagsList {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
@@ -62,7 +63,7 @@
   border-radius: 10px;
 }
 
-.tag {
+.tagContainer {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -78,12 +79,13 @@
   transition: all 0.2s ease;
 }
 
-.tag:hover {
+.tagContainer:hover {
   transform: translateY(-2px);
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
 }
 
-.jobtypes input[type="checkbox"] {
+.jobtypes input[type="checkbox"],
+.experienceLevels input[type="checkbox"] {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -99,12 +101,14 @@
   transition: all 0.2s;
 }
 
-.jobtypes input[type="checkbox"]:checked {
+.jobtypes input[type="checkbox"]:checked,
+.experienceLevels input[type="checkbox"]:checked {
   border-color: #6b46c1;
   background-color: #6b46c1;
 }
 
-.jobtypes input[type="checkbox"]:checked::after {
+.jobtypes input[type="checkbox"]:checked::after,
+.experienceLevels input[type="checkbox"]:checked::after {
   content: "";
   position: absolute;
   top: 50%;
@@ -116,7 +120,8 @@
   background-color: white;
 }
 
-.jobtypes input[type="checkbox"]:hover {
+.jobtypes input[type="checkbox"]:hover,
+.experienceLevels input[type="checkbox"]:hover {
   border-color: #6b46c1;
 }
 
@@ -207,7 +212,6 @@
   }
 
   .tag {
-    padding: 7px 14px 7px 8px;
     font-size: 13px;
   }
 

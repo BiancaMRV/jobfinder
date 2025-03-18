@@ -1,4 +1,3 @@
-// FiltersInterface.tsx
 import styles from "./FiltersInterface.module.css";
 import { JobFilter } from "../JobList/JobFilter";
 import { SalaryRange } from "../SalaryRange/SalaryRange";

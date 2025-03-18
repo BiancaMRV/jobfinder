@@ -9,24 +9,24 @@ type Job = {
   logo: string;
   company_logo: string;
   title: string;
-  experience_level: string;
-  job_type: string;
+  experiencelevelid: string;
+  jobtypeid: string;
   description: string;
 };
 
-export const jobTypes: JobType[] = [
-  { value: "full-time", label: "Full Time" },
-  { value: "part-time", label: "Part Time" },
-  { value: "contract", label: "Contract" },
-  { value: "freelance", label: "Freelance" },
-  { value: "internship", label: "Internship" },
-  { value: "volunteering", label: "Volunteering" },
+export const jobTypesAndExerienceLevels: JobType[] = [
+  { value: "full-time", label: "Full Time", type: "jobType" },
+  { value: "part-time", label: "Part Time", type: "jobType" },
+  { value: "contract", label: "Contract", type: "jobType" },
+  { value: "freelance", label: "Freelance", type: "jobType" },
+  { value: "internship", label: "Internship", type: "jobType" },
+  { value: "volunteering", label: "Volunteering", type: "jobType" },
 
-  { value: "entry", label: "Entry Level" },
-  { value: "mid", label: "Mid Level" },
-  { value: "senior", label: "Senior" },
-  { value: "lead", label: "Lead" },
-  { value: "executive", label: "Executive" },
+  { value: "entry", label: "Entry Level", type: "experienceLevel" },
+  { value: "mid", label: "Mid Level", type: "experienceLevel" },
+  { value: "senior", label: "Senior", type: "experienceLevel" },
+  { value: "lead", label: "Lead", type: "experienceLevel" },
+  { value: "executive", label: "Executive", type: "experienceLevel" },
 ];
 
 export default function JobCards({ filters }: { filters: any }) {
@@ -50,6 +50,12 @@ export default function JobCards({ filters }: { filters: any }) {
       }
 
       const data = await response.json();
+      console.log("Data:", data);
+      data.forEach((job: any) => {
+        job.jobtypeid = job.jobtypeid.split(",");
+        job.experiencelevelid = job.experiencelevelid.split(",");
+      });
+
       console.log("Fetched Data:", data);
 
       if (Array.isArray(data)) {
@@ -75,7 +81,7 @@ export default function JobCards({ filters }: { filters: any }) {
           id={job.id}
           logo={job.company_logo}
           title={job.title}
-          tags={[job.experience_level, job.job_type]}
+          tags={[...job.experiencelevelid, ...job.jobtypeid]}
           description={
             job.description
               ? job.description.substring(0, 100) + "..."
@@ -110,7 +116,9 @@ const JobCard = ({ logo, title, tags, description, id }: JobCardProps) => {
           <div className={styles.tags}>
             {tags
               .map((tag) => {
-                const jobType = jobTypes.find((type) => type.value === tag);
+                const jobType = jobTypesAndExerienceLevels.find(
+                  (type) => type.value === tag
+                );
                 return jobType?.label;
               })
               .map((tag, index) => (

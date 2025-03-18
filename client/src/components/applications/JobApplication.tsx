@@ -1,7 +1,6 @@
 import styles from "./JobApplication.module.css";
-import { jobTypes } from "../jobs/JobCard/JobCards";
+import { jobTypesAndExerienceLevels } from "../jobs/JobCard/JobCards";
 import { useState, ChangeEvent, FormEvent } from "react";
-import { JobType } from "../jobs/types";
 
 export default function JobApplication() {
   const [formData, setFormData] = useState({
@@ -22,26 +21,20 @@ export default function JobApplication() {
     });
   };
 
-  const handleJobTypeChange = (selectedJobType: string) => {
-    setFormData((prevState) => {
-      const currentJobTypes = [...prevState.jobType];
-
-      if (currentJobTypes.includes(selectedJobType)) {
-        return {
-          ...prevState,
-          jobTypes: currentJobTypes.filter((type) => type !== selectedJobType),
-        };
-      } else {
-        return {
-          ...prevState,
-          jobTypes: [...currentJobTypes, selectedJobType],
-        };
-      }
-    });
-  };
-
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    const form = e.target as HTMLFormElement;
+
+    // Get all experienceLevels values for each group using their name attributes
+    const experienceLevels = Array.from(
+      form.querySelectorAll('input[name="experienceLevels"]:checked')
+    ).map((checkbox) => (checkbox as HTMLInputElement).value);
+
+    // Get all jobTypes values for each group using their name attributes
+    const jobTypes = Array.from(
+      form.querySelectorAll('input[name="jobTypes"]:checked')
+    ).map((checkbox) => (checkbox as HTMLInputElement).value);
 
     try {
       const data = {
@@ -49,9 +42,9 @@ export default function JobApplication() {
         location: formData.location,
         description: formData.description,
         companyId: 1,
-        experienceLevelId: 1,
-        jobTypeId: formData.jobType.length > 0 ? formData.jobType : [],
-        salaryRangeId: parseInt(formData.salary) || 1,
+        experienceLevelId: experienceLevels.length > 0 ? experienceLevels : [],
+        jobTypeId: jobTypes.length > 0 ? jobTypes : [],
+        salary: parseInt(formData.salary) || 1,
         logo: "https://company.png",
       };
 
@@ -116,52 +109,87 @@ export default function JobApplication() {
             className={styles.inputField}
             required
           />
-
           <div className={styles.jobtypes}>
-            {jobTypes.map((jobType, index) => (
-              <label
-                htmlFor={`jobType-${index}`}
-                key={jobType.value || index}
-                className={`${styles.tag} ${
-                  jobType.label === "Full Time"
-                    ? styles.fullTime
-                    : jobType.label === "Part Time"
-                    ? styles.partTime
-                    : jobType.label === "Senior"
-                    ? styles.senior
-                    : jobType.label === "Entry Level"
-                    ? styles.entryLevel
-                    : jobType.label === "Mid Level"
-                    ? styles.midLevel
-                    : jobType.label === "Freelance"
-                    ? styles.freelance
-                    : jobType.label === "Internship"
-                    ? styles.internship
-                    : jobType.label === "Contract"
-                    ? styles.contract
-                    : jobType.label === "Lead"
-                    ? styles.lead
-                    : jobType.label === "Volunteering"
-                    ? styles.volunteering
-                    : jobType.label === "Executive"
-                    ? styles.executive
-                    : ""
-                }`}
-              >
-                {jobType.label}
-                <input
-                  id={`jobType-${index}`}
-                  type="checkbox"
-                  name="jobType"
-                  value={jobType.value}
-                  onChange={() => handleJobTypeChange(jobType.value)}
-                />
-              </label>
-            ))}
+            <h1>Job Type</h1>
+
+            <div className={styles.tagsList}>
+              {jobTypesAndExerienceLevels
+                .filter((type) => type.type === "jobType")
+                .map((jobType, index) => (
+                  <div
+                    className={`${styles.tagContainer} ${
+                      jobType.label === "Full Time"
+                        ? styles.fullTime
+                        : jobType.label === "Part Time"
+                        ? styles.partTime
+                        : jobType.label === "Contract"
+                        ? styles.contract
+                        : jobType.label === "Freelance"
+                        ? styles.freelance
+                        : jobType.label === "Internship"
+                        ? styles.internship
+                        : jobType.label === "Volunteering"
+                        ? styles.volunteering
+                        : ""
+                    }`}
+                    key={jobType.value || index}
+                  >
+                    <input
+                      id={`jobType-${index}`}
+                      type="checkbox"
+                      name="jobTypes"
+                      value={jobType.value}
+                      //   onChange={() => handleJobTypeChange(jobType.value)}
+                    />
+                    <label
+                      htmlFor={`jobType-${index}`}
+                      className={`${styles.tag}`}
+                    >
+                      {jobType.label}
+                    </label>
+                  </div>
+                ))}
+            </div>
+          </div>
+          <div className={styles.experienceLevels}>
+            <h1>Experience Level</h1>
+            <div className={styles.tagsList}>
+              {jobTypesAndExerienceLevels
+                .filter((type) => type.type === "experienceLevel")
+                .map((experienceLevel, index) => (
+                  <div
+                    key={experienceLevel.value || index}
+                    className={`${styles.tagContainer} ${
+                      experienceLevel.label === "Entry Level"
+                        ? styles.entryLevel
+                        : experienceLevel.label === "Mid Level"
+                        ? styles.midLevel
+                        : experienceLevel.label === "Senior"
+                        ? styles.senior
+                        : experienceLevel.label === "Lead"
+                        ? styles.lead
+                        : experienceLevel.label === "Executive"
+                        ? styles.executive
+                        : ""
+                    }`}
+                  >
+                    <input
+                      id={`experienceLevel-${index}`}
+                      type="checkbox"
+                      name="experienceLevels"
+                      value={experienceLevel.value}
+                      //   onChange={handleInputChange}
+                    />
+                    <label htmlFor={`experienceLevel-${index}`}>
+                      {experienceLevel.label}
+                    </label>
+                  </div>
+                ))}
+            </div>
           </div>
 
           <input
-            type="text"
+            type="number"
             name="salary"
             placeholder="Salary"
             className={styles.inputField}

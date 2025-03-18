@@ -1,6 +1,6 @@
 import { FC } from "react";
 import styles from "./PostedJobs.module.css";
-import { Briefcase, MapPin, Calendar, Trash2, Edit, Plus } from "lucide-react";
+import { Trash2, Edit, Plus } from "lucide-react";
 import { Link } from "react-router-dom";
 
 interface JobOffer {

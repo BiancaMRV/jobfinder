@@ -26,7 +26,6 @@ router.post(
   validateRequest(createNewJobOfferValidation),
   async (req, res) => {
     try {
-      //req.query.salary
       const {
         title,
         logo,
@@ -35,17 +34,18 @@ router.post(
         companyId,
         experienceLevelId,
         jobTypeId,
-        salaryRangeId,
+        salary,
       } = req.body;
+      console.log("req.body", req.body);
       const job = await createNewJobOffer(
         title,
-        logo,
         description,
-        location,
+        logo,
         companyId,
         experienceLevelId,
+        location,
         jobTypeId,
-        salaryRangeId
+        salary
       );
       res.send(job);
     } catch (error) {
@@ -98,8 +98,8 @@ router.get("/filter", validateRequest(getJobOffers), async (req, res) => {
           job_offers.title,
           job_offers.description,
           job_offers.salary,
-          job_offers.experience_level,
-          job_offers.job_type,
+          job_offers.experiencelevelid,
+          job_offers.jobtypeid,
           job_offers.applicants_count,
           job_offers.created_at,
           companies.name AS company_name,
@@ -118,12 +118,12 @@ router.get("/filter", validateRequest(getJobOffers), async (req, res) => {
     }
 
     if (jobType) {
-      query += ` AND job_offers.job_type = $${values.length + 1}`;
+      query += ` AND job_offers.jobtypeid = $${values.length + 1}`;
       values.push(jobType);
     }
 
     if (experienceLevel) {
-      query += ` AND job_offers.experience_level = $${values.length + 1}`;
+      query += ` AND job_offers.experiencelevelid = $${values.length + 1}`;
       values.push(experienceLevel);
     }
 

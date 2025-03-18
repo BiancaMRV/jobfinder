@@ -2,7 +2,7 @@ import client from "../config/database";
 
 export const getAllUsers = async () => {
   try {
-    const result = await client.query("SELECT * FROM users"); // client.query é usado para executar comandos de sql e await usa se para esperarmos pela resposta de dados
+    const result = await client.query("SELECT * FROM users");
     return result;
   } catch (error) {
     console.error("Error retrieving users", error);
@@ -10,97 +10,121 @@ export const getAllUsers = async () => {
   }
 };
 
-export const getUserById = async (userId: number) => {
+export const getUserById = async (userId: string) => {
   try {
     const result = await client.query("SELECT * FROM users WHERE id = $1", [
       userId,
     ]);
     if (result.rows.length === 0) return undefined;
+    return result.rows[0]; // Make sure to return the user data if found
   } catch (error) {
-    console.error("user doesnt exist", error);
-    throw new Error("user doesnt exist");
+    console.error("User doesn't exist", error);
+    throw new Error("User doesn't exist");
   }
 };
+
 type UserType = "jobSeeker" | "company";
 
 export const createNewUser = async (
-  first_name: string,
-  last_name: string,
+  firstName: string,
+  lastName: string,
   password: string,
-  age: string,
   email: string,
   currentJob: string,
-  isWorking: string,
-  userType: UserType
+  location: string,
+  isWorking: boolean,
+  role: UserType
 ) => {
   try {
     const result = await client.query(
-      "INSERT INTO users(first_name,last_name, password, age, email, currentJob, isWorking, userType) VALUES($1, $2, $3, $4, $5, $6,$7,$8)",
+      `INSERT INTO users(
+        firstName, 
+        lastName, 
+        password, 
+        email, 
+        currentJob, 
+        location,
+        isWorking, 
+        role
+      ) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`,
       [
-        first_name,
-        last_name,
+        firstName,
+        lastName,
         password,
-        age,
         email,
         currentJob,
+        location,
         isWorking,
-        userType,
+        role,
       ]
     );
     console.log("User created successfully");
-    return result;
+    return result.rows[0];
   } catch (error) {
-    console.error("user not created");
-    throw new Error("user not created");
+    console.error("User not created", error);
+    throw new Error("User not created");
   }
 };
 
 export const updateUser = async (
-  first_name: string,
-  last_name: string,
-  password: string,
-  age: string,
-  email: string,
   userId: number,
+  firstName: string,
+  lastName: string,
+  password: string,
+  email: string,
   currentJob: string,
-  isWorking: string,
-  userType: UserType
+  location: string,
+  isWorking: boolean,
+  role: UserType
 ) => {
   try {
     const result = await client.query(
-      "UPDATE users SET first_name=$1,last_name=$2, password=$3, age=$4, email=$5, currentJob=$6, isWorking=$7,userType=$8, WHERE id=$5",
+      `UPDATE users SET 
+        firstName=$1,
+        lastName=$2, 
+        password=$3, 
+        email=$4, 
+        currentJob=$5, 
+        location=$6,
+        isWorking=$7,
+        role=$8
+      WHERE id=$9 RETURNING *`,
       [
-        first_name,
-        last_name,
+        firstName,
+        lastName,
         password,
-        age,
         email,
-        userId,
         currentJob,
+        location,
         isWorking,
-        userType,
+        role,
+        userId,
       ]
     );
     if (result.rows.length === 0) {
-      throw new Error("user not found can't update");
+      throw new Error("User not found, can't update");
     }
-    console.log("User updated with sucess");
-    return result;
+    console.log("User updated successfully");
+    return result.rows[0];
   } catch (error) {
-    console.error("user not updated", error);
-    throw new Error("user not updated"); // throw é tipo um stop no codigo, ele avisa os outros catches das rotas que ha um erro
+    console.error("User not updated", error);
+    throw new Error("User not updated");
   }
 };
 
 export const deleteUser = async (userId: string) => {
   try {
-    const result = await client.query("DELETE FROM users WHERE userId=$1", [
-      userId,
-    ]);
+    const result = await client.query(
+      "DELETE FROM users WHERE id=$1 RETURNING *",
+      [userId]
+    );
+    if (result.rows.length === 0) {
+      throw new Error("User not found, can't delete");
+    }
     console.log("User deleted");
-    return result;
+    return result.rows[0];
   } catch (error) {
-    console.error("can't delete user", error);
-    throw new Error("can't delete user");
+    console.error("Can't delete user", error);
+    throw new Error("Can't delete user");
   }
 };

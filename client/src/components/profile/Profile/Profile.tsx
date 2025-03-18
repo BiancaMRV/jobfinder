@@ -17,8 +17,48 @@ interface ApplicationStatus {
 interface ProfileProps {
   isCompanyView?: boolean;
 }
+interface UserData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  location: string;
+}
 
 export function Profile({ isCompanyView = false }: ProfileProps) {
+  const [userData, setUserData] = useState<UserData>({
+    firstName: "",
+    lastName: "",
+    email: "",
+    location: "",
+  });
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/users", {
+          method: "GET",
+          credentials: "include",
+        });
+        if (!response.ok) {
+          throw new Error("Failed to fetch user data");
+        }
+
+        const data = await response.json();
+        setUserData({
+          firstName: data.firstname || "",
+          lastName: data.lastname || "",
+          email: data.email || "",
+          location: data.location || "",
+        });
+        // No seu componente de login após autenticação
+      } catch (error) {
+        console.error("Error fetching user:", error);
+      }
+    };
+    fetchUserData();
+  }, []);
+  const fullName = `${userData.firstName} ${userData.lastName}`.trim();
+  console.log("Full Name:", fullName);
   const [profileImage, setProfileImage] = useState<string | null>(null);
   useEffect(() => {
     const savedImage = localStorage.getItem("profileImage");
@@ -135,15 +175,15 @@ export function Profile({ isCompanyView = false }: ProfileProps) {
                 />
               </>
             )}
-            <h2> Bianca Vilaverde</h2>
+            <h2> {fullName || "Utilizador"} </h2>
             <div className={styles.profileinfo}>
               <div className={styles.location}>
                 <MapPin size={20} />
-                <span>Braga,Portugal </span>
+                <span>{userData.location || "Local não especificado"} </span>
               </div>
               <div className={styles.email}>
                 <Mail size={20} />
-                <span> biancamargarida2014@gmail.com </span>
+                <span>{userData.email || "Email não especificado"} </span>
               </div>
             </div>
 

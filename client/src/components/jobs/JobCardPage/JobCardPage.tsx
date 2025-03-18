@@ -55,9 +55,9 @@ Join a dynamic team to design, develop, and maintain high-performance software a
               <div className={styles.titleandtagssection}>
                 <h2 className={styles.titlejoboffer}>{jobOffer.title}</h2>
                 <span className={styles.experience_level}>
-                  {jobOffer.experience_level}
+                  {jobOffer.experiencelevelid}
                 </span>
-                <span className={styles.job_type}>{jobOffer.job_type}</span>
+                <span className={styles.job_type}>{jobOffer.jobtypeid}</span>
               </div>
               <div className={styles.description}>
                 <Markdown>{jobOffer.description || markdown}</Markdown>

@@ -13,19 +13,40 @@ import {
   deleteUser,
   updateUser,
 } from "../controllers/userControllers";
+import authenticationMiddleWare from "../middleware/authMiddleware";
 
 export const router = Router();
 type UserType = "jobSeeker" | "company";
-
-router.get("/:userId", validateRequest(getUserValidation), async (req, res) => {
+router.get("/", authenticationMiddleWare, async (req, res) => {
   try {
-    const { userId } = req.params;
-    const user = await getUserById(Number(userId));
+    const userId = req.userId;
+
+    console.log("userId", userId);
+    const user = await getUserById(String(userId));
     res.send(user);
+    console.log("user", user);
   } catch (error) {
     res.status(500).send("Error retrieving user");
   }
 });
+router.get(
+  "/:userId?",
+  validateRequest(getUserValidation),
+  async (req, res) => {
+    try {
+      let { userId } = req.params;
+      if (!userId) {
+        userId = String(req.userId);
+      }
+      console.log("userId", userId);
+      const user = await getUserById(userId);
+      res.send(user);
+      console.log("user", user);
+    } catch (error) {
+      res.status(500).send("Error retrieving user");
+    }
+  }
+);
 
 router.delete(
   "/:userId",
@@ -63,7 +84,7 @@ router.patch(
         password,
         age,
         email,
-        Number(userId),
+        userId,
         currentJob,
         isWorking,
         userType

@@ -55,9 +55,6 @@ export default function Navbar() {
         <Link className={styles.link} to="/">
           Find Jobs
         </Link>
-        <Link className={styles.link} to="/upload">
-          Upload Job
-        </Link>
         <Link className={styles.link} to="/about">
           About Us
         </Link>

@@ -15,6 +15,17 @@ interface ValidationSchema {
   query?: ObjectSchema;
 }
 
+const validExperienceLevels = ["entry", "mid", "senior", "lead", "executive"];
+
+const validJobTypes = [
+  "full-time",
+  "part-time",
+  "contract",
+  "freelance",
+  "internship",
+  "voluntering",
+];
+
 // Middleware de validação genérica
 export const validateRequest = (schema: ValidationSchema) => {
   return (req: Request, res: Response, next: NextFunction): void => {
@@ -61,7 +72,7 @@ export const updateUserValidation: ValidationSchema = {
 // Validação para obter um usuário com parâmetros de consulta (GET /users/:id)
 export const getUserValidation: ValidationSchema = {
   params: Joi.object({
-    id: Joi.string().alphanum().min(3).max(30).required().messages({
+    userId: Joi.string().optional().alphanum().min(3).max(30).messages({
       "string.base": "ID deve ser uma string",
       "string.alphanum": "ID deve conter apenas caracteres alfanuméricos",
       "string.min": "ID deve ter no mínimo {#limit} caracteres",
@@ -142,9 +153,13 @@ export const createNewJobOfferValidation: ValidationSchema = {
     location: Joi.string().min(3).max(30).required(),
     logo: Joi.string().min(3).max(500).required(),
     description: Joi.string().min(3).max(500).required(),
-    experienceLevelId: Joi.number().integer().positive().required(),
-    jobTypeId: Joi.array().items(Joi.number().integer().positive()).required(),
-    salaryRangeId: Joi.number().integer().positive().required(),
+    experienceLevelId: Joi.array()
+      .items(Joi.string().valid(...validExperienceLevels))
+      .required(),
+    jobTypeId: Joi.array()
+      .items(Joi.string().valid(...validJobTypes))
+      .required(),
+    salary: Joi.number().integer().positive().required(),
     companyId: Joi.number().integer().positive().required(),
   }),
 };
@@ -172,7 +187,7 @@ export const getJobOfferByJobTypeValidation: ValidationSchema = {
 };
 export const getJobOfferBySalaryRangeValidation: ValidationSchema = {
   params: Joi.object({
-    salaryRangeId: Joi.number().integer().positive().required(),
+    salary: Joi.number().integer().positive().required(),
   }),
 };
 
@@ -185,14 +200,7 @@ export const getJobOffers: ValidationSchema = {
       .allow("")
       .custom((value) => {
         const jobTypes = value.split(",");
-        const validJobTypes = [
-          "full-time",
-          "part-time",
-          "contract",
-          "freelance",
-          "internship",
-          "voluntering",
-        ];
+
         if (jobTypes.some((type: any) => !validJobTypes.includes(type))) {
           throw new Error("Invalid job type");
         }
@@ -204,13 +212,7 @@ export const getJobOffers: ValidationSchema = {
       .valid("entry", "mid", "senior", "lead", "executive")
       .custom((value) => {
         const experienceLevels = value.split(",");
-        const validExperienceLevels = [
-          "entry",
-          "mid",
-          "senior",
-          "lead",
-          "executive",
-        ];
+
         if (
           experienceLevels.some(
             (level: any) => !validExperienceLevels.includes(level)
