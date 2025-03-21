@@ -18,6 +18,7 @@ export const SignUp: React.FC = () => {
     password: "",
     confirmPassword: "",
     role: "jobSeeker",
+    location: "", // Novo campo para localização da empresa
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,6 +35,15 @@ export const SignUp: React.FC = () => {
     setLoading(true);
 
     try {
+      // Validação de senha
+      if (formData.password !== formData.confirmPassword) {
+        toast.error("Passwords do not match");
+        setError("Passwords do not match");
+        setLoading(false);
+        return;
+      }
+
+      // Cadastro do usuário
       const response = await fetch("http://localhost:3000/auth/signUp", {
         method: "POST",
         headers: {
@@ -50,20 +60,62 @@ export const SignUp: React.FC = () => {
         console.log("Erro do backend:", error);
         toast.error(error);
         setError(error);
+        setLoading(false);
         return;
       }
+
       const responseJson = await response.json();
       console.log("responseJson", responseJson);
       localStorage.setItem("user", responseJson.userId);
+
+      // Se for uma empresa, cria o registro na tabela companies
+      if (formData.role === "company") {
+        try {
+          console.log("Criando empresa com nome:", formData.firstName);
+
+          const companyResponse = await fetch(
+            "http://localhost:3000/companies",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              credentials: "include",
+              body: JSON.stringify({
+                name: formData.firstName, // Nome da empresa
+                email: formData.email, // Email da empresa
+                location: formData.location || "", // Localização (pode estar vazio)
+              }),
+            }
+          );
+
+          if (!companyResponse.ok) {
+            console.error(
+              "Erro ao criar empresa:",
+              await companyResponse.text()
+            );
+            toast.error(
+              "Conta criada, mas houve um problema ao salvar os detalhes da empresa"
+            );
+          } else {
+            console.log("Empresa criada com sucesso!");
+          }
+        } catch (companyError) {
+          console.error("Erro ao criar empresa:", companyError);
+          toast.error(
+            "Conta criada, mas não foi possível registrar os detalhes da empresa"
+          );
+        }
+      }
+
+      // Redireciona baseado no tipo de usuário
       if (formData.role === "jobSeeker") {
         toast.success(
           "Account created successfully, browse your dream jobs :)"
         );
-
         navigate("/");
       } else {
         toast.success("Account created successfully, make dreams come true :)");
-
         navigate("/companyprofile");
       }
     } catch (error) {
@@ -175,19 +227,30 @@ export const SignUp: React.FC = () => {
                   </div>
                 </>
               ) : (
-                <div className={styles.inputContainer}>
-                  <input
-                    type="text"
-                    id="companyName"
-                    name="firstName"
-                    value={formData.firstName}
-                    onChange={handleChange}
-                    placeholder="Company Name"
-                    required
-                    minLength={2}
-                    pattern="[A-Za-z]+"
-                  />
-                </div>
+                <>
+                  <div className={styles.inputContainer}>
+                    <input
+                      type="text"
+                      id="companyName"
+                      name="firstName"
+                      value={formData.firstName}
+                      onChange={handleChange}
+                      placeholder="Company Name"
+                      required
+                      minLength={2}
+                    />
+                  </div>
+                  <div className={styles.inputContainer}>
+                    <input
+                      type="text"
+                      id="location"
+                      name="location"
+                      value={formData.location}
+                      onChange={handleChange}
+                      placeholder="Company Location"
+                    />
+                  </div>
+                </>
               )}
             </div>
 
@@ -242,6 +305,7 @@ export const SignUp: React.FC = () => {
           </form>
         </div>
       </section>
+      <Toaster position="top-center" />
     </main>
   );
 };

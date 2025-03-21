@@ -1,154 +1,73 @@
 import express from "express";
-import {
-  getAllJobOffers,
-  getJobOfferById,
-  createNewJobOffer,
-  deleteJobOffer,
-  updateJobOffer,
-  getJobOfferByExperienceLevel,
-  getJobOffersByJobType,
-  getJobOffersBySalaryRange,
-} from "../controllers/jobOfferControllers";
-import {
-  validateRequest,
-  getJobOfferByIdValidation,
-  createNewJobOfferValidation,
-  deleteJobOfferValidation,
-  updateJobOfferValidation,
-  getJobOffers,
-} from "../middleware/validationMiddleware";
-import client from "../config/database";
+import authenticationMiddleWare from "../middleware/authMiddleware";
+import { getAllCompaniesByUserId } from "../controllers/companiesControllers";
+import { getAllJobOffersFromCompany } from "../controllers/companiesControllers";
 
 export const router = express.Router();
 
-router.post(
-  "/jobs",
-  validateRequest(createNewJobOfferValidation),
-  async (req, res) => {
+// Rota para obter estatísticas da empresa
+router.get(
+  "/company-stats",
+  authenticationMiddleWare,
+  async (req, res, next) => {
     try {
-      const {
-        title,
-        logo,
-        description,
-        location,
-        companyId,
-        experienceLevelId,
-        jobTypeId,
-        salary,
-      } = req.body;
-      console.log("req.body", req.body);
-      const job = await createNewJobOffer(
-        title,
-        description,
-        logo,
-        companyId,
-        experienceLevelId,
-        location,
-        jobTypeId,
-        salary
-      );
-      res.send(job);
+      const userId = req.userId;
+      console.log("Buscando estatísticas para o usuário ID:", userId);
+
+      // Primeiro obtenha a empresa do usuário para verificar se existe
+      const companyResult = await getAllCompaniesByUserId(String(userId));
+
+      if (!companyResult.rows || companyResult.rows.length === 0) {
+        console.log("Nenhuma empresa encontrada para o usuário:", userId);
+        // Se não houver empresa, retorne estatísticas vazias
+        res.json({
+          total_activejobs: 0,
+          total_application: 0,
+          total_interviews: 0,
+        });
+        return;
+      }
+
+      // Aqui você pode implementar a lógica real para obter estatísticas
+      // Por enquanto, retornamos dados de exemplo
+      res.json({
+        total_activejobs: 0,
+        total_application: 0,
+        total_interviews: 0,
+      });
     } catch (error) {
-      res.status(500).send("Error creating job");
+      console.error("Error fetching job stats:", error);
+      next(error);
     }
   }
 );
 
-router.delete(
-  "/:jobOfferId",
-  validateRequest(deleteJobOfferValidation),
-  async (req, res) => {
-    try {
-      const { jobOfferId } = req.params;
-      const job = await deleteJobOffer(jobOfferId);
-      res.send(job);
-    } catch (error) {
-      res.status(500).send("Error deleting job");
-    }
-  }
-);
-
-router.patch(
-  "/:jobOfferId",
-  validateRequest(updateJobOfferValidation),
-  async (req, res) => {
-    try {
-      const { jobOfferId } = req.params;
-      const { title, description, location } = req.body;
-      const job = await updateJobOffer(
-        jobOfferId,
-        title,
-        location,
-        description
-      );
-      res.send(job);
-    } catch (error) {
-      res.status(500).send("Error updating job");
-    }
-  }
-);
-
-router.get("/filter", validateRequest(getJobOffers), async (req, res) => {
+// Rota para obter todas as vagas de uma empresa
+router.get("/jobs", authenticationMiddleWare, async (req, res) => {
   try {
-    const { minSalary, maxSalary, jobType, experienceLevel } = req.query;
+    const userId = req.userId;
+    console.log("Buscando vagas para o usuário ID:", userId);
 
-    let query = `
-        SELECT 
-          job_offers.id,
-          job_offers.title,
-          job_offers.description,
-          job_offers.salary,
-          job_offers.experiencelevelid,
-          job_offers.jobtypeid,
-          job_offers.applicants_count,
-          job_offers.created_at,
-          companies.name AS company_name,
-          companies.logo_url AS company_logo
-        FROM job_offers
-        JOIN companies ON job_offers.company_id = companies.id
-        WHERE 1=1
-      `;
-    const values: any[] = [];
+    // Primeiro obtenha o ID da empresa para este usuário
+    const companyResult = await getAllCompaniesByUserId(String(userId));
+    console.log("Resultado da busca de empresa:", companyResult.rows);
 
-    if (minSalary && maxSalary) {
-      query += ` AND job_offers.salary BETWEEN $${values.length + 1} AND $${
-        values.length + 2
-      }`;
-      values.push(Number(minSalary), Number(maxSalary));
+    if (companyResult.rows && companyResult.rows.length > 0) {
+      const companyId = companyResult.rows[0].id;
+      console.log("ID da empresa encontrado:", companyId);
+
+      const jobOffers = await getAllJobOffersFromCompany(String(companyId));
+      console.log("Vagas encontradas:", jobOffers.rows?.length || 0);
+
+      res.json(jobOffers.rows || []);
+    } else {
+      console.log("Nenhuma empresa encontrada, retornando lista vazia");
+      res.json([]);
     }
-
-    if (jobType) {
-      query += ` AND job_offers.jobtypeid = $${values.length + 1}`;
-      values.push(jobType);
-    }
-
-    if (experienceLevel) {
-      query += ` AND job_offers.experiencelevelid = $${values.length + 1}`;
-      values.push(experienceLevel);
-    }
-
-    console.log("Query:", query);
-    console.log("Values:", values);
-
-    const result = await client.query(query, values);
-    res.status(200).json(result.rows);
   } catch (error) {
-    console.error("Error retrieving filtered job offers", error);
-    res.status(500).send("Error retrieving filtered job offers");
+    console.error("Error fetching jobs:", error);
+    res.status(500).json({ message: "Error retrieving job offers" });
   }
 });
 
-router.get(
-  "/:jobOfferId",
-  validateRequest(getJobOfferByIdValidation),
-  async (req, res) => {
-    try {
-      const { jobOfferId } = req.params;
-      const job = await getJobOfferById(jobOfferId);
-      res.send(job);
-    } catch (error) {
-      res.status(500).send("Error retrieving job");
-    }
-  }
-);
-// porque é que tive que meter getjobofferbyidvalidation depois de
+export default router;

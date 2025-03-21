@@ -50,7 +50,6 @@ export function Profile({ isCompanyView = false }: ProfileProps) {
           email: data.email || "",
           location: data.location || "",
         });
-        // No seu componente de login após autenticação
       } catch (error) {
         console.error("Error fetching user:", error);
       }

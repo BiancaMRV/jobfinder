@@ -1,69 +1,145 @@
 import { useEffect, useState } from "react";
 import styles from "./CompanyProfile.module.css";
-import { CircleUser, MapPin, Mail, Edit2, Upload } from "lucide-react";
+import { CircleUser, MapPin, Mail, Edit2 } from "lucide-react";
 import OverviewCompany from "./OverviewCompany";
 import CompanyInfo from "./CompanyInfo";
 import PostedJobs from "./PostedJobs";
 
-interface jobofferstatus {
+interface JobOffer {
+  id: string;
+  title: string;
+  location: string;
+  date: string;
+  description: string;
+}
+
+interface JobOfferStatus {
   total_activejobs: number;
   total_application: number;
   total_interviews: number;
 }
-interface companydata {
+
+interface CompanyData {
   name: string;
   location: string;
   email: string;
 }
 
 export default function CompanyProfile() {
-  const [jobofferstatus, setjobofferstatus] = useState<jobofferstatus>({
+  const [jobOfferstatus, setJobOfferstatus] = useState<JobOfferStatus>({
     total_activejobs: 0,
     total_application: 0,
     total_interviews: 0,
   });
-  const [companydata, setcompanydata] = useState<companydata>({
+
+  const [companyData, setCompanyData] = useState<CompanyData>({
     name: "",
     location: "",
     email: "",
   });
 
+  const [jobOffers, setJobOffers] = useState<JobOffer[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  // Buscar dados da empresa
   useEffect(() => {
     const fetchCompanyData = async () => {
       try {
+        setIsLoading(true);
+        setError(null);
+
+        console.log("Buscando dados da empresa...");
         const response = await fetch("http://localhost:3000/companies", {
           method: "GET",
           credentials: "include",
         });
+
+        console.log("Raw company response:", response);
+
         if (!response.ok) {
-          throw new Error("Failed to fetch company data");
+          console.error("Error status:", response.status);
+          const errorText = await response.text();
+          console.error("Error response:", errorText);
+          setError(`Failed to fetch company data: ${response.status}`);
+          return;
         }
+
         const data = await response.json();
-        setcompanydata({
+        console.log("Company data received:", data);
+
+        setCompanyData({
           name: data.name || "",
           location: data.location || "",
           email: data.email || "",
         });
       } catch (error) {
         console.error("Error fetching company:", error);
+        setError("Error connecting to server");
+      } finally {
+        setIsLoading(false);
       }
     };
+
     fetchCompanyData();
   }, []);
-  console.log("companydata", companydata);
 
+  // Buscar estatísticas de trabalho
   useEffect(() => {
-    const fetchjobofferstatus = async () => {
+    const fetchJobOfferStatus = async () => {
       try {
-        const response = await fetch("");
+        console.log("Buscando estatísticas de trabalho...");
+        const response = await fetch(
+          "http://localhost:3000/jobs/company-stats",
+          {
+            credentials: "include",
+          }
+        );
+
         if (!response.ok) {
+          console.error("Error status:", response.status);
           throw new Error("Failed to fetch job offer status");
         }
-      } catch (error) {}
+
+        const data = await response.json();
+        console.log("Job stats received:", data);
+        setJobOfferstatus(data);
+      } catch (error) {
+        console.error("Error fetching job stats:", error);
+      }
     };
-    fetchjobofferstatus();
+
+    fetchJobOfferStatus();
   }, []);
+
+  // Buscar ofertas de trabalho
+  useEffect(() => {
+    const fetchJobOffers = async () => {
+      try {
+        console.log("Buscando ofertas de trabalho...");
+        const response = await fetch("http://localhost:3000/jobs/jobs", {
+          credentials: "include",
+        });
+
+        if (!response.ok) {
+          console.error("Error status:", response.status);
+          throw new Error("Failed to fetch job offers");
+        }
+
+        const data = await response.json();
+        console.log("Job offers received:", data);
+        setJobOffers(data);
+      } catch (error) {
+        console.error("Error fetching job offers:", error);
+      }
+    };
+
+    fetchJobOffers();
+  }, []);
+
   const [profileImage, setProfileImage] = useState<string | null>(null);
+
+  // Carregar imagem de perfil do localStorage
   useEffect(() => {
     const savedImage = localStorage.getItem(
       "profileImage" + localStorage.getItem("userId")
@@ -73,6 +149,7 @@ export default function CompanyProfile() {
     }
   }, []);
 
+  // Salvar imagem de perfil no localStorage quando mudar
   useEffect(() => {
     if (profileImage) {
       localStorage.setItem(
@@ -81,6 +158,7 @@ export default function CompanyProfile() {
       );
     }
   }, [profileImage]);
+
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
@@ -103,7 +181,7 @@ export default function CompanyProfile() {
   const handleTabClick = (tab: string) => {
     setActiveTab(tab);
   };
-  const name = companydata.name;
+
   return (
     <div className={styles.profilecontainer}>
       <div className={styles.profilecard}>
@@ -130,15 +208,25 @@ export default function CompanyProfile() {
             onChange={handleImageUpload}
             className={styles.fileinput}
           />
-          <h2> {name || "utilizador"}</h2>
+          <h2>
+            {isLoading ? "Carregando..." : companyData.name || "Utilizador"}
+          </h2>
           <div className={styles.profileinfo}>
             <div className={styles.location}>
               <MapPin size={20} />
-              <span>{companydata.location || "Local não especificado"} </span>
+              <span>
+                {isLoading
+                  ? "Carregando localização..."
+                  : companyData.location || "Local não especificado"}
+              </span>
             </div>
             <div className={styles.email}>
               <Mail size={20} />
-              <span> {companydata.email || "Email não especificado"} </span>
+              <span>
+                {isLoading
+                  ? "Carregando email..."
+                  : companyData.email || "Email não especificado"}
+              </span>
             </div>
           </div>
           <button
@@ -146,27 +234,27 @@ export default function CompanyProfile() {
             onClick={() => console.log("Edit profile")}
           >
             <Edit2 size={20} />
-            <span> Edit Profile </span>
+            <span>Edit Profile</span>
           </button>
         </div>
         <div className={styles.statsContainer}>
           <div className={styles.statCard}>
             <span className={styles.statValue}>
-              {jobofferstatus.total_activejobs}
+              {jobOfferstatus.total_activejobs}
             </span>
             <span className={styles.statLabel}>Active Jobs</span>
           </div>
 
           <div className={styles.statCard}>
             <span className={styles.statValue}>
-              {jobofferstatus.total_application}
+              {jobOfferstatus.total_application}
             </span>
             <span className={styles.statLabel}>Applications</span>
           </div>
 
           <div className={styles.statCard}>
             <span className={styles.statValue}>
-              {jobofferstatus.total_interviews}
+              {jobOfferstatus.total_interviews}
             </span>
             <span className={styles.statLabel}>Interviews</span>
           </div>
@@ -196,9 +284,14 @@ export default function CompanyProfile() {
         <div className={styles.contentContainer}>
           {activeTab === "overview" && <OverviewCompany />}
           {activeTab === "Company Info" && <CompanyInfo />}
-          {activeTab === "Posted Jobs" && <PostedJobs jobOffers={[]} />}
+          {activeTab === "Posted Jobs" && <PostedJobs jobOffers={jobOffers} />}
         </div>
       </div>
+      {error && (
+        <div className={styles.errorMessage}>
+          <p>{error}</p>
+        </div>
+      )}
     </div>
   );
 }
