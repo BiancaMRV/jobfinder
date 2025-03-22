@@ -1,5 +1,13 @@
 import styles from "./Profile.module.css";
-import { CircleUser, MapPin, Mail, Edit2 } from "lucide-react";
+import {
+  CircleUser,
+  MapPin,
+  Mail,
+  Edit2,
+  X,
+  Save,
+  CircleArrowLeft,
+} from "lucide-react";
 import { useEffect, useState } from "react";
 import Overview from "./Overview";
 import Documents from "./Documents";
@@ -17,6 +25,7 @@ interface ApplicationStatus {
 interface ProfileProps {
   isCompanyView?: boolean;
 }
+
 interface UserData {
   firstName: string;
   lastName: string;
@@ -32,7 +41,25 @@ export function Profile({ isCompanyView = false }: ProfileProps) {
     location: "",
   });
 
+  const [isEditing, setIsEditing] = useState(false);
+  const [editData, setEditData] = useState<UserData>({
+    firstName: "",
+    lastName: "",
+    email: "",
+    location: "",
+  });
+
   useEffect(() => {
+    // Primeiro tenta carregar do localStorage
+    const savedUserData = localStorage.getItem("userData");
+    if (savedUserData) {
+      const parsedData = JSON.parse(savedUserData);
+      setUserData(parsedData);
+      setEditData(parsedData);
+      return;
+    }
+
+    // Se não encontrar no localStorage, tenta buscar da API
     const fetchUserData = async () => {
       try {
         const response = await fetch("http://localhost:3000/users", {
@@ -44,21 +71,28 @@ export function Profile({ isCompanyView = false }: ProfileProps) {
         }
 
         const data = await response.json();
-        setUserData({
+        const formattedData = {
           firstName: data.firstname || "",
           lastName: data.lastname || "",
           email: data.email || "",
           location: data.location || "",
-        });
+        };
+
+        setUserData(formattedData);
+        setEditData(formattedData);
+        // Salva no localStorage para uso futuro
+        localStorage.setItem("userData", JSON.stringify(formattedData));
       } catch (error) {
         console.error("Error fetching user:", error);
       }
     };
     fetchUserData();
   }, []);
+
   const fullName = `${userData.firstName} ${userData.lastName}`.trim();
-  console.log("Full Name:", fullName);
+
   const [profileImage, setProfileImage] = useState<string | null>(null);
+
   useEffect(() => {
     const savedImage = localStorage.getItem("profileImage");
     if (savedImage) {
@@ -126,12 +160,44 @@ export function Profile({ isCompanyView = false }: ProfileProps) {
     }
   };
 
+  const handleEditClick = () => {
+    setEditData({ ...userData });
+    setIsEditing(true);
+  };
+
+  const handleCancelEdit = () => {
+    setIsEditing(false);
+  };
+
+  const handleSave = () => {
+    // Salvar os dados editados no localStorage
+    const updatedUserData = { ...editData };
+    setUserData(updatedUserData);
+    localStorage.setItem("userData", JSON.stringify(updatedUserData));
+    setIsEditing(false);
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setEditData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
   return (
     <ProfileProvider isCompanyView={isCompanyView}>
       <div className={styles.profilecontainer}>
         <div className={styles.profilecard}>
+          <div className={styles.buttonarrow}>
+            <CircleArrowLeft
+              className={styles.circlearrowleft}
+              color="#9158d6"
+              size={30}
+              onClick={() => window.history.back()}
+            />
+          </div>
           <div className={styles.profileheader}>
-            {/* Conditionally render the upload functionality based on view type */}
             {isCompanyView ? (
               <div className={styles.profileimage}>
                 {profileImage ? (
@@ -174,31 +240,99 @@ export function Profile({ isCompanyView = false }: ProfileProps) {
                 />
               </>
             )}
-            <h2> {fullName || "Utilizador"} </h2>
-            <div className={styles.profileinfo}>
-              <div className={styles.location}>
-                <MapPin size={20} />
-                <span>{userData.location || "Local não especificado"} </span>
-              </div>
-              <div className={styles.email}>
-                <Mail size={20} />
-                <span>{userData.email || "Email não especificado"} </span>
-              </div>
-            </div>
 
-            {/* Only show the edit button if it's not company view */}
-            {!isCompanyView && (
-              <button
-                className={styles.buttonprofile}
-                onClick={() => console.log("Edit profile")}
-              >
-                <Edit2 size={20} />
-                <span> Edit Profile </span>
-              </button>
+            {!isEditing ? (
+              <>
+                <h2>{fullName || "Utilizador"}</h2>
+                <div className={styles.profileinfo}>
+                  <div className={styles.location}>
+                    <MapPin size={20} />
+                    <span>{userData.location || "Local não especificado"}</span>
+                  </div>
+                  <div className={styles.email}>
+                    <Mail size={20} />
+                    <span>{userData.email || "Email não especificado"}</span>
+                  </div>
+                </div>
+
+                {!isCompanyView && (
+                  <button
+                    className={styles.buttonprofile}
+                    onClick={handleEditClick}
+                  >
+                    <Edit2 size={20} />
+                    <span>Edit Profile</span>
+                  </button>
+                )}
+              </>
+            ) : (
+              <div className={styles.editFormContainer}>
+                <div className={styles.formGroup}>
+                  <label htmlFor="firstName">Primeiro Nome</label>
+                  <input
+                    type="text"
+                    id="firstName"
+                    name="firstName"
+                    value={editData.firstName}
+                    onChange={handleChange}
+                    className={styles.inputField}
+                  />
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label htmlFor="lastName">Sobrenome</label>
+                  <input
+                    type="text"
+                    id="lastName"
+                    name="lastName"
+                    value={editData.lastName}
+                    onChange={handleChange}
+                    className={styles.inputField}
+                  />
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label htmlFor="location">Localização</label>
+                  <input
+                    type="text"
+                    id="location"
+                    name="location"
+                    value={editData.location}
+                    onChange={handleChange}
+                    className={styles.inputField}
+                  />
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label htmlFor="email">Email</label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={editData.email}
+                    onChange={handleChange}
+                    className={styles.inputField}
+                  />
+                </div>
+
+                <div className={styles.buttonGroup}>
+                  <button className={styles.saveButton} onClick={handleSave}>
+                    <Save size={20} />
+                    <span>Salvar</span>
+                  </button>
+                  <button
+                    className={styles.cancelButton}
+                    onClick={handleCancelEdit}
+                  >
+                    <X size={20} />
+                    <span>Cancelar</span>
+                  </button>
+                </div>
+              </div>
             )}
           </div>
 
-          {/* Only show application stats if it's not company view */}
+          {/* Apenas mostra as estatísticas se não for company view */}
           {!isCompanyView && (
             <div className={styles.statsContainer}>
               <div className={styles.statCard}>

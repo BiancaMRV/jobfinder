@@ -41,7 +41,7 @@ Join a dynamic team to design, develop, and maintain high-performance software a
   useEffect(() => {
     console.log("Fetching data...");
     fetchData();
-  }, [jobOfferId]); //Adicionei jobId como dependência do useEffect para recarregar quando o ID mudar
+  }, [jobOfferId]);
 
   return (
     <div className={styles.jobofferpage}>

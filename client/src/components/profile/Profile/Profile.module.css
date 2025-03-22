@@ -7,11 +7,78 @@
   box-sizing: border-box;
   width: 100%;
 }
+.buttonarrow {
+  position: absolute;
+  left: 0;
+  top: 20px; /* você pode ajustar este valor conforme necessário */
+  margin-left: 20px; /* espaçamento da borda esquerda */
+}
+
 .profileImage {
   width: 120px; /* ou o mesmo tamanho do CircleUser */
   height: 120px;
   border-radius: 50%;
   object-fit: cover; /* Garante que a imagem preencha o espaço sem distorcer */
+}
+.editFormContainer {
+  width: 100%;
+  padding: 1rem;
+}
+
+.formGroup {
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.formGroup label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  color: #555;
+}
+
+.inputField {
+  width: 100%;
+  padding: 0.625rem;
+  border: 1px solid #ddd;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  background-color: #fff;
+}
+
+.inputField:focus {
+  outline: none;
+  border-color: #9158d6;
+  box-shadow: 0 0 0 1px #9158d6;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.saveButton,
+.cancelButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  font-weight: 500;
+  border: none;
+}
+
+.saveButton {
+  background-color: #9158d6;
+  color: white;
+}
+
+.cancelButton {
+  background-color: #f44336;
+  color: white;
 }
 
 .profileheader {
@@ -48,6 +115,7 @@
 
 .profilecard {
   display: flex;
+  position: relative;
   flex-direction: column;
   gap: 0.5rem;
   padding: 1rem;

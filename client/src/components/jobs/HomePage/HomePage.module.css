@@ -38,10 +38,13 @@
   /* flex-direction: column; */
   margin: 2rem 1rem 0 1rem;
   justify-content: space-between;
+
   width: 100%;
 }
 .titlerecommendedjobs {
   margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
 }
 
 .filtertogglebutton {
