@@ -22,8 +22,6 @@ import authenticationMiddleWare from "../middleware/authMiddleware";
 
 export const router = express.Router();
 
-// Rota para obter a empresa do usuário logado
-// Agora é "/" em vez de "/companies" porque o prefixo já foi adicionado em app.js
 router.get("/", authenticationMiddleWare, async (req, res) => {
   try {
     const userId = req.userId;
@@ -44,7 +42,6 @@ router.get("/", authenticationMiddleWare, async (req, res) => {
   }
 });
 
-// Rota para buscar empresa por ID
 router.get("/:companyId", validateRequest(getCompanyById), async (req, res) => {
   try {
     const companyId = req.params.companyId;
@@ -71,7 +68,7 @@ router.post(
       const { name, location, email } = req.body;
       const userId = req.userId; // Assuming this is set by your auth middleware
 
-      console.log("Criando empresa:", { name, location, email, userId });
+      console.log("creating company:", { name, location, email, userId });
 
       const company = await createNewCompany(
         name,

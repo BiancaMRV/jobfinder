@@ -41,7 +41,6 @@ const createComments = `CREATE TABLE IF NOT EXISTS "comments" (
 
 const createCompanies = `CREATE TABLE IF NOT EXISTS "companies" (
     id SERIAL PRIMARY KEY,
-    user_id INTEGER REFERENCES users(id) UNIQUE NOT NULL, 
     name VARCHAR(255) NOT NULL,
     description TEXT,
     email VARCHAR(255),

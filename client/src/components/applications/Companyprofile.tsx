@@ -42,7 +42,6 @@ export default function CompanyProfile() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Buscar dados da empresa
   useEffect(() => {
     const fetchCompanyData = async () => {
       try {
@@ -88,7 +87,6 @@ export default function CompanyProfile() {
   useEffect(() => {
     const fetchJobOfferStatus = async () => {
       try {
-        console.log("Buscando estatísticas de trabalho...");
         const response = await fetch(
           "http://localhost:3000/jobs/company-stats",
           {
@@ -112,30 +110,29 @@ export default function CompanyProfile() {
     fetchJobOfferStatus();
   }, []);
 
-  // Buscar ofertas de trabalho
-  useEffect(() => {
-    const fetchJobOffers = async () => {
-      try {
-        console.log("Buscando ofertas de trabalho...");
-        const response = await fetch("http://localhost:3000/jobs/jobs", {
-          credentials: "include",
-        });
+  // useEffect(() => {
+  //   const fetchJobOffers = async () => {
+  //     try {
+  //       console.log("Buscando ofertas de trabalho...");
+  //       const response = await fetch("http://localhost:3000/jobs/jobs", {
+  //         credentials: "include",
+  //       });
 
-        if (!response.ok) {
-          console.error("Error status:", response.status);
-          throw new Error("Failed to fetch job offers");
-        }
+  //       if (!response.ok) {
+  //         console.error("Error status:", response.status);
+  //         throw new Error("Failed to fetch job offers");
+  //       }
 
-        const data = await response.json();
-        console.log("Job offers received:", data);
-        setJobOffers(data);
-      } catch (error) {
-        console.error("Error fetching job offers:", error);
-      }
-    };
+  //       const data = await response.json();
+  //       console.log("Job offers received:", data);
+  //       setJobOffers(data);
+  //     } catch (error) {
+  //       console.error("Error fetching job offers:", error);
+  //     }
+  //   };
 
-    fetchJobOffers();
-  }, []);
+  //   fetchJobOffers();
+  // }, []);
 
   const [profileImage, setProfileImage] = useState<string | null>(null);
 

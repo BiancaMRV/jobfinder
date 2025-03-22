@@ -15,6 +15,7 @@ export const SignUp: React.FC = () => {
     firstName: "",
     lastName: "",
     email: "",
+    name: "",
     password: "",
     confirmPassword: "",
     role: "jobSeeker",
@@ -82,7 +83,7 @@ export const SignUp: React.FC = () => {
               },
               credentials: "include",
               body: JSON.stringify({
-                name: formData.firstName, // Nome da empresa
+                name: formData.name, // Nome da empresa
                 email: formData.email, // Email da empresa
                 location: formData.location || "", // Localização (pode estar vazio)
               }),
