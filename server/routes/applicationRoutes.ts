@@ -60,7 +60,6 @@ router.delete(
     }
   }
 );
-// applications.lenght
 
 router.post(
   "/application",

@@ -7,6 +7,12 @@
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
   border: 1px solid #ece9f2;
 }
+.jobtypes {
+  font-size: small;
+}
+.experienceLevels {
+  font-size: small;
+}
 
 .jobApplicationHeader {
   margin-bottom: 30px;

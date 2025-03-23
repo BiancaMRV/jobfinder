@@ -218,7 +218,6 @@ router.post(
   }
 );
 
-// Rota para atualizar uma oferta de emprego
 router.put(
   "/:id",
   authenticationMiddleWare,

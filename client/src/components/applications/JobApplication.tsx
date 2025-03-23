@@ -7,6 +7,7 @@ export default function JobApplication() {
     title: "",
     location: "",
     jobType: [] as string[],
+    experienceLevels: [] as string[],
     salary: "",
     description: "",
   });
@@ -26,12 +27,10 @@ export default function JobApplication() {
 
     const form = e.target as HTMLFormElement;
 
-    // Get all experienceLevels values for each group using their name attributes
     const experienceLevels = Array.from(
       form.querySelectorAll('input[name="experienceLevels"]:checked')
     ).map((checkbox) => (checkbox as HTMLInputElement).value);
 
-    // Get all jobTypes values for each group using their name attributes
     const jobTypes = Array.from(
       form.querySelectorAll('input[name="jobTypes"]:checked')
     ).map((checkbox) => (checkbox as HTMLInputElement).value);
@@ -48,11 +47,12 @@ export default function JobApplication() {
         logo: "https://company.png",
       };
 
-      const response = await fetch("http://localhost:3000/jobs/jobs", {
+      const response = await fetch("http://localhost:3000/jobs", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
         body: JSON.stringify(data),
       });
 
@@ -64,6 +64,7 @@ export default function JobApplication() {
           title: "",
           location: "",
           jobType: [],
+          experienceLevels: [],
           salary: "",
           description: "",
         });
