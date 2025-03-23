@@ -12,7 +12,7 @@ interface DocumentType {
 
 interface ApplyNowProps {
   jobOfferId?: string;
-  companyId?: string;
+  companyId?: number;
   jobTitle?: string;
   companyName?: string;
 }

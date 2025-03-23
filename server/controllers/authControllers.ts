@@ -6,6 +6,7 @@ import client from "../config/database";
 import bcrypt from "bcrypt";
 import { sha256 } from "@oslojs/crypto/sha2";
 import type { Response } from "express";
+import { createNewCompany } from "./companiesControllers";
 
 export const signUp = async (
   firstName: string,
@@ -13,6 +14,8 @@ export const signUp = async (
   email: string,
   password: string,
   role: string,
+  name: string,
+  description: string,
   location: string
 ) => {
   try {
@@ -30,11 +33,13 @@ export const signUp = async (
       [firstName, lastName, email, hashedPassword, role, location]
     );
     if (role === "company") {
-      //se for uma empresa cria um registo na tabela companies
-      await client.query("INSERT INTO companies(name,user_id) VALUES ($1,$2)", [
-        firstName,
-        result.rows[0].id,
-      ]);
+      await createNewCompany(
+        name,
+        location,
+        description,
+        email,
+        result.rows[0].id
+      );
     }
     console.log("result", result);
     return result.rows[0];

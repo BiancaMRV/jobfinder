@@ -104,7 +104,9 @@ export const createUserValidation: ValidationSchema = {
 export const createCompanyValidation: ValidationSchema = {
   body: Joi.object({
     name: Joi.string().min(3).max(30).required(),
-    description: Joi.string().min(3).max(500).required(),
+    description: Joi.string().min(3).max(500),
+    email: Joi.string().email().required(),
+    location: Joi.string().min(3).max(100).required(),
   }),
 };
 

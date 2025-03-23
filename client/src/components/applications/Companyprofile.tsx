@@ -48,7 +48,6 @@ export default function CompanyProfile() {
         setIsLoading(true);
         setError(null);
 
-        console.log("Buscando dados da empresa...");
         const response = await fetch("http://localhost:3000/companies", {
           method: "GET",
           credentials: "include",
@@ -83,32 +82,31 @@ export default function CompanyProfile() {
     fetchCompanyData();
   }, []);
 
-  // Buscar estatísticas de trabalho
-  useEffect(() => {
-    const fetchJobOfferStatus = async () => {
-      try {
-        const response = await fetch(
-          "http://localhost:3000/jobs/company-stats",
-          {
-            credentials: "include",
-          }
-        );
+  // useEffect(() => {
+  //   const fetchJobOfferStatus = async () => {
+  //     try {
+  //       const response = await fetch(
+  //         "http://localhost:3000/jobs/company-stats",
+  //         {
+  //           credentials: "include",
+  //         }
+  //       );
 
-        if (!response.ok) {
-          console.error("Error status:", response.status);
-          throw new Error("Failed to fetch job offer status");
-        }
+  //       if (!response.ok) {
+  //         console.error("Error status:", response.status);
+  //         throw new Error("Failed to fetch job offer status");
+  //       }
 
-        const data = await response.json();
-        console.log("Job stats received:", data);
-        setJobOfferstatus(data);
-      } catch (error) {
-        console.error("Error fetching job stats:", error);
-      }
-    };
+  //       const data = await response.json();
+  //       console.log("Job stats received:", data);
+  //       setJobOfferstatus(data);
+  //     } catch (error) {
+  //       console.error("Error fetching job stats:", error);
+  //     }
+  //   };
 
-    fetchJobOfferStatus();
-  }, []);
+  //   fetchJobOfferStatus();
+  // }, []);
 
   // useEffect(() => {
   //   const fetchJobOffers = async () => {
@@ -136,7 +134,6 @@ export default function CompanyProfile() {
 
   const [profileImage, setProfileImage] = useState<string | null>(null);
 
-  // Carregar imagem de perfil do localStorage
   useEffect(() => {
     const savedImage = localStorage.getItem(
       "profileImage" + localStorage.getItem("userId")
@@ -146,7 +143,6 @@ export default function CompanyProfile() {
     }
   }, []);
 
-  // Salvar imagem de perfil no localStorage quando mudar
   useEffect(() => {
     if (profileImage) {
       localStorage.setItem(

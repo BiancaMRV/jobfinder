@@ -10,7 +10,7 @@ export const getAllCompanies = async () => {
   }
 };
 
-export const getAllCompaniesById = async (companyId: string) => {
+export const getAllCompaniesById = async (companyId: number) => {
   try {
     const result = await client.query("SELECT * FROM companies WHERE id=$1", [
       companyId,
@@ -40,18 +40,28 @@ export const createNewCompany = async (
   name: string,
   location: string = "",
   email: string = "",
+  description: string = "",
   userId: string
 ) => {
   try {
-    const result = await client.query(
-      "INSERT INTO companies(name, location, email, user_id) VALUES ($1, $2, $3, $4) RETURNING *",
-      [name, location, email, userId]
+    console.log(
+      `Criar nova empresa: name=${name}, location=${location}, email=${email},description=${description}, userId=${userId}`
     );
+
+    const result = await client.query(
+      "INSERT INTO companies(name, location, email,description, user_id) VALUES ($1, $2, $3, $4,$5) RETURNING *",
+      [name, location, email, description, userId]
+    );
+
     console.log("Empresa criada com sucesso:", result.rows[0]);
     return result;
   } catch (error) {
     console.error("Company creation failed:", error);
-    throw new Error("Company creation failed");
+    throw new Error(
+      `Company creation failed: ${
+        error instanceof Error ? error.message : String(error)
+      }`
+    );
   }
 };
 
@@ -68,7 +78,7 @@ export const searchCompany = async (name: string) => {
   }
 };
 
-export const deleteCompany = async (companyId: string) => {
+export const deleteCompany = async (companyId: number) => {
   try {
     const result = await client.query(
       "DELETE FROM companies WHERE id=$1 RETURNING *",
@@ -82,7 +92,7 @@ export const deleteCompany = async (companyId: string) => {
 };
 
 export const updateCompany = async (
-  companyId: string,
+  companyId: number,
   name: string,
   location: string = "",
   email: string = ""
@@ -122,7 +132,7 @@ export const updateCompany = async (
   }
 };
 
-export const getAllJobOffersFromCompany = async (companyId: string) => {
+export const getAllJobOffersFromCompany = async (companyId: number) => {
   try {
     const result = await client.query(
       "SELECT * FROM job_offers WHERE company_id=$1 ORDER BY created_at DESC",
@@ -135,7 +145,7 @@ export const getAllJobOffersFromCompany = async (companyId: string) => {
   }
 };
 
-export const getCompanyJobStats = async (companyId: string) => {
+export const getCompanyJobStats = async (companyId: number) => {
   try {
     const activeJobsResult = await client.query(
       "SELECT COUNT(*) FROM job_offers WHERE company_id=$1 AND status='active'",

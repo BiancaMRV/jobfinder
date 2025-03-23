@@ -23,15 +23,17 @@ router.post("/signUp", async (req: any, res: any) => {
       firstName,
       lastName,
       email,
+
       password,
       confirmPassword,
       role,
+      name,
       location,
     } = req.body;
 
-    if (!firstName || firstName.trim() === "") {
-      return res.status(400).send("First Name is required");
-    }
+    // if (!firstName || firstName.trim() === "") {
+    //   return res.status(400).send("First Name is required");
+    // }
 
     if (!email || email.trim() === "") {
       return res.status(400).send("Email is required");
@@ -65,8 +67,10 @@ router.post("/signUp", async (req: any, res: any) => {
       firstName,
       lastName,
       email,
+      name,
       password,
       role,
+      name,
       location
     );
     const token = await generateSessionToken();

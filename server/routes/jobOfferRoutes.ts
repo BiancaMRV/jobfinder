@@ -196,7 +196,7 @@ router.post(
         !experienceLevelId ||
         !jobTypeId
       ) {
-        return res.status(400).json({ error: "Campos obrigatórios faltando" });
+        return res.status(400).json({ error: "Campos obrigatórios a faltar" });
       }
 
       const newJob = await createNewJobOffer(

@@ -30,7 +30,6 @@ router.get("/", authenticationMiddleWare, async (req, res) => {
     const companies = await getAllCompaniesByUserId(String(userId));
     console.log("Results:", companies.rows);
 
-    // Return the first company or an empty object if none exists
     if (companies.rows && companies.rows.length > 0) {
       res.json(companies.rows[0]);
     } else {
@@ -45,7 +44,7 @@ router.get("/", authenticationMiddleWare, async (req, res) => {
 router.get("/:companyId", validateRequest(getCompanyById), async (req, res) => {
   try {
     const companyId = req.params.companyId;
-    const companies = await getAllCompaniesById(companyId);
+    const companies = await getAllCompaniesById(Number(companyId));
 
     if (companies.rows && companies.rows.length > 0) {
       res.json(companies.rows[0]);
@@ -58,33 +57,47 @@ router.get("/:companyId", validateRequest(getCompanyById), async (req, res) => {
   }
 });
 
-// Rota para criar uma nova empresa
-router.post(
-  "/",
-  authenticationMiddleWare,
-  validateRequest(createCompanyValidation),
-  async (req, res) => {
-    try {
-      const { name, location, email } = req.body;
-      const userId = req.userId; // Assuming this is set by your auth middleware
+// router.post(
+//   "/",
+//   authenticationMiddleWare,
+//   validateRequest(createCompanyValidation),
+//   async (req, res, next) => {
+//     try {
+//       const { name, location, email, description } = req.body;
+//       const userId = req.userId;
 
-      console.log("creating company:", { name, location, email, userId });
+//       console.log("Creating company:", {
+//         name,
+//         location,
+//         email,
+//         description,
+//         userId,
+//       });
 
-      const company = await createNewCompany(
-        name,
-        location,
-        email,
-        String(userId)
-      );
+//       if (!name) {
+//         res.status(400).json({ message: "Company name is required" });
+//         return;
+//       }
 
-      console.log("Empresa criada com sucesso:", company.rows[0]);
-      res.status(201).json(company.rows[0]);
-    } catch (error) {
-      console.error("Error creating company:", error);
-      res.status(500).json({ message: "Error creating company" });
-    }
-  }
-);
+//       const company = await createNewCompany(
+//         name,
+//         location || "",
+//         email || "",
+//         description || "",
+//         String(userId)
+//       );
+
+//       console.log("Empresa criada com sucesso:", company.rows[0]);
+//       res.status(201).json(company.rows[0]);
+//     } catch (error) {
+//       console.error("Error creating company:", error);
+//       res.status(500).json({
+//         message: "Error creating company",
+//         error: error instanceof Error ? error.message : String(error),
+//       });
+//     }
+//   }
+// );
 
 // Rota para busca de empresas
 router.get(
@@ -143,14 +156,13 @@ router.patch(
   }
 );
 
-// Rota para obter ofertas de emprego de uma empresa
 router.get(
   "/:companyId/jobOffers",
   validateRequest(getCompanyAllJobOffers),
   async (req, res) => {
     try {
       const companyId = req.params.companyId;
-      const jobOffers = await getAllJobOffersFromCompany(companyId);
+      const jobOffers = await getAllJobOffersFromCompany(Number(companyId));
 
       if (jobOffers.rows) {
         res.json(jobOffers.rows);

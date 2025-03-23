@@ -19,7 +19,7 @@ export const SignUp: React.FC = () => {
     password: "",
     confirmPassword: "",
     role: "jobSeeker",
-    location: "", // Novo campo para localização da empresa
+    location: "",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,7 +36,6 @@ export const SignUp: React.FC = () => {
     setLoading(true);
 
     try {
-      // Validação de senha
       if (formData.password !== formData.confirmPassword) {
         toast.error("Passwords do not match");
         setError("Passwords do not match");
@@ -44,72 +43,76 @@ export const SignUp: React.FC = () => {
         return;
       }
 
-      // Cadastro do usuário
+      const dataToSend = { ...formData };
+
+      if (formData.role === "company") {
+        dataToSend.firstName = formData.name;
+        dataToSend.lastName = "Company";
+      }
+
+      console.log("Dados a serem enviados:", dataToSend);
+
       const response = await fetch("http://localhost:3000/auth/signUp", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         credentials: "include",
-        body: JSON.stringify(formData),
+        body: JSON.stringify(dataToSend),
       });
 
-      console.log("formData", formData);
-
       if (!response.ok) {
-        const error = await response.text();
-        console.log("Erro do backend:", error);
-        toast.error(error);
-        setError(error);
+        const errorText = await response.text();
+        console.log("Erro do backend:", errorText);
+        toast.error(errorText);
+        setError(errorText);
         setLoading(false);
         return;
       }
 
       const responseJson = await response.json();
-      console.log("responseJson", responseJson);
+      console.log("Resposta do signup:", responseJson);
       localStorage.setItem("user", responseJson.userId);
 
-      // Se for uma empresa, cria o registro na tabela companies
       if (formData.role === "company") {
         try {
-          console.log("Criando empresa com nome:", formData.firstName);
+          const companyData = {
+            name: formData.name,
+            email: formData.email,
+            location: formData.location || "",
+            description: "Company profile",
+          };
 
-          const companyResponse = await fetch(
-            "http://localhost:3000/companies",
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              credentials: "include",
-              body: JSON.stringify({
-                name: formData.name, // Nome da empresa
-                email: formData.email, // Email da empresa
-                location: formData.location || "", // Localização (pode estar vazio)
-              }),
-            }
-          );
+          console.log("Dados da empresa a serem enviados:", companyData);
 
-          if (!companyResponse.ok) {
-            console.error(
-              "Erro ao criar empresa:",
-              await companyResponse.text()
-            );
-            toast.error(
-              "Conta criada, mas houve um problema ao salvar os detalhes da empresa"
-            );
-          } else {
-            console.log("Empresa criada com sucesso!");
-          }
+          // const companyResponse = await fetch(
+          //   "http://localhost:3000/companies",
+          //   {
+          //     method: "POST",
+          //     headers: {
+          //       "Content-Type": "application/json",
+          //     },
+          //     credentials: "include",
+          //     body: JSON.stringify(companyData),
+          //   }
+          // );
+
+          // const companyResponseText = await companyResponse.text();
+          // console.log("Resposta da criação da empresa:", companyResponseText);
+
+          // if (!companyResponse.ok) {
+          //   console.error("Erro ao criar empresa:", companyResponseText);
+          //   toast.error(
+          //     "Conta criada, mas houve um problema ao salvar os detalhes da empresa"
+          //   );
+          // } else {
+          //   console.log("Empresa criada com sucesso!");
+          // }
         } catch (companyError) {
           console.error("Erro ao criar empresa:", companyError);
-          toast.error(
-            "Conta criada, mas não foi possível registrar os detalhes da empresa"
-          );
         }
       }
 
-      // Redireciona baseado no tipo de usuário
       if (formData.role === "jobSeeker") {
         toast.success(
           "Account created successfully, browse your dream jobs :)"
@@ -148,11 +151,6 @@ export const SignUp: React.FC = () => {
           <div className={styles.logo}>
             <img src="./logo.svg" alt="Logo" width={70} />
           </div>
-          {/* <div className={styles.back}>
-            <a href="/" className={styles.buttonSecondary}>
-              Back to website
-            </a>
-          </div> */}
         </div>
 
         <div className={styles.title}>
@@ -233,8 +231,8 @@ export const SignUp: React.FC = () => {
                     <input
                       type="text"
                       id="companyName"
-                      name="firstName"
-                      value={formData.firstName}
+                      name="name"
+                      value={formData.name}
                       onChange={handleChange}
                       placeholder="Company Name"
                       required
@@ -306,7 +304,6 @@ export const SignUp: React.FC = () => {
           </form>
         </div>
       </section>
-      <Toaster position="top-center" />
     </main>
   );
 };

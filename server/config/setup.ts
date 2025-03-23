@@ -41,6 +41,7 @@ const createComments = `CREATE TABLE IF NOT EXISTS "comments" (
 
 const createCompanies = `CREATE TABLE IF NOT EXISTS "companies" (
     id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES users(id) UNIQUE NOT NULL, 
     name VARCHAR(255) NOT NULL,
     description TEXT,
     email VARCHAR(255),
@@ -78,22 +79,35 @@ const createJobApplication = `CREATE TABLE IF NOT EXISTS "application" (
 )`;
 
 // serial- o valor é incrementado de linha para linha, primary siginifca que o valor é unico e nao pode ser nulo
+// Substitua o Promise.all() por uma sequência de await
 async function createTables() {
   try {
-    // assim executa tudo ao mesmo tempo ao invés de executar uma por uma
-    const promises = [
-      client.query(createUsers),
-      client.query(createSessions),
-      client.query(createPosts),
-      client.query(createComments),
-      client.query(createCompanies),
-      client.query(createJobOffers),
-      client.query(createJobApplication),
-    ];
-    await Promise.all(promises); // Espera todas as promises serem resolvidas
-    console.log("Tables created");
+    // Criar tabelas na ordem correta
+    await client.query(createUsers);
+    console.log("Users table created");
+
+    await client.query(createSessions);
+    console.log("Sessions table created");
+
+    await client.query(createPosts);
+    console.log("Posts table created");
+
+    await client.query(createComments);
+    console.log("Comments table created");
+
+    await client.query(createCompanies);
+    console.log("Companies table created");
+
+    await client.query(createJobOffers);
+    console.log("Job offers table created");
+
+    await client.query(createJobApplication);
+    console.log("Job applications table created");
+
+    console.log("All tables created successfully");
   } catch (error) {
     console.error("Error creating tables", error);
+    throw error;
   }
 }
 async function dropTables() {
