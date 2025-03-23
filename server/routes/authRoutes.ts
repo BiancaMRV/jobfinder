@@ -23,7 +23,6 @@ router.post("/signUp", async (req: any, res: any) => {
       firstName,
       lastName,
       email,
-
       password,
       confirmPassword,
       role,
@@ -67,10 +66,10 @@ router.post("/signUp", async (req: any, res: any) => {
       firstName,
       lastName,
       email,
-      name,
       password,
       role,
       name,
+      "", // description (valor vazio)
       location
     );
     const token = await generateSessionToken();

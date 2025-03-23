@@ -29,17 +29,19 @@ export const signUp = async (
     console.log("Password:", password);
     const hashedPassword = await bcrypt.hash(password, 10);
     const result = await client.query(
-      "INSERT INTO users(firstName,lastName,email,password,role,location) VALUES ($1,$2,$3,$4,$5,$6) RETURNING *",
-      [firstName, lastName, email, hashedPassword, role, location]
+      "INSERT INTO users(firstName,lastName,email,password,name,role,location) VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING *",
+      [firstName, lastName, email, hashedPassword, name, role, location]
     );
     if (role === "company") {
+      console.log("company role:", role);
       await createNewCompany(
         name,
         location,
-        description,
         email,
+        description,
         result.rows[0].id
       );
+      console.log("ID do usuário para criar empresa:", result.rows[0].id);
     }
     console.log("result", result);
     return result.rows[0];
