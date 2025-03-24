@@ -68,7 +68,6 @@ export default function CompanyApplications() {
     fetchJobOffers();
   }, []);
 
-  // Buscar candidaturas para a oferta de emprego selecionada
   useEffect(() => {
     if (!selectedJobId) return;
 
@@ -88,7 +87,7 @@ export default function CompanyApplications() {
 
         const data = await response.json();
         setApplications(data);
-        setSelectedApplication(null); // Reset selection when changing jobs
+        setSelectedApplication(null);
       } catch (error) {
         console.error("Error fetching applications:", error);
         setError("Failed to load applications");
@@ -100,11 +99,9 @@ export default function CompanyApplications() {
     fetchApplications();
   }, [selectedJobId]);
 
-  // Ver detalhes de uma candidatura específica
   const viewApplication = async (application: Application) => {
     setSelectedApplication(application);
 
-    // Buscar perfil do candidato
     try {
       const response = await fetch(
         `http://localhost:3000/users/${application.id}`,
@@ -121,11 +118,9 @@ export default function CompanyApplications() {
       console.error("Error fetching applicant profile:", error);
     }
 
-    // Buscar documentos do candidato (resumos/CVs)
     if (application.resume) {
       const documentIds = application.resume.split(",");
 
-      // Agora, vamos trabalhar com localStorage por enquanto
       try {
         const savedDocuments = localStorage.getItem("userDocuments");
         if (savedDocuments) {
@@ -147,7 +142,6 @@ export default function CompanyApplications() {
     }
   };
 
-  // Atualizar status da candidatura
   const updateApplicationStatus = async (
     applicationId: string,
     newStatus: string
@@ -213,11 +207,9 @@ export default function CompanyApplications() {
     }
   };
 
-  // Visualizar documento (abrir em nova aba)
   const viewDocument = (documentId: string) => {
     const doc = resumeFiles[documentId];
     if (doc && doc.content) {
-      // Criar um blob e abrir em nova aba
       try {
         const byteCharacters = atob(doc.content);
         const byteNumbers = new Array(byteCharacters.length);

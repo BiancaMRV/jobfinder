@@ -217,25 +217,31 @@ export const getJobOffersByLocation = async (location: string) => {
 
 export const getJobOffersByCompany = async (companyId: number) => {
   try {
+    console.log(`Fetching ofertas para empresa ID: ${companyId}`);
     const result = await client.query(
       `SELECT 
-        job_offers.id,
-        job_offers.title,
-        job_offers.logo,
-        job_offers.description,
-        job_offers.location,
-        job_offers.salary,
-        job_offers.experienceLevelId,
-        job_offers.jobTypeId,
-        job_offers.applicants_count,
-        job_offers.created_at,
-        companies.name AS company_name,
-        companies.logo_url AS company_logo
-      FROM job_offers
-      JOIN companies ON job_offers.company_id = companies.id
-      WHERE job_offers.company_id = $1`,
+         job_offers.id,
+         job_offers.title,
+         job_offers.logo,
+         job_offers.description,
+         job_offers.location,
+         job_offers.salary,
+         job_offers.experienceLevelId,
+         job_offers.jobTypeId,
+         job_offers.applicants_count,
+         job_offers.created_at,
+         companies.name AS company_name,
+         companies.logo_url AS company_logo
+       FROM job_offers
+       JOIN companies ON job_offers.company_id = companies.id
+       WHERE job_offers.company_id = $1`,
       [companyId]
     );
+    console.log(
+      `Encontradas ${result.rows.length} ofertas para empresa ${companyId}`
+    );
+
+    console.log("Ofertas:", JSON.stringify(result.rows));
     return result.rows;
   } catch (error) {
     console.error("Error retrieving job offers by company", error);

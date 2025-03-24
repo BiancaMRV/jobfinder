@@ -26,7 +26,7 @@ export const PostedJobs: FC = () => {
   useEffect(() => {
     const fetchJobOffers = async () => {
       try {
-        console.log("Buscando ofertas de trabalho...");
+        console.log("getting joboffers...");
 
         // Obter o ID do usuário atual (assumindo que o usuário logado é uma empresa)
         const companyId = localStorage.getItem("companyId");
@@ -68,7 +68,7 @@ export const PostedJobs: FC = () => {
 
   const handleDelete = async (id: string) => {
     if (
-      window.confirm("Tem certeza que deseja excluir esta oferta de emprego?")
+      window.confirm("Are you sure you want to delete this job offer?") === true
     ) {
       try {
         const response = await fetch(`http://localhost:3000/jobs/${id}`, {

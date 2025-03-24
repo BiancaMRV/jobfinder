@@ -41,7 +41,7 @@ export const createNewCompany = async (
   location: string = "",
   email: string = "",
   description: string = "",
-  userId: number
+  userId: number | string
 ) => {
   try {
     console.log(

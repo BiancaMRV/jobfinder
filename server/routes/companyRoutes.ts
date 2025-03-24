@@ -18,23 +18,49 @@ import {
   updateCompanyValidation,
   validateRequest,
 } from "../middleware/validationMiddleware";
+import { getUserById } from "../controllers/userControllers";
 import authenticationMiddleWare from "../middleware/authMiddleware";
 
 export const router = express.Router();
 
-router.get("/", authenticationMiddleWare, async (req, res) => {
+router.get("/", authenticationMiddleWare, async (req: any, res: any) => {
   try {
     const userId = req.userId;
     console.log("Getting user ID:", userId);
 
     const companies = await getAllCompaniesByUserId(String(userId));
     console.log("Results:", companies.rows);
+    if (!companies.rows || companies.rows.length === 0) {
+      console.log(
+        "Nenhuma empresa encontrada para o usuário. Vamos criar uma nova..."
+      );
 
-    if (companies.rows && companies.rows.length > 0) {
-      res.json(companies.rows[0]);
-    } else {
-      res.status(404).json({ message: "No company found for this user" });
+      const user = await getUserById(String(userId));
+
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+
+      const name = user.name || `${user.firstname} ${user.lastname}`;
+      const location = user.location || "";
+      const email = user.email || "";
+      const description = "";
+
+      console.log(`A criar empresa para usuário: ${name}, ${email}`);
+
+      const newCompany = await createNewCompany(
+        name,
+        location,
+        email,
+        description,
+        userId
+      );
+
+      console.log("Nova empresa criada:", newCompany.rows[0]);
+      return res.json(newCompany.rows[0]);
     }
+
+    res.json(companies.rows[0]);
   } catch (error) {
     console.error("Error in /companies route:", error);
     res.status(500).json({ message: "Error retrieving companies" });
@@ -99,7 +125,6 @@ router.get("/:companyId", validateRequest(getCompanyById), async (req, res) => {
 //   }
 // );
 
-// Rota para busca de empresas
 router.get(
   "/search/:query",
   validateRequest(searchCompanyValidation),
@@ -122,7 +147,6 @@ router.get(
   }
 );
 
-// Rota para excluir empresa
 router.delete(
   "/",
   authenticationMiddleWare,
@@ -139,7 +163,6 @@ router.delete(
   }
 );
 
-// Rota para atualizar empresa
 router.patch(
   "/",
   authenticationMiddleWare,

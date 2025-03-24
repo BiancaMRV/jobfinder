@@ -1,8 +1,9 @@
 import styles from "./JobApplication.module.css";
 import { jobTypesAndExerienceLevels } from "../jobs/JobCard/JobCards";
-import { useState, ChangeEvent, FormEvent } from "react";
+import { useState, useEffect, ChangeEvent, FormEvent } from "react";
 
 export default function JobApplication() {
+  const [companyId, setCompanyId] = useState<number | null>(null);
   const [formData, setFormData] = useState({
     title: "",
     location: "",
@@ -11,6 +12,27 @@ export default function JobApplication() {
     salary: "",
     description: "",
   });
+
+  useEffect(() => {
+    const fetchCompanyId = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/companies", {
+          credentials: "include",
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          console.log("Empresa obtida:", data);
+          setCompanyId(data.id);
+          localStorage.setItem("companyId", data.id.toString());
+        }
+      } catch (error) {
+        console.error("Erro ao buscar empresa:", error);
+      }
+    };
+
+    fetchCompanyId();
+  }, []);
 
   const handleInputChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -36,16 +58,23 @@ export default function JobApplication() {
     ).map((checkbox) => (checkbox as HTMLInputElement).value);
 
     try {
+      if (!companyId) {
+        alert("Empresa não encontrada. Por favor, tente novamente mais tarde.");
+        return;
+      }
+
       const data = {
         title: formData.title,
         location: formData.location,
         description: formData.description,
-        companyId: 1,
+        companyId: companyId,
         experienceLevelId: experienceLevels.length > 0 ? experienceLevels : [],
         jobTypeId: jobTypes.length > 0 ? jobTypes : [],
         salary: parseInt(formData.salary) || 1,
         logo: "https://company.png",
       };
+
+      console.log("Dados da vaga a serem enviados:", data);
 
       const response = await fetch("http://localhost:3000/jobs", {
         method: "POST",
