@@ -48,7 +48,7 @@ export default function CompanyProfile() {
         setIsLoading(true);
         setError(null);
 
-        const response = await fetch("http://localhost:3000/companies", {
+        const response = await fetch("http://localhost:3000/users", {
           method: "GET",
           credentials: "include",
         });
@@ -65,6 +65,7 @@ export default function CompanyProfile() {
 
         const data = await response.json();
         console.log("Company data received:", data);
+        localStorage.setItem("companyId", data.id.toString());
 
         setCompanyData({
           name: data.name || "",
@@ -106,30 +107,6 @@ export default function CompanyProfile() {
   //   };
 
   //   fetchJobOfferStatus();
-  // }, []);
-
-  // useEffect(() => {
-  //   const fetchJobOffers = async () => {
-  //     try {
-  //       console.log("Buscando ofertas de trabalho...");
-  //       const response = await fetch("http://localhost:3000/jobs/jobs", {
-  //         credentials: "include",
-  //       });
-
-  //       if (!response.ok) {
-  //         console.error("Error status:", response.status);
-  //         throw new Error("Failed to fetch job offers");
-  //       }
-
-  //       const data = await response.json();
-  //       console.log("Job offers received:", data);
-  //       setJobOffers(data);
-  //     } catch (error) {
-  //       console.error("Error fetching job offers:", error);
-  //     }
-  //   };
-
-  //   fetchJobOffers();
   // }, []);
 
   const [profileImage, setProfileImage] = useState<string | null>(null);
@@ -277,7 +254,7 @@ export default function CompanyProfile() {
         <div className={styles.contentContainer}>
           {activeTab === "overview" && <OverviewCompany />}
           {activeTab === "Company Info" && <CompanyInfo />}
-          {activeTab === "Posted Jobs" && <PostedJobs jobOffers={jobOffers} />}
+          {activeTab === "Posted Jobs" && <PostedJobs />}
         </div>
       </div>
       {error && (

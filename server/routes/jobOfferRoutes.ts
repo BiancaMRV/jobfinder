@@ -9,17 +9,16 @@ import {
   getJobOffersByJobType,
   getJobOfferByExperienceLevel,
   getJobOffersByLocation,
+  getJobOffersByCompany,
 } from "../controllers/jobOfferControllers";
 import authenticationMiddleWare from "../middleware/authMiddleware";
 import client from "../config/database";
 
 export const router = express.Router();
 
-// Usar o tipo any para contornar os erros de tipagem
 type AnyReq = any;
 type AnyRes = any;
 
-// Rota para obter todas as ofertas de emprego
 router.get("/", async function (req: AnyReq, res: AnyRes) {
   try {
     const result = await getAllJobOffers();
@@ -62,7 +61,6 @@ router.get("/filter", async function (req: AnyReq, res: AnyRes) {
     const params = [];
     let paramCounter = 1;
 
-    // Adicionar filtros se fornecidos
     if (jobTypes) {
       query += ` AND job_offers.jobTypeId LIKE $${paramCounter++}`;
       params.push(`%${jobTypes}%`);
@@ -96,7 +94,6 @@ router.get("/filter", async function (req: AnyReq, res: AnyRes) {
   }
 });
 
-// Rota para buscar vagas po salary range
 router.get("/salary-range", async function (req: AnyReq, res: AnyRes) {
   try {
     const minSalary = Number(req.query.minSalary || "0");
@@ -110,7 +107,6 @@ router.get("/salary-range", async function (req: AnyReq, res: AnyRes) {
   }
 });
 
-// Rota para fetch vagas por tipo de trabalho
 router.get("/job-type/:type", async function (req: AnyReq, res: AnyRes) {
   try {
     const { type } = req.params;
@@ -122,7 +118,6 @@ router.get("/job-type/:type", async function (req: AnyReq, res: AnyRes) {
   }
 });
 
-// Rota para fetch vagas por nível de experiência
 router.get(
   "/experience-level/:level",
   async function (req: AnyReq, res: AnyRes) {
@@ -139,7 +134,6 @@ router.get(
   }
 );
 
-// Rota para fetch vagas por localização
 router.get("/location/:location", async function (req: AnyReq, res: AnyRes) {
   try {
     const { location } = req.params;
@@ -151,7 +145,21 @@ router.get("/location/:location", async function (req: AnyReq, res: AnyRes) {
   }
 });
 
-// Rota para obter uma oferta de emprego específica por ID
+router.get(
+  "/company/:companyId",
+  // authenticationMiddleWare,
+  async function (Req: AnyReq, res: AnyRes) {
+    try {
+      const companyId = Req.params.companyId;
+      const jobOffers = await getJobOffersByCompany(Number(companyId));
+      res.json(jobOffers);
+    } catch (error) {
+      console.error("Error retrieving job offers:", error);
+      res.status(500).json({ message: "Error retrieving joboffers" });
+    }
+  }
+);
+
 router.get("/:id", async function (req: AnyReq, res: AnyRes) {
   try {
     const { id } = req.params;
@@ -172,7 +180,6 @@ router.get("/:id", async function (req: AnyReq, res: AnyRes) {
   }
 });
 
-// Rota para criar uma nova oferta de emprego
 router.post(
   "/",
   authenticationMiddleWare,
@@ -245,7 +252,6 @@ router.put(
   }
 );
 
-// Rota para excluir uma oferta de emprego
 router.delete(
   "/:id",
   authenticationMiddleWare,
