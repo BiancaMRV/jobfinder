@@ -28,22 +28,46 @@ export const PostedJobs: FC = () => {
       try {
         console.log("getting joboffers...");
 
-        // Obter o ID do usuário atual (assumindo que o usuário logado é uma empresa)
+        // Get the company ID from localStorage
         const companyId = localStorage.getItem("companyId");
         console.log("Company ID from localStorage:", companyId);
 
         if (!companyId) {
           console.error("Company ID not found in localStorage");
-          setError("ID da empresa não encontrado");
-          setLoading(false);
+
+          // Try to get the user ID instead as a fallback
+          const userId = localStorage.getItem("userId");
+          console.log("Falling back to userId:", userId);
+
+          if (!userId) {
+            setError("Company ID or User ID not found");
+            setLoading(false);
+            return;
+          }
+
+          // Use userId as companyId fallback
+          const response = await fetch(
+            `http://localhost:3000/jobs/company/${userId}`,
+            {
+              credentials: "include",
+            }
+          );
+
+          if (!response.ok) {
+            throw new Error("Failed to fetch job offers");
+          }
+
+          const data = await response.json();
+          console.log("Job offers received with userId:", data);
+          setJobOffers(data);
           return;
         }
 
-        // Fazer a requisição usando o ID do usuário como ID da empresa
+        // Make the request using the company ID
         const response = await fetch(
           `http://localhost:3000/jobs/company/${companyId}`,
           {
-            credentials: "include", // Para enviar cookies/autenticação
+            credentials: "include",
           }
         );
 
@@ -57,7 +81,7 @@ export const PostedJobs: FC = () => {
         setJobOffers(data);
       } catch (error) {
         console.error("Error fetching job offers:", error);
-        setError("Erro ao buscar ofertas de trabalho");
+        setError("Error fetching job offers");
       } finally {
         setLoading(false);
       }
@@ -77,16 +101,14 @@ export const PostedJobs: FC = () => {
         });
 
         if (response.ok) {
-          // Remover a oferta excluída do estado
+          // Remove the deleted offer from state
           setJobOffers((prev) => prev.filter((job) => job.id !== id));
         } else {
           throw new Error("Failed to delete job offer");
         }
       } catch (error) {
         console.error("Error deleting job offer:", error);
-        alert(
-          "Falha ao excluir a oferta de emprego. Por favor, tente novamente."
-        );
+        alert("Failed to delete job offer. Please try again.");
       }
     }
   };
@@ -102,9 +124,7 @@ export const PostedJobs: FC = () => {
       </div>
 
       {loading ? (
-        <div className={styles.loadingState}>
-          Carregando ofertas de emprego...
-        </div>
+        <div className={styles.loadingState}>Loading job offers...</div>
       ) : error ? (
         <div className={styles.errorMessage}>{error}</div>
       ) : jobOffers.length === 0 ? (

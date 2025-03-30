@@ -65,6 +65,9 @@ export default function CompanyProfile() {
 
         const data = await response.json();
         console.log("Company data received:", data);
+
+        // Store both user ID and company ID
+        localStorage.setItem("userId", data.id.toString());
         localStorage.setItem("companyId", data.id.toString());
 
         setCompanyData({
@@ -83,31 +86,41 @@ export default function CompanyProfile() {
     fetchCompanyData();
   }, []);
 
-  // useEffect(() => {
-  //   const fetchJobOfferStatus = async () => {
-  //     try {
-  //       const response = await fetch(
-  //         "http://localhost:3000/jobs/company-stats",
-  //         {
-  //           credentials: "include",
-  //         }
-  //       );
+  useEffect(() => {
+    const fetchJobOfferStatus = async () => {
+      try {
+        // Get the company ID (which should be set by now)
+        const companyId =
+          localStorage.getItem("companyId") || localStorage.getItem("userId");
 
-  //       if (!response.ok) {
-  //         console.error("Error status:", response.status);
-  //         throw new Error("Failed to fetch job offer status");
-  //       }
+        if (!companyId) {
+          console.error("No company ID found for job stats");
+          return;
+        }
 
-  //       const data = await response.json();
-  //       console.log("Job stats received:", data);
-  //       setJobOfferstatus(data);
-  //     } catch (error) {
-  //       console.error("Error fetching job stats:", error);
-  //     }
-  //   };
+        const response = await fetch(
+          "http://localhost:3000/jobs/company-stats",
+          {
+            credentials: "include",
+          }
+        );
 
-  //   fetchJobOfferStatus();
-  // }, []);
+        if (!response.ok) {
+          console.error("Error status:", response.status);
+          throw new Error("Failed to fetch job offer status");
+        }
+
+        const data = await response.json();
+        console.log("Job stats received:", data);
+        setJobOfferstatus(data);
+      } catch (error) {
+        console.error("Error fetching job stats:", error);
+      }
+    };
+
+    // Uncomment and call the function to fetch job stats
+    fetchJobOfferStatus();
+  }, []);
 
   const [profileImage, setProfileImage] = useState<string | null>(null);
 
@@ -134,7 +147,7 @@ export default function CompanyProfile() {
     if (file) {
       const maxSize = 2 * 1024 * 1024; // 2MB
       if (file.size > maxSize) {
-        alert("A imagem é muito grande! Escolha uma de até 2MB.");
+        alert("Image is too large! Please choose one up to 2MB.");
         return;
       }
 
@@ -178,24 +191,22 @@ export default function CompanyProfile() {
             onChange={handleImageUpload}
             className={styles.fileinput}
           />
-          <h2>
-            {isLoading ? "Carregando..." : companyData.name || "Utilizador"}
-          </h2>
+          <h2>{isLoading ? "Loading..." : companyData.name || "User"}</h2>
           <div className={styles.profileinfo}>
             <div className={styles.location}>
               <MapPin size={20} />
               <span>
                 {isLoading
-                  ? "Carregando localização..."
-                  : companyData.location || "Local não especificado"}
+                  ? "Loading location..."
+                  : companyData.location || "Location not specified"}
               </span>
             </div>
             <div className={styles.email}>
               <Mail size={20} />
               <span>
                 {isLoading
-                  ? "Carregando email..."
-                  : companyData.email || "Email não especificado"}
+                  ? "Loading email..."
+                  : companyData.email || "Email not specified"}
               </span>
             </div>
           </div>

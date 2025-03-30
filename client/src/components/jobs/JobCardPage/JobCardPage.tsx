@@ -1,29 +1,62 @@
 import styles from "./JobCardPage.module.css";
 import { useState, useEffect } from "react";
-import { Job } from "../types";
 import { useParams, Link } from "react-router-dom";
 import Markdown from "react-markdown";
 import Header from "../../layout/Header/Header";
 
+// Define the Job interface
+interface Job {
+  id: string;
+  title: string;
+  description: string;
+  location: string;
+  salaryrange?: string;
+  experiencelevelid?: number;
+  jobtypeid?: number;
+  logo?: string;
+  created_at: string;
+  company_name?: string;
+}
+
 export default function JobCardPage() {
   const { jobOfferId } = useParams();
-  const [jobOffer, setJobOffer] = useState<Job | null>(null); // Tipo atualizado para um único Job ou null
+  const [jobOffer, setJobOffer] = useState<Job | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  const fetchData = async () => {
-    try {
-      const baseURL = `http://localhost:3000/jobs/${jobOfferId}`;
-      const response = await fetch(baseURL);
-      if (!response.ok) {
-        throw new Error("Erro na requisição: " + response.statusText);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        console.log("Fetching job data for ID:", jobOfferId);
+
+        const baseURL = `http://localhost:3000/jobs/${jobOfferId}`;
+        const response = await fetch(baseURL, {
+          credentials: "include", // Include credentials if needed
+        });
+
+        if (!response.ok) {
+          throw new Error("Request error: " + response.statusText);
+        }
+
+        const data = await response.json();
+        console.log("Fetched Job Data:", data);
+        setJobOffer(data);
+      } catch (error) {
+        console.error("Error fetching job data:", error);
+        setError("Failed to load job details. Please try again.");
+      } finally {
+        setLoading(false);
       }
-      const data: Job = await response.json(); // Tipo explícito para a resposta
-      setJobOffer(data);
-      console.log("Fetched Data:", data);
-    } catch (error) {
-      console.error("Error fetching data:", error);
+    };
+
+    if (jobOfferId) {
+      fetchData();
     }
-  };
-  const markdown = ` 
+  }, [jobOfferId]);
+
+  // Default markdown for job descriptions that don't have one
+  const defaultMarkdown = ` 
 **About the role:**
 Join a dynamic team to design, develop, and maintain high-performance software applications that scale globally. Collaborate with cross-functional teams to deliver impactful solutions and drive innovation.
     
@@ -38,10 +71,35 @@ Join a dynamic team to design, develop, and maintain high-performance software a
 - Strong debugging and optimization skills.
   `;
 
-  useEffect(() => {
-    console.log("Fetching data...");
-    fetchData();
-  }, [jobOfferId]);
+  // Function to format job type
+  const formatJobType = (typeId?: number): string => {
+    if (!typeId) return "Not specified";
+
+    const jobTypes: Record<number, string> = {
+      1: "Full Time",
+      2: "Part Time",
+      3: "Contract",
+      4: "Freelance",
+      5: "Internship",
+    };
+
+    return jobTypes[typeId] || "Not specified";
+  };
+
+  // Function to format experience level
+  const formatExperienceLevel = (levelId?: number): string => {
+    if (!levelId) return "Not specified";
+
+    const experienceLevels: Record<number, string> = {
+      1: "Entry Level",
+      2: "Mid Level",
+      3: "Senior Level",
+      4: "Director",
+      5: "Executive",
+    };
+
+    return experienceLevels[levelId] || "Not specified";
+  };
 
   return (
     <div className={styles.jobofferpage}>
@@ -49,24 +107,52 @@ Join a dynamic team to design, develop, and maintain high-performance software a
         <Header />
       </div>
       <div className={styles.jobcardpagecontainer}>
-        {jobOffer ? (
+        {loading ? (
+          <div className={styles.loading}>Loading job details...</div>
+        ) : error ? (
+          <div className={styles.error}>{error}</div>
+        ) : jobOffer ? (
           <div key={jobOffer.id} className={styles.jobcardpage}>
             <div className={styles.leftsection}>
               <div className={styles.titleandtagssection}>
                 <h2 className={styles.titlejoboffer}>{jobOffer.title}</h2>
-                <span className={styles.experience_level}>
-                  {jobOffer.experiencelevelid}
-                </span>
-                <span className={styles.job_type}>{jobOffer.jobtypeid}</span>
+                <div className={styles.tagContainer}>
+                  <span className={styles.experience_level}>
+                    {formatExperienceLevel(jobOffer.experiencelevelid)}
+                  </span>
+                  <span className={styles.job_type}>
+                    {formatJobType(jobOffer.jobtypeid)}
+                  </span>
+                </div>
               </div>
               <div className={styles.description}>
-                <Markdown>{jobOffer.description || markdown}</Markdown>
+                <Markdown>{jobOffer.description || defaultMarkdown}</Markdown>
               </div>
             </div>
             <div className={styles.rightsection}>
-              <p className={styles.logo}>{jobOffer.logo}</p>
-              <p className={styles.location}>{jobOffer.location}</p>
-              <span className={styles.salaryrange}>{jobOffer.salaryrange}</span>
+              {jobOffer.logo ? (
+                <img
+                  src={jobOffer.logo}
+                  alt={`${jobOffer.company_name || "Company"} logo`}
+                  className={styles.companyLogo}
+                />
+              ) : (
+                <div className={styles.placeholderLogo}>
+                  {(jobOffer.company_name || "C").charAt(0)}
+                </div>
+              )}
+              <p className={styles.companyName}>
+                {jobOffer.company_name || "Company"}
+              </p>
+              <p className={styles.location}>{jobOffer.location || "Remote"}</p>
+              {jobOffer.salaryrange && (
+                <span className={styles.salaryrange}>
+                  {jobOffer.salaryrange}
+                </span>
+              )}
+              <p className={styles.postedDate}>
+                Posted: {new Date(jobOffer.created_at).toLocaleDateString()}
+              </p>
               <Link
                 to={`/applynow/${jobOfferId}`}
                 className={styles.applybutton}
@@ -76,11 +162,9 @@ Join a dynamic team to design, develop, and maintain high-performance software a
             </div>
           </div>
         ) : (
-          <p>No job offer available</p>
+          <p className={styles.noJobOffer}>No job offer available</p>
         )}
       </div>
     </div>
   );
 }
-
-//TODO: FORMATAR O TEXTO DE DISCRIPTION, PROCURAR OUTRA LIVRARIA
