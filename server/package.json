@@ -4,12 +4,12 @@
   "type": "module",
   "scripts": {
     "setup": "bun config/setup.ts",
-    "start": "bun index.ts",
-    "dev": "bun --watch index.ts"
+    "start": "bun --bun index.ts",
+    "dev": "bun --bun --watch index.ts"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
-    "@types/bun": "latest",
+    "@types/bun": "^1.2.8",
     "@types/cookie-parser": "^1.4.7",
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",

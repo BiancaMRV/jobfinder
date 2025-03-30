@@ -13,31 +13,48 @@ interface JobOffer {
 
 const OverviewCompany: FC = () => {
   const [jobOffers, setJobOffers] = useState<JobOffer[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // Load job offers from localStorage on component mount
-    const savedJobOffers = localStorage.getItem("jobOffers");
-    if (savedJobOffers) {
-      const parsedOffers = JSON.parse(savedJobOffers);
-      // Only show most recent 2-3 job offers in overview
-      setJobOffers(parsedOffers.slice(0, 3));
-    }
+    const fetchJobOffers = async () => {
+      try {
+        console.log("getting joboffers...");
+        const response = await fetch(`http://localhost:3000/jobs/company`, {
+          credentials: "include",
+        });
 
-    // Add event listener to detect changes from other components
-    const handleJobUpdate = () => {
-      const updatedOffers = localStorage.getItem("jobOffers");
-      if (updatedOffers) {
-        const parsedOffers = JSON.parse(updatedOffers);
-        setJobOffers(parsedOffers.slice(0, 3));
+        if (!response.ok) {
+          console.error("Error status:", response.status);
+          throw new Error(`Failed to fetch job offers: ${response.status}`);
+        }
+
+        const responseText = await response.text();
+        console.log("Raw response:", responseText);
+
+        let data;
+        try {
+          data = JSON.parse(responseText);
+        } catch (e) {
+          console.error("Error parsing JSON:", e);
+          setError("Resposta inválida do servidor");
+          setLoading(false);
+          return;
+        }
+
+        console.log("Job offers received:", data);
+        setJobOffers(Array.isArray(data) ? data : []);
+      } catch (error) {
+        console.error("Error fetching job offers:", error);
+        setError("Erro ao buscar ofertas de trabalho");
+      } finally {
+        setLoading(false);
       }
     };
 
-    window.addEventListener("jobOffersUpdated", handleJobUpdate);
-
-    return () => {
-      window.removeEventListener("jobOffersUpdated", handleJobUpdate);
-    };
+    fetchJobOffers();
   }, []);
+
   return (
     <div className={styles.overviewContainer}>
       {/* Company Info Section */}

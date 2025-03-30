@@ -13,11 +13,19 @@
 .experienceLevels {
   font-size: small;
 }
-
+.buttonarrow {
+  position: absolute;
+  left: 0;
+  top: 20px; /* você pode ajustar este valor conforme necessário */
+  margin-left: 20px; /* espaçamento da borda esquerda */
+}
 .jobApplicationHeader {
   margin-bottom: 30px;
   border-bottom: 2px solid #e9e6f3;
   padding-bottom: 15px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
 }
 
 .jobApplicationHeader h1 {

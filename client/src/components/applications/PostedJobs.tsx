@@ -27,61 +27,33 @@ export const PostedJobs: FC = () => {
     const fetchJobOffers = async () => {
       try {
         console.log("getting joboffers...");
-
-        // Get the company ID from localStorage
-        const companyId = localStorage.getItem("companyId");
-        console.log("Company ID from localStorage:", companyId);
-
-        if (!companyId) {
-          console.error("Company ID not found in localStorage");
-
-          // Try to get the user ID instead as a fallback
-          const userId = localStorage.getItem("userId");
-          console.log("Falling back to userId:", userId);
-
-          if (!userId) {
-            setError("Company ID or User ID not found");
-            setLoading(false);
-            return;
-          }
-
-          // Use userId as companyId fallback
-          const response = await fetch(
-            `http://localhost:3000/jobs/company/${userId}`,
-            {
-              credentials: "include",
-            }
-          );
-
-          if (!response.ok) {
-            throw new Error("Failed to fetch job offers");
-          }
-
-          const data = await response.json();
-          console.log("Job offers received with userId:", data);
-          setJobOffers(data);
-          return;
-        }
-
-        // Make the request using the company ID
-        const response = await fetch(
-          `http://localhost:3000/jobs/company/${companyId}`,
-          {
-            credentials: "include",
-          }
-        );
+        const response = await fetch(`http://localhost:3000/jobs/company`, {
+          credentials: "include",
+        });
 
         if (!response.ok) {
           console.error("Error status:", response.status);
-          throw new Error("Failed to fetch job offers");
+          throw new Error(`Failed to fetch job offers: ${response.status}`);
         }
 
-        const data = await response.json();
+        const responseText = await response.text();
+        console.log("Raw response:", responseText);
+
+        let data;
+        try {
+          data = JSON.parse(responseText);
+        } catch (e) {
+          console.error("Error parsing JSON:", e);
+          setError("Resposta inválida do servidor");
+          setLoading(false);
+          return;
+        }
+
         console.log("Job offers received:", data);
-        setJobOffers(data);
+        setJobOffers(Array.isArray(data) ? data : []);
       } catch (error) {
         console.error("Error fetching job offers:", error);
-        setError("Error fetching job offers");
+        setError("Erro ao buscar ofertas de trabalho");
       } finally {
         setLoading(false);
       }
@@ -101,7 +73,6 @@ export const PostedJobs: FC = () => {
         });
 
         if (response.ok) {
-          // Remove the deleted offer from state
           setJobOffers((prev) => prev.filter((job) => job.id !== id));
         } else {
           throw new Error("Failed to delete job offer");

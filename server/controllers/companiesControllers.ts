@@ -22,14 +22,18 @@ export const getAllCompaniesById = async (companyId: number) => {
   }
 };
 
-export const getAllCompaniesByUserId = async (userId: string) => {
+export const getCompanyByUserId = async (userId: string) => {
   try {
     const result = await client.query(
       "SELECT * FROM companies WHERE user_id=$1",
       [userId]
     );
-    console.log(`Empresas encontradas para usuário ${userId}:`, result.rows);
-    return result;
+    if (result.rows.length === 0) {
+      console.log(`Nenhuma empresa encontrada para o usuário ${userId}`);
+      return undefined;
+    }
+    console.log(`Empresa encontrada para usuário ${userId}:`, result.rows);
+    return result.rows[0]; // Return the first company found
   } catch (error) {
     console.error("Error getting company by userId:", error);
     throw new Error("Error retrieving company");

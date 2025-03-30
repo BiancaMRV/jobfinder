@@ -1,9 +1,10 @@
 import styles from "./JobApplication.module.css";
 import { jobTypesAndExerienceLevels } from "../jobs/JobCard/JobCards";
 import { useState, useEffect, ChangeEvent, FormEvent } from "react";
+import { CircleArrowLeft } from "lucide-react";
 
 export default function JobApplication() {
-  const [companyId, setCompanyId] = useState<number | null>(null);
+  // const [companyId, setCompanyId] = useState<number | null>(null);
   const [formData, setFormData] = useState({
     title: "",
     location: "",
@@ -12,27 +13,6 @@ export default function JobApplication() {
     salary: "",
     description: "",
   });
-
-  useEffect(() => {
-    const fetchCompanyId = async () => {
-      try {
-        const response = await fetch("http://localhost:3000/companies", {
-          credentials: "include",
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-          console.log("Empresa obtida:", data);
-          setCompanyId(data.id);
-          localStorage.setItem("companyId", data.id.toString());
-        }
-      } catch (error) {
-        console.error("Erro ao buscar empresa:", error);
-      }
-    };
-
-    fetchCompanyId();
-  }, []);
 
   const handleInputChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -58,16 +38,10 @@ export default function JobApplication() {
     ).map((checkbox) => (checkbox as HTMLInputElement).value);
 
     try {
-      if (!companyId) {
-        alert("Empresa não encontrada. Por favor, tente novamente mais tarde.");
-        return;
-      }
-
       const data = {
         title: formData.title,
         location: formData.location,
         description: formData.description,
-        companyId: companyId,
         experienceLevelId: experienceLevels.length > 0 ? experienceLevels : [],
         jobTypeId: jobTypes.length > 0 ? jobTypes : [],
         salary: parseInt(formData.salary) || 1,
@@ -117,6 +91,12 @@ export default function JobApplication() {
   return (
     <div className={styles.jobApplicationContainer}>
       <div className={styles.jobApplicationHeader}>
+        <CircleArrowLeft
+          className={styles.circlearrowleft}
+          color="#9158d6"
+          size={30}
+          onClick={() => window.history.back()}
+        />
         <h1>Create New Job Offer!</h1>
       </div>
       <div className={styles.jobApplicationForm}>
@@ -169,7 +149,6 @@ export default function JobApplication() {
                       type="checkbox"
                       name="jobTypes"
                       value={jobType.value}
-                      //   onChange={() => handleJobTypeChange(jobType.value)}
                     />
                     <label
                       htmlFor={`jobType-${index}`}
@@ -208,7 +187,6 @@ export default function JobApplication() {
                       type="checkbox"
                       name="experienceLevels"
                       value={experienceLevel.value}
-                      //   onChange={handleInputChange}
                     />
                     <label htmlFor={`experienceLevel-${index}`}>
                       {experienceLevel.label}

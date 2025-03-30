@@ -13,6 +13,7 @@ import {
 } from "../controllers/jobOfferControllers";
 import authenticationMiddleWare from "../middleware/authMiddleware";
 import client from "../config/database";
+import { getCompanyByUserId } from "../controllers/companiesControllers";
 
 export const router = express.Router();
 
@@ -146,11 +147,15 @@ router.get("/location/:location", async function (req: AnyReq, res: AnyRes) {
 });
 
 router.get(
-  "/company/:companyId",
-  // authenticationMiddleWare,
-  async function (Req: AnyReq, res: AnyRes) {
+  "/company",
+  authenticationMiddleWare,
+  async function (req: AnyReq, res: AnyRes) {
     try {
-      const companyId = Req.params.companyId;
+      const company = await getCompanyByUserId(req.userId);
+      if (!company) {
+        return res.status(404).json({ error: "Empresa não encontrada" });
+      }
+      const companyId = company.id;
       const jobOffers = await getJobOffersByCompany(Number(companyId));
       res.json(jobOffers);
     } catch (error) {
@@ -189,22 +194,24 @@ router.post(
         title,
         description,
         logo,
-        companyId,
+
         experienceLevelId,
         location,
         jobTypeId,
         salary,
       } = req.body;
 
-      if (
-        !title ||
-        !description ||
-        !companyId ||
-        !experienceLevelId ||
-        !jobTypeId
-      ) {
+      if (!title || !description || !experienceLevelId || !jobTypeId) {
         return res.status(400).json({ error: "Campos obrigatórios a faltar" });
       }
+      const userId = req.userId;
+      const company = await getCompanyByUserId(userId);
+      if (!company) {
+        return res.status(404).json({ error: "Empresa não encontrada" });
+      }
+      const companyId = company.id;
+
+      console.log("Company ID from database:", companyId);
 
       const newJob = await createNewJobOffer(
         title,
