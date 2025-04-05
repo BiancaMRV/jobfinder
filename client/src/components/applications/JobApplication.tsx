@@ -5,7 +5,6 @@ import { CircleArrowLeft } from "lucide-react";
 import toast from "react-hot-toast";
 
 export default function JobApplication() {
-  // const [companyId, setCompanyId] = useState<number | null>(null);
   const [formData, setFormData] = useState({
     title: "",
     location: "",

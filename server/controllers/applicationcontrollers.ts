@@ -91,7 +91,7 @@ export const updateApplicationResume = async (
   }
 };
 
-type statusType = "pending" | "approved" | "rejected" | "reviewing"; // fazer tipo status
+type statusType = "pending" | "approved" | "rejected"; // fazer tipo status
 
 export const updateApplicationStatus = async (
   status: statusType,

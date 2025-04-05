@@ -49,15 +49,12 @@ export default function Applications() {
         const data = await response.json();
 
         setCandidates((prev) => {
-          // Verificar se já existe um registo para este jobOfferId
           const exists = prev.some((c) => c.jobOfferId === jobOfferId);
           if (exists) {
-            // Atualizar os candidatos para este jobOfferId
             return prev.map((c) =>
               c.jobOfferId === jobOfferId ? { ...c, candidates: data } : c
             );
           } else {
-            // Adicionar novo registo
             return [...prev, { jobOfferId, candidates: data }];
           }
         });
@@ -67,7 +64,6 @@ export default function Applications() {
     };
 
     jobOffer.forEach((job) => {
-      // Verificar se já buscamos os candidatos para este job
       if (!candidates.some((c) => c.jobOfferId === job.id)) {
         fetchCandidates(job.id);
       }
@@ -101,8 +97,7 @@ export default function Applications() {
         </div>
       ) : jobOffer.length > 0 ? (
         jobOffer.map((job) => (
-          <div key={job.id} className={styles.joboffercontainer}>
-            {/* Cabeçalho do job offer - clicável para expandir/recolher */}
+          <div key={`job-${job.id}`} className={styles.joboffercontainer}>
             <div
               className={styles.jobheader}
               onClick={() => toggleJobExpand(job.id)}
@@ -115,13 +110,17 @@ export default function Applications() {
               </div>
             </div>
 
-            {/* Lista de candidatos - só aparece se o job estiver expandido */}
             {expandedJobs.includes(job.id) && (
               <div className={styles.candidateslist}>
                 {getCandidatesForJob(job.id).length > 0 ? (
-                  getCandidatesForJob(job.id).map((candidate: any) => (
-                    <UserCandidate key={candidate.id} candidate={candidate} />
-                  ))
+                  getCandidatesForJob(job.id).map(
+                    (candidate: any, index: number) => (
+                      <UserCandidate
+                        key={`candidate-${job.id}-${candidate.id || index}`}
+                        candidate={candidate}
+                      />
+                    )
+                  )
                 ) : (
                   <div className={styles.nocandidatesmessage}>
                     <h5>

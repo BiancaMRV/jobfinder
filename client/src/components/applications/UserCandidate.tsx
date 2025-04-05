@@ -12,16 +12,13 @@ export default function UserCandidate({ candidate }: { candidate: any }) {
 
   const handleApprove = async () => {
     setStatus("approved");
-    // Adicionar chamada API para atualizar o estado no backend
   };
 
   const handleReject = async () => {
     setStatus("rejected");
-    // Adicionar chamada API para atualizar o estado no backend
   };
 
   const handleDownload = () => {
-    // Adicionar funcionalidade para descarregar o currículo
     console.log("A descarregar currículo de", candidateName);
   };
 

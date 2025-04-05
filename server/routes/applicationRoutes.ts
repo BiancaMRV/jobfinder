@@ -115,7 +115,7 @@ router.patch(
     try {
       const { id } = req.params;
       const { status } = req.body;
-      const application = await updateApplicationStatus(status, req.userId);
+      const application = await updateApplicationStatus(status, id, req.userId);
       res.send(application);
     } catch (error) {
       res.status(500).send("Error updating application");
