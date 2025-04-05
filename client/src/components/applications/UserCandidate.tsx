@@ -3,7 +3,10 @@ import styles from "./UserCandidate.module.css";
 import { useEffect, useState } from "react";
 
 export default function UserCandidate({ candidate }: { candidate: any }) {
-  const candidateName = candidate?.user?.name || "Nome do candidato";
+  const candidateName = candidate?.candidate_firstname || "Nome do candidato";
+  const candidateLastName =
+    candidate?.candidate_lastname || "Sobrenome do candidato";
+  const candidateFullName = candidateName + " " + candidateLastName;
   const candidateExperience = candidate?.experience || "Anos de experiência";
   const candidateDate = candidate?.created_at
     ? new Date(candidate.created_at).toLocaleDateString()
@@ -21,11 +24,12 @@ export default function UserCandidate({ candidate }: { candidate: any }) {
   const handleDownload = () => {
     console.log("A descarregar currículo de", candidateName);
   };
+  console.log("candidate", candidate);
 
   return (
     <div className={styles.usercandidatecontainer}>
       <div className={styles.headercandidate}>
-        <h5>{candidateName}</h5>
+        <h5>{candidateFullName}</h5>
         <h5>{candidateExperience}</h5>
         <h5>{candidateDate}</h5>
       </div>

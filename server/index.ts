@@ -8,6 +8,7 @@ import { router as jobRouter } from "./routes/jobOfferRoutes";
 import { router as userRouter } from "./routes/userRoutes";
 import { clientS3 } from "./config/s3"; // importar o cliente S3
 import type { S3File } from "bun";
+import path from "path";
 
 const app = express(); // gerencia as requisicoes , rotas, URLS etc
 app.use(cookieParser());
@@ -15,13 +16,20 @@ app.use(express.json());
 app.use(urlencoded({ extended: true }));
 app.use(
   cors({
-    origin: "http://localhost:5173", // URL exata do seu frontend
-    credentials: true, // Permite envio de cookies
+    origin: [
+      "http://localhost:5173",
+      "https://jobfinder.vercel.app", // Adicione seu domínio Vercel aqui
+    ],
+    credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
     exposedHeaders: ["set-cookie"],
   })
 );
+app.use(express.static(path.join(__dirname, "../frontend/dist")));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../frontend/dist", "index.html"));
+});
 
 app.use("/auth", authRouter);
 app.use("/applications", applicationRouter);

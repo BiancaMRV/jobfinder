@@ -1,9 +1,9 @@
 import styles from "./Profile.module.css";
 import {
+  Edit2,
   CircleUser,
   MapPin,
   Mail,
-  Edit2,
   X,
   Save,
   CircleArrowLeft,

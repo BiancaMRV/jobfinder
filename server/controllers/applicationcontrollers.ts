@@ -73,7 +73,6 @@ export const updateApplicationCoverLetter = async (
   }
 };
 
-// Update resume
 export const updateApplicationResume = async (
   resume: string,
   applicationId: string,
@@ -91,7 +90,9 @@ export const updateApplicationResume = async (
   }
 };
 
-type statusType = "pending" | "approved" | "rejected"; // fazer tipo status
+//TODO: urls
+
+type statusType = "pending" | "approved" | "rejected";
 
 export const updateApplicationStatus = async (
   status: statusType,
@@ -115,29 +116,29 @@ export const updateApplicationStatus = async (
   }
 };
 
-export const updateApplicationStatus1 = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-): Promise<void> => {
-  try {
-    const { status, applicationId } = req.body;
-    const userId = req.userId;
+// export const updateApplicationStatus1 = async (
+//   req: Request,
+//   res: Response,
+//   next: NextFunction
+// ): Promise<void> => {
+//   try {
+//     const { status, applicationId } = req.body;
+//     const userId = req.userId;
 
-    const result = await client.query(
-      "SELECT * FROM application (status, applicationId, userId) VALUES ($1,$2,$3)",
-      [status, applicationId, userId]
-    );
+//     const result = await client.query(
+//       "SELECT * FROM application (status, applicationId, userId) VALUES ($1,$2,$3)",
+//       [status, applicationId, userId]
+//     );
 
-    if (result.rows.length === 0)
-      res.status(404).send("application not found can't update");
+//     if (result.rows.length === 0)
+//       res.status(404).send("application not found can't update");
 
-    res.send(result);
-  } catch (error) {
-    console.log("Error updating application status");
-    res.status(500).send("Error updating application status");
-  }
-};
+//     res.send(result);
+//   } catch (error) {
+//     console.log("Error updating application status");
+//     res.status(500).send("Error updating application status");
+//   }
+// };
 export const getApplicationStats = async (userId: number) => {
   try {
     const result = await client.query(

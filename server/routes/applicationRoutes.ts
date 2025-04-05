@@ -7,7 +7,6 @@ import {
   deleteApplication,
   updateApplicationResume,
   updateApplicationStatus,
-  updateApplicationStatus1,
   getApplicationStats,
   getCandidatesfromApplication,
 } from "../controllers/applicationControllers";

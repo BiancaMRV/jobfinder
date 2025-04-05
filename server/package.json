@@ -1,10 +1,10 @@
 {
   "name": "server",
-  "module": "index.ts",
   "type": "module",
   "scripts": {
     "setup": "bun config/setup.ts",
     "start": "bun --bun index.ts",
+    "postinstall": "cd ../frontend && bun install && bun run build",
     "dev": "bun --bun --watch index.ts"
   },
   "devDependencies": {
@@ -32,5 +32,8 @@
     "multer-s3": "^3.0.1",
     "pg": "^8.13.0",
     "react-router": "^7.1.1"
+  },
+  "engines": {
+    "node": ">=18.x"
   }
 }

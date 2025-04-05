@@ -191,7 +191,8 @@ export const getJobOfferCandidates = async (jobOfferId: string) => {
   try {
     const result = await client.query(
       `SELECT 
-        u.name AS candidate_name,
+        u.firstName AS candidate_firstName,
+        u.lastName AS candidate_lastName,
         u.email AS candidate_email,
         a.status AS application_status
       FROM application a
