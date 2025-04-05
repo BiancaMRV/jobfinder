@@ -1,0 +1,85 @@
+.applicationcontainer {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.headerapplication {
+  padding: 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.headerapplication h1 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+.joboffercontainer {
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.jobheader {
+  display: flex;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  background-color: #f9fafb;
+  cursor: pointer;
+}
+
+.jobheader:hover {
+  background-color: #f3f4f6;
+}
+
+.sectionIcon {
+  color: #9333ea; /* Purple-600 */
+  margin-right: 0.75rem;
+}
+
+.jobheader h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0;
+  flex: 1;
+}
+
+.informationjoboffer {
+  display: flex;
+  gap: 1rem;
+}
+
+.informationjoboffer h5 {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin: 0;
+  font-weight: 400;
+}
+
+.candidateslist {
+  border-top: 1px solid #e5e7eb;
+  background-color: white;
+}
+
+.loadingmessage {
+  padding: 1rem;
+  text-align: center;
+  color: #6b7280;
+}
+
+.nocandidatesmessage {
+  padding: 2rem;
+  text-align: center;
+  color: #6b7280;
+  background-color: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.nocandidatesmessage h5 {
+  margin: 0;
+  font-weight: 400;
+}

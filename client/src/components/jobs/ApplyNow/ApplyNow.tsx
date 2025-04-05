@@ -1,6 +1,7 @@
 import { useState, useEffect, FormEvent } from "react";
 import styles from "./ApplyNow.module.css";
 import { CircleUser, Paperclip, FileText, Send } from "lucide-react";
+import { useParams } from "react-router-dom";
 //TODO:REVER
 interface DocumentType {
   id: string;
@@ -10,19 +11,7 @@ interface DocumentType {
   content?: string;
 }
 
-interface ApplyNowProps {
-  jobOfferId?: string;
-  companyId?: number;
-  jobTitle?: string;
-  companyName?: string;
-}
-
-export default function ApplyNow({
-  jobOfferId,
-  companyId,
-  jobTitle,
-  companyName,
-}: ApplyNowProps) {
+export default function ApplyNow() {
   const [userData, setUserData] = useState({
     firstName: "",
     lastName: "",
@@ -37,6 +26,63 @@ export default function ApplyNow({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [error, setError] = useState("");
+  const [jobTitle, setJobTitle] = useState("");
+  const [companyName, setCompanyName] = useState("");
+
+  let jobOfferId = useParams().jobOfferId;
+  const [companyId, setCompanyId] = useState<number | null>(null);
+
+  useEffect(() => {
+    const fetchCompanyId = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:3000/jobs/${jobOfferId}`,
+          {
+            method: "GET",
+            credentials: "include",
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch company ID");
+        }
+
+        const data = await response.json();
+        console.log(data);
+        setCompanyId(data.company_id);
+        setJobTitle(data.title);
+      } catch (error) {
+        console.error("Error fetching company ID:", error);
+      }
+    };
+
+    fetchCompanyId();
+  }, []);
+
+  useEffect(() => {
+    const fetchCompanyName = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:3000/companies/${companyId}`,
+          {
+            method: "GET",
+            credentials: "include",
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch company name");
+        }
+
+        const data = await response.json();
+        setCompanyName(data.name);
+      } catch (error) {
+        console.error("Error fetching company name:", error);
+      }
+    };
+
+    fetchCompanyName();
+  }, [companyId]);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -143,21 +189,23 @@ export default function ApplyNow({
       const fullName = `${userData.firstName} ${userData.lastName}`.trim();
 
       const applicationData = {
-        name: fullName,
         cover_letter: coverLetter,
         resume: selectedDocuments.join(","), // Join the IDs of selected documents
         job_offer_id: jobOfferId,
         company_id: companyId,
       };
 
-      const response = await fetch("http://localhost:3000/application", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify(applicationData),
-      });
+      const response = await fetch(
+        "http://localhost:3000/applications/application",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify(applicationData),
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Failed to submit application");
@@ -172,7 +220,6 @@ export default function ApplyNow({
     }
   };
 
-  // Success message if application is submitted
   if (submitSuccess) {
     return (
       <div className={styles.successContainer}>
@@ -185,7 +232,7 @@ export default function ApplyNow({
           <p>You will be notified of any updates to your application status.</p>
           <button
             className={styles.homeButton}
-            onClick={() => (window.location.href = "/jobs")}
+            onClick={() => (window.location.href = "/")}
           >
             Return to Job Listings
           </button>

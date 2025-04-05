@@ -2,6 +2,7 @@ import styles from "./JobApplication.module.css";
 import { jobTypesAndExerienceLevels } from "../jobs/JobCard/JobCards";
 import { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import { CircleArrowLeft } from "lucide-react";
+import toast from "react-hot-toast";
 
 export default function JobApplication() {
   // const [companyId, setCompanyId] = useState<number | null>(null);
@@ -61,6 +62,7 @@ export default function JobApplication() {
 
       if (response.ok) {
         const result = await response.json();
+        toast.success("Job offer created successfully!");
         console.log("Job offer created successfully:", result);
 
         setFormData({
@@ -71,8 +73,6 @@ export default function JobApplication() {
           salary: "",
           description: "",
         });
-
-        alert("Job offer published successfully!");
       } else {
         const errorData = await response.json();
         console.error("Failed to create job offer:", errorData);
@@ -82,7 +82,7 @@ export default function JobApplication() {
       }
     } catch (error) {
       console.error("Error submitting form:", error);
-      alert(
+      toast(
         "An error occurred while publishing the job offer. Please try again."
       );
     }

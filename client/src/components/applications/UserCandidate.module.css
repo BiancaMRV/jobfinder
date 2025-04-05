@@ -1,0 +1,159 @@
+.usercandidatecontainer {
+  display: flex;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
+  gap: 1rem;
+}
+
+.usercandidatecontainer:hover {
+  background-color: #f9fafb;
+}
+
+.headercandidate {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex: 1;
+}
+
+.headercandidate h5 {
+  margin: 0;
+}
+
+.headercandidate h5:first-child {
+  font-weight: 600;
+  color: #1f2937;
+  font-size: 0.9375rem;
+}
+
+.headercandidate h5:not(:first-child) {
+  font-weight: 400;
+  color: #6b7280;
+  font-size: 0.8125rem;
+}
+
+.buttonscontainer {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.downloadIcon,
+.checkIcon,
+.crossIcon {
+  width: 1rem;
+  height: 1rem;
+  padding: 0.5rem;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.downloadIcon {
+  background-color: #f3e8ff; /* Purple-100 */
+  color: #9333ea; /* Purple-600 */
+}
+
+.downloadIcon:hover {
+  background-color: #e9d5ff; /* Purple-200 */
+}
+
+.checkIcon {
+  background-color: #dcfce7; /* Green-100 */
+  color: #16a34a; /* Green-600 */
+}
+
+.checkIcon:hover {
+  background-color: #bbf7d0; /* Green-200 */
+}
+
+.crossIcon {
+  background-color: #fee2e2; /* Red-100 */
+  color: #dc2626; /* Red-600 */
+}
+
+.crossIcon:hover {
+  background-color: #fecaca; /* Red-200 */
+}
+
+.viewdetails {
+  margin-left: 0.5rem;
+}
+
+.viewdetailsbutton {
+  background-color: #6247aa; /* Purple-600 */
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  border: none;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.viewdetailsbutton:hover {
+  background-color: #7e22ce; /* Purple-700 */
+}
+
+/* Status indicator section that could be added */
+.statusIndicator {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.statusDot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  margin-right: 0.5rem;
+}
+
+.pendingStatus {
+  background-color: #f3e8ff; /* Purple-100 */
+  color: #9333ea; /* Purple-600 */
+}
+
+.pendingStatus .statusDot {
+  background-color: #9333ea; /* Purple-600 */
+}
+
+.approvedStatus {
+  background-color: #dcfce7; /* Green-100 */
+  color: #16a34a; /* Green-600 */
+}
+
+.approvedStatus .statusDot {
+  background-color: #16a34a; /* Green-600 */
+}
+
+.rejectedStatus {
+  background-color: #fee2e2; /* Red-100 */
+  color: #dc2626; /* Red-600 */
+}
+
+.rejectedStatus .statusDot {
+  background-color: #dc2626; /* Red-600 */
+}
+
+/* Skills section that could be added */
+.skillsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  margin-top: 0.5rem;
+}
+
+.skill {
+  background-color: #f3e8ff; /* Purple-100 */
+  color: #9333ea; /* Purple-600 */
+  padding: 0.25rem 0.5rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+}

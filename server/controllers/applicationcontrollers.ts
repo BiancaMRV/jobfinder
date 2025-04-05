@@ -26,7 +26,7 @@ export const getApplicationById = async (applicationId: string) => {
 };
 
 export const createNewApplication = async (
-  name: string,
+  user_id: number,
   cover_letter: string,
   resume: string,
   job_offer_id: string,
@@ -34,12 +34,12 @@ export const createNewApplication = async (
 ) => {
   try {
     const result = await client.query(
-      "INSERT INTO application(name,cover_letter,resume,job_offer_id,company_id) VALUES ($1, $2, $3, $4, $5)",
-      [name, cover_letter, resume, job_offer_id, company_id]
+      "INSERT INTO application(user_id,cover_letter,resume,job_offer_id,company_id) VALUES ($1, $2, $3, $4, $5)",
+      [user_id, cover_letter, resume, job_offer_id, company_id]
     );
     return result;
   } catch (error) {
-    console.log("Application creation failed");
+    console.log("Application creation failed", error);
     throw new Error("Application creation failed");
   }
 };
@@ -168,5 +168,27 @@ export const getApplicationStats = async (userId: number) => {
   } catch (error) {
     console.log("Error getting application stats:", error);
     throw new Error("Error getting application stats");
+  }
+};
+
+export const getCandidatesfromApplication = async (applicationId: string) => {
+  try {
+    const result = await client.query(
+      `
+      SELECT 
+        u.name AS candidate_name,
+        u.email AS candidate_email,
+        a.status AS application_status
+      FROM application a
+      JOIN users u ON a.user_id = u.id
+      WHERE a.id = $1
+    `,
+      [applicationId]
+    );
+
+    return result.rows;
+  } catch (error) {
+    console.log("Error getting candidates from application:", error);
+    throw new Error("Error getting candidates from application");
   }
 };

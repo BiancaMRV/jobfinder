@@ -34,6 +34,7 @@ export default function LogIn() {
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
         body: JSON.stringify(formData),
       });
 
@@ -45,8 +46,10 @@ export default function LogIn() {
         return;
       } else {
         toast.success("Login successfully");
+        const data = await response.json();
+        console.log("data", data);
         console.log("1", 1);
-        navigate("/");
+        navigate(data.role === "company" ? "/companyprofile" : "/");
       }
     } catch (error) {
       console.error("Erro:", error);

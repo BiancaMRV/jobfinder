@@ -10,6 +10,7 @@ import {
   getJobOfferByExperienceLevel,
   getJobOffersByLocation,
   getJobOffersByCompany,
+  getJobOfferCandidates,
 } from "../controllers/jobOfferControllers";
 import authenticationMiddleWare from "../middleware/authMiddleware";
 import client from "../config/database";
@@ -270,6 +271,21 @@ router.delete(
     } catch (error) {
       console.error("Error deleting job offer:", error);
       res.status(500).json({ error: "Erro ao excluir vaga de emprego" });
+    }
+  }
+);
+
+router.get(
+  "/:id/candidates",
+  authenticationMiddleWare,
+  async function (req: AnyReq, res: AnyRes) {
+    try {
+      const { id } = req.params;
+      const jobOfferCandidates = await getJobOfferCandidates(id);
+      res.json(jobOfferCandidates);
+    } catch (error) {
+      console.error("Error fetching job offers by company:", error);
+      res.status(500).json({ error: "Erro ao buscar vagas por empresa" });
     }
   }
 );

@@ -4,6 +4,8 @@ import { CircleUser, MapPin, Mail, Edit2 } from "lucide-react";
 import OverviewCompany from "./OverviewCompany";
 import CompanyInfo from "./CompanyInfo";
 import PostedJobs from "./PostedJobs";
+import Applications from "./Applications";
+import toast from "react-hot-toast";
 
 interface JobOffer {
   id: string;
@@ -147,7 +149,7 @@ export default function CompanyProfile() {
     if (file) {
       const maxSize = 2 * 1024 * 1024; // 2MB
       if (file.size > maxSize) {
-        alert("Image is too large! Please choose one up to 2MB.");
+        toast("Image is too large! Please choose one up to 2MB.");
         return;
       }
 
@@ -261,11 +263,18 @@ export default function CompanyProfile() {
           >
             Posted Jobs
           </span>
+          <span
+            className={activeTab === "Candidates" ? styles.active : ""}
+            onClick={() => handleTabClick("Candidates")}
+          >
+            Candidates
+          </span>
         </div>
         <div className={styles.contentContainer}>
           {activeTab === "overview" && <OverviewCompany />}
           {activeTab === "Company Info" && <CompanyInfo />}
           {activeTab === "Posted Jobs" && <PostedJobs />}
+          {activeTab === "Candidates" && <Applications />}
         </div>
       </div>
       {error && (

@@ -15,6 +15,7 @@ import Education from "./Education";
 import Experience from "./Experience";
 import Skills from "./Skills";
 import { ProfileProvider } from "./profilecontext";
+import toast from "react-hot-toast";
 
 interface ApplicationStatus {
   total_applications: number;
@@ -148,7 +149,7 @@ export function Profile({ isCompanyView = false }: ProfileProps) {
     if (file) {
       const maxSize = 2 * 1024 * 1024; // 2MB
       if (file.size > maxSize) {
-        alert("A imagem é muito grande! Escolha uma de até 2MB.");
+        toast("A imagem é muito grande! Escolha uma de até 2MB.");
         return;
       }
 

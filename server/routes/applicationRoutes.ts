@@ -9,6 +9,7 @@ import {
   updateApplicationStatus,
   updateApplicationStatus1,
   getApplicationStats,
+  getCandidatesfromApplication,
 } from "../controllers/applicationControllers";
 import {
   createUserValidation,
@@ -61,25 +62,31 @@ router.delete(
   }
 );
 
-router.post(
-  "/application",
-  validateRequest(createUserValidation),
-  async (req, res) => {
-    try {
-      const { name, cover_letter, resume, job_offer_id, company_id } = req.body;
-      const application = await createNewApplication(
-        name,
-        cover_letter,
-        resume,
-        job_offer_id,
-        company_id
-      );
-      res.send(application);
-    } catch (error) {
-      res.status(500).send("Error creating application");
-    }
+router.post("/application", authenticationMiddleWare, async (req, res) => {
+  try {
+    const { cover_letter, resume, job_offer_id, company_id } = req.body;
+    const application = await createNewApplication(
+      req.userId,
+      cover_letter,
+      resume,
+      job_offer_id,
+      company_id
+    );
+    res.send(application);
+  } catch (error) {
+    res.status(500).send("Error creating application");
   }
-);
+});
+
+router.get("/application/:applicationId/candidates", async (req, res) => {
+  try {
+    const { applicationId } = req.params;
+    const application = await getCandidatesfromApplication(applicationId);
+    res.send(application);
+  } catch (error) {
+    res.status(500).send("Error retrieving candidates from application");
+  }
+});
 
 router.patch(
   "/application/cover_letter",
@@ -101,17 +108,14 @@ router.patch(
 );
 
 router.patch(
-  "/application/status",
+  "/:id/status",
   authenticationMiddleWare,
   validateRequest(updateUserValidation),
   async (req, res) => {
     try {
-      const { status, applicationId } = req.body;
-      const application = await updateApplicationStatus(
-        status,
-        applicationId,
-        req.userId
-      );
+      const { id } = req.params;
+      const { status } = req.body;
+      const application = await updateApplicationStatus(status, req.userId);
       res.send(application);
     } catch (error) {
       res.status(500).send("Error updating application");

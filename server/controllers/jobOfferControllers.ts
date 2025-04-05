@@ -187,6 +187,25 @@ export const getJobOfferByExperienceLevel = async (experienceLevel: string) => {
   }
 };
 
+export const getJobOfferCandidates = async (jobOfferId: string) => {
+  try {
+    const result = await client.query(
+      `SELECT 
+        u.name AS candidate_name,
+        u.email AS candidate_email,
+        a.status AS application_status
+      FROM application a
+      JOIN users u ON a.user_id = u.id
+      WHERE a.job_offer_id = $1`,
+      [jobOfferId]
+    );
+    return result.rows;
+  } catch (error) {
+    console.error("Error retrieving job offer candidates", error);
+    throw new Error("Error retrieving job offer candidates");
+  }
+};
+
 export const getJobOffersByLocation = async (location: string) => {
   try {
     const result = await client.query(

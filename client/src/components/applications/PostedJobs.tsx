@@ -2,6 +2,7 @@ import { FC, useEffect, useState } from "react";
 import styles from "./PostedJobs.module.css";
 import { Trash2, Edit, Plus } from "lucide-react";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
 
 interface JobOffer {
   id: string;
@@ -79,7 +80,7 @@ export const PostedJobs: FC = () => {
         }
       } catch (error) {
         console.error("Error deleting job offer:", error);
-        alert("Failed to delete job offer. Please try again.");
+        toast("Failed to delete job offer. Please try again.");
       }
     }
   };
