@@ -3,7 +3,7 @@ import {
   encodeHexLowerCase,
 } from "@oslojs/encoding";
 import client from "../config/database";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import { sha256 } from "@oslojs/crypto/sha2";
 import type { Response } from "express";
 import { createNewCompany } from "./companiesControllers";

@@ -3,9 +3,8 @@
   "type": "module",
   "scripts": {
     "setup": "bun config/setup.ts",
-    "start": "node dist/index.js",
-    "dev": "bun --bun --watch index.ts",
-    "build": "tsc"
+    "start": "bun --bun index.ts",
+    "dev": "bun --bun --watch index.ts"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",

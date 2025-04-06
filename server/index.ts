@@ -6,8 +6,8 @@ import { router as applicationRouter } from "./routes/applicationRoutes";
 import { router as companyRouter } from "./routes/companyRoutes";
 import { router as jobRouter } from "./routes/jobOfferRoutes";
 import { router as userRouter } from "./routes/userRoutes";
-import { clientS3 } from "./config/s3"; // importar o cliente S3
-import type { S3File } from "bun";
+// import { clientS3 } from "./config/s3"; // importar o cliente S3
+// import type { S3File } from "bun";
 import path from "path";
 
 const app = express(); // gerencia as requisicoes , rotas, URLS etc
