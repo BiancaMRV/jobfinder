@@ -11,7 +11,6 @@ import {
   getCandidatesfromApplication,
 } from "../controllers/applicationControllers.js";
 import {
-  createUserValidation,
   deleteUserValidation,
   getUserValidation,
   updateUserValidation,
