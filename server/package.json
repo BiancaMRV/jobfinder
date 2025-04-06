@@ -3,8 +3,8 @@
   "type": "module",
   "scripts": {
     "setup": "bun config/setup.ts",
-    "start": "bun --bun index.ts",
-    "dev": "bun --bun --watch index.ts"
+    "start": "bun --bun api/index.ts",
+    "dev": "bun --bun --watch api/index.ts"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",

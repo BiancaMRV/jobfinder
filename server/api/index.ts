@@ -1,11 +1,11 @@
 import express, { urlencoded } from "express"; // incluir biblioteca express
 import cookieParser from "cookie-parser";
 import cors from "cors";
-import { router as authRouter } from "./routes/authRoutes";
-import { router as applicationRouter } from "./routes/applicationRoutes";
-import { router as companyRouter } from "./routes/companyRoutes";
-import { router as jobRouter } from "./routes/jobOfferRoutes";
-import { router as userRouter } from "./routes/userRoutes";
+import { router as authRouter } from "../routes/authRoutes";
+import { router as applicationRouter } from "../routes/applicationRoutes";
+import { router as companyRouter } from "../routes/companyRoutes";
+import { router as jobRouter } from "../routes/jobOfferRoutes";
+import { router as userRouter } from "../routes/userRoutes";
 // import { clientS3 } from "./config/s3"; // importar o cliente S3
 // import type { S3File } from "bun";
 import path from "path";
