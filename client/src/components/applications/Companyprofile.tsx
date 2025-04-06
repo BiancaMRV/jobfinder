@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import styles from "./CompanyProfile.module.css";
+import styles from "./Companyprofile.module.css";
 import { CircleUser, MapPin, Mail, Edit2 } from "lucide-react";
 import OverviewCompany from "./OverviewCompany";
 import CompanyInfo from "./CompanyInfo";
