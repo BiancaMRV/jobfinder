@@ -53,7 +53,7 @@ export default function Navbar() {
         <Menu color="#6e54b5" size={28} />
       </button>
       <div className={`${styles.centernavbar} ${menuOpen ? styles.open : ""}`}>
-        <Link className={styles.link} to="/">
+        <Link className={styles.link} to="/homepage">
           Find Jobs
         </Link>
         <Link className={styles.link} to="/about">
