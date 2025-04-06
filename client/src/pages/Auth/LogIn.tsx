@@ -50,7 +50,7 @@ export default function LogIn() {
         const data = await response.json();
         console.log("data", data);
         console.log("1", 1);
-        navigate(data.role === "company" ? "/companyprofile" : "/");
+        navigate(data.role === "company" ? "/companyprofile" : "/homepage");
       }
     } catch (error) {
       console.error("Erro:", error);
