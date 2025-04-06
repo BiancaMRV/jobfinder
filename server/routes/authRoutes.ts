@@ -8,8 +8,8 @@ import {
   setSessionTokenCookie,
   getCurrentUser,
   logOut,
-} from "../controllers/authControllers";
-import authenticationMiddleWare from "../middleware/authMiddleware";
+} from "../controllers/authControllers.js";
+import authenticationMiddleWare from "../middleware/authMiddleware.js";
 
 export const router = express.Router();
 

@@ -5,15 +5,15 @@ import {
   updateUserValidation,
   validateRequest,
   createUserValidation,
-} from "../middleware/validationMiddleware";
+} from "../middleware/validationMiddleware.js";
 import {
   getAllUsers,
   getUserById,
   createNewUser,
   deleteUser,
   updateUser,
-} from "../controllers/userControllers";
-import authenticationMiddleWare from "../middleware/authMiddleware";
+} from "../controllers/userControllers.js";
+import authenticationMiddleWare from "../middleware/authMiddleware.js";
 
 export const router = Router();
 type UserType = "jobSeeker" | "company";

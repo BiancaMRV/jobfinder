@@ -9,15 +9,15 @@ import {
   updateApplicationStatus,
   getApplicationStats,
   getCandidatesfromApplication,
-} from "../controllers/applicationControllers";
+} from "../controllers/applicationControllers.js";
 import {
   createUserValidation,
   deleteUserValidation,
   getUserValidation,
   updateUserValidation,
   validateRequest,
-} from "../middleware/validationMiddleware";
-import authenticationMiddleWare from "../middleware/authMiddleware";
+} from "../middleware/validationMiddleware.js";
+import authenticationMiddleWare from "../middleware/authMiddleware.js";
 
 export const router = express.Router();
 router.get(

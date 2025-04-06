@@ -1,5 +1,5 @@
 import type { Request, Response, NextFunction } from "express";
-import { validateSessionToken } from "../controllers/authControllers";
+import { validateSessionToken } from "../controllers/authControllers.js";
 
 const authenticationMiddleWare = async (
   req: Request,
