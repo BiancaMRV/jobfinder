@@ -42,17 +42,20 @@ function App() {
         }}
       />
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/homepage" element={<HomePage />} />
         <Route path="/job" element={<JobCardPage />} />
         <Route path="/jobs/:jobOfferId" element={<JobCardPage />} />
         <Route path="/login" element={<LogIn />} />
-        <Route path="/signup" element={<SignUp />} />
+        <Route path="/" element={<SignUp />} />
         <Route path="/applynow/:jobOfferId" element={<ApplyNow />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/companyprofile" element={<CompanyProfile />} />
         <Route path="/jobapplication/" element={<JobApplication />} />
         <Route path="/applications" element={<Applications />} />
-        <Route path="/usercandidate" element={<UserCandidate />} />
+        <Route
+          path="/usercandidate"
+          element={<UserCandidate candidate={undefined} />}
+        />
       </Routes>
     </Router>
   );

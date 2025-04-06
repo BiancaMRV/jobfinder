@@ -163,7 +163,7 @@ export default function LogIn() {
           <h1>Welcome Back!</h1>
           <p>
             Dont have an account? Create one!
-            <Link to="/signup" className={styles.link}>
+            <Link to="/" className={styles.link}>
               Sign Up
             </Link>
           </p>
