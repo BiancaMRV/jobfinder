@@ -118,7 +118,7 @@ export const SignUp: React.FC = () => {
         toast.success(
           "Account created successfully, browse your dream jobs :)"
         );
-        navigate("/");
+        navigate("/homepage");
       } else {
         toast.success("Account created successfully, make dreams come true :)");
         navigate("/companyprofile");

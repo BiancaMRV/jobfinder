@@ -224,7 +224,7 @@ export default function ApplyNow() {
           <p>You will be notified of any updates to your application status.</p>
           <button
             className={styles.homeButton}
-            onClick={() => (window.location.href = "/")}
+            onClick={() => (window.location.href = "/homepage")}
           >
             Return to Job Listings
           </button>
