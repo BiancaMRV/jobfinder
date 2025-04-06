@@ -1,16 +1,17 @@
 {
   "version": 2,
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
   "builds": [
     {
-      "src": "server/index.js",
+      "src": "dist/index.js",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "server/index.js"
+      "dest": "dist/index.js"
     }
-  ],
-  "buildCommand": "bun install --prefix server && bun install --prefix frontend && bun run build --prefix frontend"
+  ]
 }

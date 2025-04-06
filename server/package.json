@@ -3,9 +3,9 @@
   "type": "module",
   "scripts": {
     "setup": "bun config/setup.ts",
-    "start": "bun --bun index.ts",
-    "postinstall": "cd ../frontend && bun install && bun run build",
-    "dev": "bun --bun --watch index.ts"
+    "start": "node dist/index.js",
+    "dev": "bun --bun --watch index.ts",
+    "build": "tsc"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
