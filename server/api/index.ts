@@ -14,18 +14,7 @@ const app = express(); // gerencia as requisicoes , rotas, URLS etc
 app.use(cookieParser());
 app.use(express.json());
 app.use(urlencoded({ extended: true }));
-app.use(
-  cors({
-    origin: [
-      "http://localhost:5173",
-      ...(process.env.URL_FRONTEND ? [process.env.URL_FRONTEND] : []), // Adicione seu domínio Vercel aqui
-    ],
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-    exposedHeaders: ["set-cookie"],
-  })
-);
+app.use(cors());
 
 app.use("/auth", authRouter);
 app.use("/applications", applicationRouter);
