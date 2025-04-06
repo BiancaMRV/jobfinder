@@ -1,6 +1,6 @@
 import styles from "./JobApplication.module.css";
 import { jobTypesAndExerienceLevels } from "../jobs/JobCard/JobCards";
-import { useState, useEffect, ChangeEvent, FormEvent } from "react";
+import { useState, ChangeEvent, FormEvent } from "react";
 import { CircleArrowLeft } from "lucide-react";
 import toast from "react-hot-toast";
 

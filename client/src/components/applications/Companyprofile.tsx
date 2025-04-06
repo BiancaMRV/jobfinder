@@ -7,14 +7,6 @@ import PostedJobs from "./PostedJobs";
 import Applications from "./Applications";
 import toast from "react-hot-toast";
 
-interface JobOffer {
-  id: string;
-  title: string;
-  location: string;
-  date: string;
-  description: string;
-}
-
 interface JobOfferStatus {
   total_activejobs: number;
   total_application: number;
@@ -40,7 +32,6 @@ export default function CompanyProfile() {
     email: "",
   });
 
-  const [jobOffers, setJobOffers] = useState<JobOffer[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 

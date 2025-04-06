@@ -1,6 +1,6 @@
 import { Download, Check, X } from "lucide-react";
 import styles from "./UserCandidate.module.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function UserCandidate({ candidate }: { candidate: any }) {
   const candidateName = candidate?.candidate_firstname || "Nome do candidato";
