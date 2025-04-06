@@ -14,7 +14,11 @@ const app = express(); // gerencia as requisicoes , rotas, URLS etc
 app.use(cookieParser());
 app.use(express.json());
 app.use(urlencoded({ extended: true }));
-app.use(cors());
+app.use(
+  cors({
+    credentials: true,
+  })
+);
 
 app.use("/auth", authRouter);
 app.use("/applications", applicationRouter);
