@@ -4,6 +4,7 @@ import { useState } from "react";
 import React from "react";
 import { Toaster, toast } from "react-hot-toast";
 import useMediaQuery from "../../utils/useMediaQuery";
+import { BACKEND_URL } from "../../utils/const";
 
 export const SignUp: React.FC = () => {
   const isMobile = useMediaQuery("(max-width:768)");
@@ -52,7 +53,7 @@ export const SignUp: React.FC = () => {
 
       console.log("Dados a serem enviados:", dataToSend);
 
-      const response = await fetch("http://localhost:3000/auth/signUp", {
+      const response = await fetch(BACKEND_URL + "/auth/signUp", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -86,7 +87,7 @@ export const SignUp: React.FC = () => {
           console.log("Dados da empresa a serem enviados:", companyData);
 
           // const companyResponse = await fetch(
-          //   "http://localhost:3000/companies",
+          //   BACKEND_URL + "/companies",
           //   {
           //     method: "POST",
           //     headers: {

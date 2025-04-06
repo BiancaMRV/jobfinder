@@ -3,6 +3,7 @@ import { jobTypesAndExerienceLevels } from "../jobs/JobCard/JobCards";
 import { useState, ChangeEvent, FormEvent } from "react";
 import { CircleArrowLeft } from "lucide-react";
 import toast from "react-hot-toast";
+import { BACKEND_URL } from "../../utils/const";
 
 export default function JobApplication() {
   const [formData, setFormData] = useState({
@@ -50,7 +51,7 @@ export default function JobApplication() {
 
       console.log("Dados da vaga a serem enviados:", data);
 
-      const response = await fetch("http://localhost:3000/jobs", {
+      const response = await fetch(BACKEND_URL + "/jobs", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

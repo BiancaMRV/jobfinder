@@ -3,6 +3,7 @@ import styles from "./JobCards.module.css";
 import { Clock } from "lucide-react";
 import { Link } from "react-router-dom";
 import { JobType } from "../types";
+import { BACKEND_URL } from "../../../utils/const";
 
 type Job = {
   id: number;
@@ -34,7 +35,7 @@ export default function JobCards({ filters }: { filters: any }) {
 
   const fetchdata = async () => {
     try {
-      let baseUrl = "http://localhost:3000/jobs/filter";
+      let baseUrl = BACKEND_URL + "/jobs/filter";
 
       if (filters?.jobTypes)
         baseUrl += `?jobType=${filters.jobTypes.join(",")}`;

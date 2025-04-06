@@ -4,6 +4,7 @@ import { useState } from "react";
 import useMediaQuery from "../../utils/useMediaQuery";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
+import { BACKEND_URL } from "../../utils/const";
 
 export default function LogIn() {
   const isMobile = useMediaQuery("(max-width:768)");
@@ -29,7 +30,7 @@ export default function LogIn() {
     setLoading(true);
 
     try {
-      const response = await fetch("http://localhost:3000/auth/logIn", {
+      const response = await fetch(BACKEND_URL + "/auth/logIn", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

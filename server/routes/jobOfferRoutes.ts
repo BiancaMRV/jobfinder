@@ -11,10 +11,10 @@ import {
   getJobOffersByLocation,
   getJobOffersByCompany,
   getJobOfferCandidates,
-} from "../controllers/jobOfferControllers";
-import authenticationMiddleWare from "../middleware/authMiddleware";
+} from "../controllers/jobOfferControllers.js";
+import authenticationMiddleWare from "../middleware/authMiddleware.js";
 import client from "../config/database";
-import { getCompanyByUserId } from "../controllers/companiesControllers";
+import { getCompanyByUserId } from "../controllers/companiesControllers.js";
 
 export const router = express.Router();
 

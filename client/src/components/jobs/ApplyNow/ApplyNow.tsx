@@ -2,6 +2,7 @@ import { useState, useEffect, FormEvent } from "react";
 import styles from "./ApplyNow.module.css";
 import { CircleUser, Paperclip, FileText, Send } from "lucide-react";
 import { useParams } from "react-router-dom";
+import { BACKEND_URL } from "../../../utils/const";
 //TODO:REVER
 interface DocumentType {
   id: string;
@@ -35,13 +36,10 @@ export default function ApplyNow() {
   useEffect(() => {
     const fetchCompanyId = async () => {
       try {
-        const response = await fetch(
-          `http://localhost:3000/jobs/${jobOfferId}`,
-          {
-            method: "GET",
-            credentials: "include",
-          }
-        );
+        const response = await fetch(BACKEND_URL + `/jobs/${jobOfferId}`, {
+          method: "GET",
+          credentials: "include",
+        });
 
         if (!response.ok) {
           throw new Error("Failed to fetch company ID");
@@ -62,13 +60,10 @@ export default function ApplyNow() {
   useEffect(() => {
     const fetchCompanyName = async () => {
       try {
-        const response = await fetch(
-          `http://localhost:3000/companies/${companyId}`,
-          {
-            method: "GET",
-            credentials: "include",
-          }
-        );
+        const response = await fetch(BACKEND_URL + `/companies/${companyId}`, {
+          method: "GET",
+          credentials: "include",
+        });
 
         if (!response.ok) {
           throw new Error("Failed to fetch company name");
@@ -87,7 +82,7 @@ export default function ApplyNow() {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await fetch("http://localhost:3000/users", {
+        const response = await fetch(BACKEND_URL + "/users", {
           method: "GET",
           credentials: "include",
         });
@@ -195,17 +190,14 @@ export default function ApplyNow() {
         company_id: companyId,
       };
 
-      const response = await fetch(
-        "http://localhost:3000/applications/application",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-          body: JSON.stringify(applicationData),
-        }
-      );
+      const response = await fetch(BACKEND_URL + "/applications/application", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(applicationData),
+      });
 
       if (!response.ok) {
         throw new Error("Failed to submit application");

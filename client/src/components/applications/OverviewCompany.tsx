@@ -2,6 +2,7 @@ import { FC } from "react";
 import styles from "./OverviewCompany.module.css";
 import { Building, StickyNote, MapPin, Calendar } from "lucide-react";
 import { useEffect, useState } from "react";
+import { BACKEND_URL } from "../../utils/const";
 
 interface JobOffer {
   id: string;
@@ -20,7 +21,7 @@ const OverviewCompany: FC = () => {
     const fetchJobOffers = async () => {
       try {
         console.log("getting joboffers...");
-        const response = await fetch(`http://localhost:3000/jobs/company`, {
+        const response = await fetch(BACKEND_URL + `/jobs/company`, {
           credentials: "include",
         });
 

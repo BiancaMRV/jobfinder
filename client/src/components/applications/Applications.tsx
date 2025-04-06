@@ -2,6 +2,7 @@ import { Briefcase } from "lucide-react";
 import styles from "./Applications.module.css";
 import { useEffect, useState } from "react";
 import UserCandidate from "./UserCandidate";
+import { BACKEND_URL } from "../../utils/const";
 
 export default function Applications() {
   const [jobOffer, setJobOffer] = useState<any[]>([]);
@@ -13,7 +14,7 @@ export default function Applications() {
     const fetchJobOffer = async () => {
       setLoading(true);
       try {
-        const response = await fetch("http://localhost:3000/jobs/company", {
+        const response = await fetch(BACKEND_URL + "/jobs/company", {
           method: "GET",
           credentials: "include",
         });
@@ -36,7 +37,7 @@ export default function Applications() {
     const fetchCandidates = async (jobOfferId: number) => {
       try {
         const response = await fetch(
-          `http://localhost:3000/jobs/${jobOfferId}/candidates`,
+          BACKEND_URL + `/jobs/${jobOfferId}/candidates`,
           {
             method: "GET",
             credentials: "include",

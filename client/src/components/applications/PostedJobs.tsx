@@ -3,6 +3,7 @@ import styles from "./PostedJobs.module.css";
 import { Trash2, Edit, Plus } from "lucide-react";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
+import { BACKEND_URL } from "../../utils/const";
 
 interface JobOffer {
   id: string;
@@ -28,7 +29,7 @@ export const PostedJobs: FC = () => {
     const fetchJobOffers = async () => {
       try {
         console.log("getting joboffers...");
-        const response = await fetch(`http://localhost:3000/jobs/company`, {
+        const response = await fetch(BACKEND_URL + `/jobs/company`, {
           credentials: "include",
         });
 
@@ -68,7 +69,7 @@ export const PostedJobs: FC = () => {
       window.confirm("Are you sure you want to delete this job offer?") === true
     ) {
       try {
-        const response = await fetch(`http://localhost:3000/jobs/${id}`, {
+        const response = await fetch(BACKEND_URL + `/jobs/${id}`, {
           method: "DELETE",
           credentials: "include",
         });

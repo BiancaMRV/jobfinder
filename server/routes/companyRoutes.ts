@@ -8,7 +8,7 @@ import {
   updateCompany,
   getAllJobOffersFromCompany,
   searchCompany,
-} from "../controllers/companiesControllers";
+} from "../controllers/companiesControllers.js";
 import {
   createCompanyValidation,
   deleteCompanyValidation,
@@ -17,9 +17,9 @@ import {
   searchCompanyValidation,
   updateCompanyValidation,
   validateRequest,
-} from "../middleware/validationMiddleware";
-import { getUserById } from "../controllers/userControllers";
-import authenticationMiddleWare from "../middleware/authMiddleware";
+} from "../middleware/validationMiddleware.js";
+import { getUserById } from "../controllers/userControllers.js";
+import authenticationMiddleWare from "../middleware/authMiddleware.js";
 
 export const router = express.Router();
 

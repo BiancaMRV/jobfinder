@@ -3,6 +3,7 @@ import styles from "./Navbar.module.css";
 import { Bell, UserPen, Menu } from "lucide-react";
 import { useState, useEffect } from "react";
 import cloudlogo from "../../../assets/cloudlogo.svg";
+import { BACKEND_URL } from "../../../utils/const";
 
 interface User {
   firstname: string;
@@ -19,7 +20,7 @@ export default function Navbar() {
 
   const fetchUser = async () => {
     try {
-      const response = await fetch("http://localhost:3000/auth/user", {
+      const response = await fetch(BACKEND_URL + "/auth/user", {
         method: "GET",
         credentials: "include",
         headers: {

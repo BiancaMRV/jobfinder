@@ -4,6 +4,7 @@ import { Job } from "../types";
 import { useParams, Link } from "react-router-dom";
 import Markdown from "react-markdown";
 import Header from "../../layout/Header/Header";
+import { BACKEND_URL } from "../../../utils/const";
 
 export default function JobCardPage() {
   const { jobOfferId } = useParams();
@@ -11,7 +12,7 @@ export default function JobCardPage() {
 
   const fetchData = async () => {
     try {
-      const baseURL = `http://localhost:3000/jobs/${jobOfferId}`;
+      const baseURL = BACKEND_URL + `/jobs/${jobOfferId}`;
       const response = await fetch(baseURL);
       if (!response.ok) {
         throw new Error("Erro na requisição: " + response.statusText);

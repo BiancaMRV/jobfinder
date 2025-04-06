@@ -17,6 +17,7 @@ import Experience from "./Experience";
 import Skills from "./Skills";
 import { ProfileProvider } from "./profilecontext";
 import toast from "react-hot-toast";
+import { BACKEND_URL } from "../../../utils/const";
 
 interface ApplicationStatus {
   total_applications: number;
@@ -56,7 +57,7 @@ export function Profile({ isCompanyView = false }: ProfileProps) {
     const fetchUserData = async () => {
       setLoading(true);
       try {
-        const response = await fetch("http://localhost:3000/users", {
+        const response = await fetch(BACKEND_URL + "/users", {
           method: "GET",
           credentials: "include",
         });
@@ -124,12 +125,9 @@ export function Profile({ isCompanyView = false }: ProfileProps) {
   useEffect(() => {
     const fetchApplicationStats = async () => {
       try {
-        const response = await fetch(
-          "http://localhost:3000/application-stats",
-          {
-            credentials: "include",
-          }
-        );
+        const response = await fetch(BACKEND_URL + "/application-stats", {
+          credentials: "include",
+        });
 
         if (!response.ok) {
           throw new Error("Failed to fetch stats");
@@ -182,7 +180,7 @@ export function Profile({ isCompanyView = false }: ProfileProps) {
   const handleSave = async () => {
     try {
       // Opcionalmente, poderias adicionar aqui uma chamada API para atualizar os dados no servidor
-      // const response = await fetch("http://localhost:3000/users/update", {
+      // const response = await fetch(BACKEND_URL + "/users/update", {
       //   method: "PUT",
       //   headers: {
       //     "Content-Type": "application/json",

@@ -6,6 +6,7 @@ import CompanyInfo from "./CompanyInfo";
 import PostedJobs from "./PostedJobs";
 import Applications from "./Applications";
 import toast from "react-hot-toast";
+import { BACKEND_URL } from "../../utils/const";
 
 interface JobOfferStatus {
   total_activejobs: number;
@@ -41,7 +42,7 @@ export default function CompanyProfile() {
         setIsLoading(true);
         setError(null);
 
-        const response = await fetch("http://localhost:3000/users", {
+        const response = await fetch(BACKEND_URL + "/users", {
           method: "GET",
           credentials: "include",
         });
@@ -91,12 +92,9 @@ export default function CompanyProfile() {
           return;
         }
 
-        const response = await fetch(
-          "http://localhost:3000/jobs/company-stats",
-          {
-            credentials: "include",
-          }
-        );
+        const response = await fetch(BACKEND_URL + "/jobs/company-stats", {
+          credentials: "include",
+        });
 
         if (!response.ok) {
           console.error("Error status:", response.status);
