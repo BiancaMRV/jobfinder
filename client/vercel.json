@@ -3,6 +3,7 @@
     {
       "source": "/api/:path*",
       "destination": "https://jobfinder-jzsg.onrender.com/:path*"
-    }
+    },
+    { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
