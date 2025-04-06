@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/:path",
+      "destination": "https://jobfinder-jzsg.onrender.com/:path"
+    }
+  ]
+}
