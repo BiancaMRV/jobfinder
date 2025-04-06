@@ -83,7 +83,7 @@ export function setSessionTokenCookie(
     // When deployed over HTTPS
     response.setHeader(
       "Set-Cookie",
-      `session=${token}; HttpOnly; SameSite=Lax; Expires=${expiresAt.toUTCString()}; Path=/; Secure;` // Path =/ significa que o cookie é valido para todo o site
+      `session=${token}; HttpOnly; SameSite=None; Expires=${expiresAt.toUTCString()}; Path=/; Secure;` // Path =/ significa que o cookie é valido para todo o site
     );
   } else {
     // When deployed over HTTP (localhost)
