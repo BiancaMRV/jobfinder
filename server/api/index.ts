@@ -18,7 +18,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://jobfinder.vercel.app", // Adicione seu domínio Vercel aqui
+      ...(process.env.URL_FRONTEND ? [process.env.URL_FRONTEND] : []), // Adicione seu domínio Vercel aqui
     ],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
