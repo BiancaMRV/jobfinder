@@ -32,15 +32,15 @@ export const jobTypesAndExerienceLevels: JobType[] = [
 
 export default function JobCards({ filters }: { filters: any }) {
   const [joboffers, setjoboffers] = useState<Job[]>([]);
-
+  console.log("filters1", filters);
   const fetchdata = async () => {
     try {
       let baseUrl = BACKEND_URL + "/jobs/filter";
 
       if (filters?.jobTypes)
-        baseUrl += `?jobType=${filters.jobTypes.join(",")}`;
+        baseUrl += `?jobTypes=${filters.jobTypes.join(",")}`;
       if (filters?.experienceLevels)
-        baseUrl += `&experienceLevel=${filters.experienceLevels.join(",")}`;
+        baseUrl += `&experienceLevels=${filters.experienceLevels.join(",")}`;
       if (filters?.salaryRange)
         baseUrl += `&minSalary=${filters.salaryRange[0]}&maxSalary=${filters.salaryRange[1]}`;
 

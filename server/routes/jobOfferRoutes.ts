@@ -31,7 +31,6 @@ router.get("/", async function (req: AnyReq, res: AnyRes) {
   }
 });
 
-// Rota para filtrar ofertas de emprego
 router.get("/filter", async function (req: AnyReq, res: AnyRes) {
   try {
     const { jobTypes, experienceLevels, minSalary, maxSalary } = req.query;
@@ -42,7 +41,6 @@ router.get("/filter", async function (req: AnyReq, res: AnyRes) {
       maxSalary,
     });
 
-    // Construir a consulta SQL base
     let query = `
       SELECT 
         job_offers.id,
@@ -64,13 +62,19 @@ router.get("/filter", async function (req: AnyReq, res: AnyRes) {
     let paramCounter = 1;
 
     if (jobTypes) {
-      query += ` AND job_offers.jobTypeId LIKE $${paramCounter++}`;
-      params.push(`%${jobTypes}%`);
+      const jobTypesArray = jobTypes.split(",");
+      for (let i = 0; i < jobTypesArray.length; i++) {
+        query += ` AND job_offers.jobTypeId LIKE $${paramCounter++}`;
+        params.push(`%${jobTypesArray[i]}%`);
+      }
     }
 
     if (experienceLevels) {
-      query += ` AND job_offers.experienceLevelId LIKE $${paramCounter++}`;
-      params.push(`%${experienceLevels}%`);
+      const experienceLevelsArray = experienceLevels.split(",");
+      for (let i = 0; i < experienceLevelsArray.length; i++) {
+        query += ` AND job_offers.experienceLevelId LIKE $${paramCounter++}`;
+        params.push(`%${experienceLevelsArray[i]}%`);
+      }
     }
 
     if (minSalary && !isNaN(Number(minSalary))) {

@@ -3,13 +3,17 @@ import styles from "./HomePage.module.css";
 import Header from "../../layout/Header/Header";
 import { FiltersInterface } from "../FiltersInterface/FiltersInterface";
 import JobCards from "../JobCard/JobCards";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useMediaQuery from "../../../utils/useMediaQuery";
 
 export default function HomePage() {
   const [showFilters, setShowFilters] = useState(true);
   const [filters, setFilters] = useState({});
   const isMobile = useMediaQuery("(max-width: 768px)");
+
+  useEffect(() => {
+    console.log("filters", filters);
+  }, [filters]);
 
   return (
     <section className={styles.homepagecontainer}>

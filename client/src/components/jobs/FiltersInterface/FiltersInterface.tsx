@@ -24,6 +24,7 @@ export const FiltersInterface: React.FC<FiltersInterfaceProps> = ({
       ...filters,
       [filterName]: value,
     };
+    console.log("newFilters", newFilters);
     setFilters(newFilters);
     onFiltersChange(newFilters); // Notifica o componente pai sobre as mudanças
   };
