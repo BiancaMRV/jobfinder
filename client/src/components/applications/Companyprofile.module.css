@@ -7,27 +7,28 @@
   box-sizing: border-box;
   width: 100%;
 }
+
 .profileImage {
-  width: 120px; /* ou o mesmo tamanho do CircleUser */
+  width: 120px;
   height: 120px;
   border-radius: 50%;
-  object-fit: cover; /* Garante que a imagem preencha o espaço sem distorcer */
+  object-fit: cover;
 }
 
 .profileheader {
   display: inline-block;
   justify-content: space-between;
-
   margin-bottom: 1rem;
 }
+
 .tabs {
   display: flex;
-
   gap: 1rem;
   margin: 1rem 0;
   justify-content: center;
   width: 100%;
 }
+
 .fileinput {
   display: none;
 }
@@ -37,12 +38,42 @@
   position: relative;
   display: inline-block;
 }
+
+/* Novo container para a imagem e o ícone de adição */
+.imageContainer {
+  position: relative;
+  display: inline-block;
+}
+
+/* Estilos para o overlay do ícone de adição */
+.addIconOverlay {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  background-color: #6b46c1;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease-in-out;
+}
+
+/* Efeito hover no ícone de adição */
+.addIconOverlay:hover {
+  background-color: #9158d6;
+  transform: scale(1.1);
+}
+
 .tabs * {
   padding: 0.5rem 1rem;
 }
+
 .tabs .active {
   border-bottom: 2px solid #6b46c1;
-
   color: #6b46c1;
 }
 
@@ -52,14 +83,13 @@
   gap: 0.5rem;
   padding: 1rem;
   border-radius: 8px;
-  /* background-color: white; */
-  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
   margin: 0 auto;
   align-items: center;
   width: 100%;
   text-align: center;
   box-sizing: border-box;
 }
+
 .profileinfo {
   flex-direction: column;
   align-items: center;
@@ -70,6 +100,7 @@
   justify-content: center;
   flex: 1;
 }
+
 .buttonprofile {
   display: flex;
   align-items: center;
@@ -124,37 +155,37 @@ h2 {
   background-color: rgb(233 210 255);
   border-radius: 70%;
   padding: 1rem;
-
   align-items: center;
   justify-content: center;
 }
+
 .statsContainer {
   display: flex;
-  flex-direction: row; /* Organiza os cards na vertical */
-  gap: 1rem; /* Espaço entre cada card */
+  flex-direction: row;
+  gap: 1rem;
 }
 
 .statCard {
   display: flex;
   flex-direction: column;
   padding: 1rem;
-  background-color: #f3e8ff; /* Fundo roxo claro */
-  border-radius: 0.75rem; /* Cantos arredondados */
-  width: 100px; /* Largura fixa para cada card */
-  margin-left: auto; /* Alinha os cards à direita */
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
-  transition: transform 0.2s; /* Animação suave ao hover */
+  background-color: #f3e8ff;
+  border-radius: 0.75rem;
+  width: 100px;
+  margin-left: auto;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
   justify-content: center;
 }
 
 .statCard:hover {
-  transform: translateY(-2px); /* Levanta ligeiramente ao passar o rato */
+  transform: translateY(-2px);
 }
 
 .statValue {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #6b46c1; /* Roxo */
+  color: #6b46c1;
   margin-bottom: 0.25rem;
 }
 
@@ -162,6 +193,7 @@ h2 {
   font-size: 1rem;
   color: #666;
 }
+
 .informationcontainer {
   padding: 1rem;
   border-radius: 8px;
@@ -174,56 +206,11 @@ h2 {
 
 @media (max-width: 768px) {
   .statsContainer {
-    flex-direction: row; /* Organiza os cards na horizontal */
+    flex-direction: row;
   }
 
   .statCard {
-    width: 100%; /* Ocupa toda a largura do ecrã */
-    margin-left: 0; /* Alinha ao centro */
+    width: 100%;
+    margin-left: 0;
   }
 }
-/* @media (max-width: 768px) {
-    .profilecontainer {
-      margin: 1rem auto;
-      padding: 0 0.5rem;
-    }
-  
-    .profilecard {
-      padding: 0.75rem;
-    }
-  
-    .statsContainer {
-      flex-direction: column;
-      align-items: center;
-    }
-  
-    .statCard {
-      width: 100%;
-      max-width: 250px;
-    }
-  
-    .buttonprofile {
-      width: 100%;
-      justify-content: center;
-    }
-  
-    h2 {
-      font-size: 1.25rem;
-      text-align: center;
-    }
-  
-    .location,
-    .email {
-      font-size: 0.875rem;
-    }
-  }
-  
-  @media (max-width: 480px) {
-    .profilecontainer {
-      margin: 0.5rem auto;
-    }
-  
-    .statCard {
-      max-width: 200px;
-    }
-  } */

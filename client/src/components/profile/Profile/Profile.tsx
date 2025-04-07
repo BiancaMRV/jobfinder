@@ -8,6 +8,7 @@ import {
   Save,
   CircleArrowLeft,
   Loader,
+  Plus,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import Overview from "./Overview";
@@ -261,17 +262,27 @@ export function Profile({ isCompanyView = false }: ProfileProps) {
                 <>
                   <label htmlFor="upload-photo" className={styles.profileimage}>
                     {profileImage ? (
-                      <img
-                        src={profileImage}
-                        alt="Profile"
-                        className={styles.profileImage}
-                      />
+                      <div className={styles.imageContainer}>
+                        <img
+                          src={profileImage}
+                          alt="Profile"
+                          className={styles.profileImage}
+                        />
+                        <div className={styles.addIconOverlay}>
+                          <Plus color="#ffffff" size={24} />
+                        </div>
+                      </div>
                     ) : (
-                      <CircleUser
-                        className={styles.circleuser}
-                        color="#9158d6"
-                        size={100}
-                      />
+                      <div className={styles.imageContainer}>
+                        <CircleUser
+                          className={styles.circleuser}
+                          color="#9158d6"
+                          size={100}
+                        />
+                        <div className={styles.addIconOverlay}>
+                          <Plus color="#ffffff" size={24} />
+                        </div>
+                      </div>
                     )}
                   </label>
                   <input

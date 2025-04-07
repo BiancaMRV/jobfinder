@@ -1,6 +1,7 @@
+// Atualização do componente CompanyProfile.tsx
 import { useEffect, useState } from "react";
 import styles from "./Companyprofile.module.css";
-import { CircleUser, MapPin, Mail, Edit2 } from "lucide-react";
+import { CircleUser, MapPin, Mail, Edit2, Plus } from "lucide-react";
 import OverviewCompany from "./OverviewCompany";
 import CompanyInfo from "./CompanyInfo";
 import PostedJobs from "./PostedJobs";
@@ -162,17 +163,27 @@ export default function CompanyProfile() {
         <div className={styles.profileheader}>
           <label htmlFor="upload-photo" className={styles.profileimage}>
             {profileImage ? (
-              <img
-                src={profileImage}
-                alt="Profile"
-                className={styles.profileImage}
-              />
+              <div className={styles.imageContainer}>
+                <img
+                  src={profileImage}
+                  alt="Profile"
+                  className={styles.profileImage}
+                />
+                <div className={styles.addIconOverlay}>
+                  <Plus color="#ffffff" size={24} />
+                </div>
+              </div>
             ) : (
-              <CircleUser
-                className={styles.circleuser}
-                color="#9158d6"
-                size={100}
-              />
+              <div className={styles.imageContainer}>
+                <CircleUser
+                  className={styles.circleuser}
+                  color="#9158d6"
+                  size={100}
+                />
+                <div className={styles.addIconOverlay}>
+                  <Plus color="#ffffff" size={24} />
+                </div>
+              </div>
             )}
           </label>
           <input
