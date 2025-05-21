@@ -80,13 +80,11 @@ export function setSessionTokenCookie(
   expiresAt: Date
 ): void {
   if (process.env.NODE_ENV === "production") {
-    // When deployed over HTTPS
     response.setHeader(
       "Set-Cookie",
       `session=${token}; HttpOnly; SameSite=None; Expires=${expiresAt.toUTCString()}; Path=/; Secure;` // Path =/ significa que o cookie é valido para todo o site
     );
   } else {
-    // When deployed over HTTP (localhost)
     response.setHeader(
       "Set-Cookie",
       `session=${token}; HttpOnly; SameSite=Lax; Expires=${expiresAt.toUTCString()}; Path=/` //session é o nome do cookie, session vai ser igual ao conteudo do token
@@ -96,13 +94,11 @@ export function setSessionTokenCookie(
 
 export function deleteSessionTokenCookie(response: Response): void {
   if (process.env.NODE_ENV === "production") {
-    // When deployed over HTTPS
     response.setHeader(
       "Set-Cookie",
       "session=; HttpOnly; SameSite=Lax; Max-Age=0; Path=/; Secure;"
     );
   } else {
-    // When deployed over HTTP (localhost)
     response.setHeader(
       "Set-Cookie",
       "session=; HttpOnly; SameSite=Lax; Max-Age=0; Path=/" // max-age=0 significa que o cookie é invalidado, tipo o expires at de uma cookie ou seja idade de um cookie

@@ -108,7 +108,6 @@ export default function Documents({ isCompanyView = false }) {
 
     setDocuments((prev) => [...prev, ...newDocuments]);
 
-    // Reset file input
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }

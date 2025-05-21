@@ -81,50 +81,6 @@ router.get("/:companyId", validateRequest(getCompanyById), async (req, res) => {
   }
 });
 
-// router.post(
-//   "/",
-//   authenticationMiddleWare,
-//   validateRequest(createCompanyValidation),
-//   async (req, res, next) => {
-//     try {
-//       const { name, location, email, description } = req.body;
-//       const userId = req.userId;
-
-//       console.log("Creating company:", {
-//         name,
-//         location,
-//         email,
-//         description,
-//         userId,
-//       });
-
-//       if (!name) {
-//         res.status(400).json({ message: "Company name is required" });
-//         return;
-//       }
-
-//       const company = await createNewCompany(
-//         name,
-//         location || "",
-//         email || "",
-//         description || "",
-//         String(userId)
-//       );
-
-//       console.log("Empresa criada com sucesso:", company.rows[0]);
-//       res.status(201).json(company.rows[0]);
-//     } catch (error) {
-//       console.error("Error creating company:", error);
-//       res.status(500).json({
-//         message: "Error creating company",
-//         error: error instanceof Error ? error.message : String(error),
-//       });
-//     }
-//   }
-// );
-// Em /routes/companiesRoutes.js (ou paste.txt no seu caso)
-
-// Descomentar a rota POST para /companies
 router.post(
   "/",
   authenticationMiddleWare,

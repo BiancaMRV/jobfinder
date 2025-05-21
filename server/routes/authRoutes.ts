@@ -30,10 +30,6 @@ router.post("/signUp", async (req: any, res: any) => {
       location,
     } = req.body;
 
-    // if (!firstName || firstName.trim() === "") {
-    //   return res.status(400).send("First Name is required");
-    // }
-
     if (!email || email.trim() === "") {
       return res.status(400).send("Email is required");
     }

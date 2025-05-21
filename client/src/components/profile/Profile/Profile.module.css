@@ -21,13 +21,13 @@
   object-fit: cover;
 }
 
-/* Container para a imagem e o ícone de adição */
+
 .imageContainer {
   position: relative;
   display: inline-block;
 }
 
-/* Estilos para o overlay do ícone de adição */
+
 .addIconOverlay {
   position: absolute;
   right: 0;
@@ -44,7 +44,7 @@
   transition: all 0.2s ease-in-out;
 }
 
-/* Efeito hover no ícone de adição */
+
 .addIconOverlay:hover {
   background-color: #9158d6;
   transform: scale(1.1);

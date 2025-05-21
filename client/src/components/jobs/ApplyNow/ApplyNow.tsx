@@ -148,7 +148,6 @@ export default function ApplyNow() {
     }
   }, []);
 
-  // Fetch profile image
   useEffect(() => {
     const savedImage = localStorage.getItem("profileImage");
     if (savedImage) {
@@ -171,7 +170,6 @@ export default function ApplyNow() {
     setIsSubmitting(true);
     setError("");
 
-    // Validate form
     if (selectedDocuments.length === 0) {
       setError(
         "Please select at least one document to include in your application"
@@ -185,7 +183,7 @@ export default function ApplyNow() {
 
       const applicationData = {
         cover_letter: coverLetter,
-        resume: selectedDocuments.join(","), // Join the IDs of selected documents
+        resume: selectedDocuments.join(","),
         job_offer_id: jobOfferId,
         company_id: companyId,
       };
@@ -304,7 +302,7 @@ export default function ApplyNow() {
                       <input
                         type="checkbox"
                         checked={selectedDocuments.includes(doc.id)}
-                        onChange={() => {}} // Handled by the div click
+                        onChange={() => {}}
                         onClick={(e) => e.stopPropagation()}
                       />
                     </div>

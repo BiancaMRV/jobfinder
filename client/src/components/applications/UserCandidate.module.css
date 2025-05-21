@@ -53,30 +53,30 @@
 }
 
 .downloadIcon {
-  background-color: #f3e8ff; /* Purple-100 */
-  color: #9333ea; /* Purple-600 */
+  background-color: #f3e8ff;
+  color: #9333ea;
 }
 
 .downloadIcon:hover {
-  background-color: #e9d5ff; /* Purple-200 */
+  background-color: #e9d5ff; 
 }
 
 .checkIcon {
-  background-color: #dcfce7; /* Green-100 */
-  color: #16a34a; /* Green-600 */
+  background-color: #dcfce7; 
+  color: #16a34a; 
 }
 
 .checkIcon:hover {
-  background-color: #bbf7d0; /* Green-200 */
+  background-color: #bbf7d0; 
 }
 
 .crossIcon {
-  background-color: #fee2e2; /* Red-100 */
-  color: #dc2626; /* Red-600 */
+  background-color: #fee2e2; 
+  color: #dc2626;
 }
 
 .crossIcon:hover {
-  background-color: #fecaca; /* Red-200 */
+  background-color: #fecaca;
 }
 
 .viewdetails {
@@ -84,7 +84,7 @@
 }
 
 .viewdetailsbutton {
-  background-color: #6247aa; /* Purple-600 */
+  background-color: #6247aa; 
   color: white;
   padding: 0.5rem 1rem;
   border-radius: 9999px;
@@ -95,10 +95,10 @@
 }
 
 .viewdetailsbutton:hover {
-  background-color: #7e22ce; /* Purple-700 */
+  background-color: #7e22ce; 
 }
 
-/* Status indicator section that could be added */
+
 .statusIndicator {
   display: inline-flex;
   align-items: center;
@@ -116,30 +116,30 @@
 }
 
 .pendingStatus {
-  background-color: #f3e8ff; /* Purple-100 */
-  color: #9333ea; /* Purple-600 */
+  background-color: #f3e8ff; 
+  color: #9333ea; 
 }
 
 .pendingStatus .statusDot {
-  background-color: #9333ea; /* Purple-600 */
+  background-color: #9333ea;
 }
 
 .approvedStatus {
-  background-color: #dcfce7; /* Green-100 */
-  color: #16a34a; /* Green-600 */
+  background-color: #dcfce7; 
+  color: #16a34a; 
 }
 
 .approvedStatus .statusDot {
-  background-color: #16a34a; /* Green-600 */
+  background-color: #16a34a; 
 }
 
 .rejectedStatus {
-  background-color: #fee2e2; /* Red-100 */
-  color: #dc2626; /* Red-600 */
+  background-color: #fee2e2; 
+  color: #dc2626; 
 }
 
 .rejectedStatus .statusDot {
-  background-color: #dc2626; /* Red-600 */
+  background-color: #dc2626;
 }
 
 /* Skills section that could be added */

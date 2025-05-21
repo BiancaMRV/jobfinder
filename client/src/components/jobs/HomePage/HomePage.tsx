@@ -1,4 +1,3 @@
-// HomePage.tsx
 import styles from "./HomePage.module.css";
 import Header from "../../layout/Header/Header";
 import { FiltersInterface } from "../FiltersInterface/FiltersInterface";

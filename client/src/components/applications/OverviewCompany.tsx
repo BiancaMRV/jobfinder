@@ -58,7 +58,7 @@ const OverviewCompany: FC = () => {
 
   return (
     <div className={styles.overviewContainer}>
-      {/* Company Info Section */}
+ 
       <div className={styles.sectionContainer}>
         <div className={styles.sectionHeader}>
           <Building size={24} className={styles.sectionIcon} color="#6b46c1" />
@@ -84,7 +84,7 @@ const OverviewCompany: FC = () => {
         </div>
       </div>
 
-      {/* Posted Jobs Section */}
+  
       <div className={styles.sectionContainer}>
         <div className={styles.sectionHeader}>
           <StickyNote

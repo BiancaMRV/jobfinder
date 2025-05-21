@@ -1,4 +1,3 @@
-// Atualização do componente CompanyProfile.tsx
 import { useEffect, useState } from "react";
 import styles from "./Companyprofile.module.css";
 import { CircleUser, MapPin, Mail, Edit2, Plus } from "lucide-react";
@@ -61,7 +60,6 @@ export default function CompanyProfile() {
         const data = await response.json();
         console.log("Company data received:", data);
 
-        // Store both user ID and company ID
         localStorage.setItem("userId", data.id.toString());
         localStorage.setItem("companyId", data.id.toString());
 
@@ -84,7 +82,6 @@ export default function CompanyProfile() {
   useEffect(() => {
     const fetchJobOfferStatus = async () => {
       try {
-        // Get the company ID (which should be set by now)
         const companyId =
           localStorage.getItem("companyId") || localStorage.getItem("userId");
 
@@ -110,7 +107,6 @@ export default function CompanyProfile() {
       }
     };
 
-    // Uncomment and call the function to fetch job stats
     fetchJobOfferStatus();
   }, []);
 
